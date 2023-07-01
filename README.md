@@ -4,4 +4,4 @@ This repository contains the code for an undergraduate research project I conduc
 
 | Title of Paper      | Paper PDF | Section of Project Report | Project Code
 | ----------- | ----------- | ----------- | ----------- |
-| Generalization In Deep Learning|[PDF](https://arxiv.org/pdf/1710.05468.pdf)| | |
+| Generalization In Deep Learning|[PDF](https://arxiv.org/pdf/1710.05468.pdf)| | [CODE](https://github.com/ThomasWalker1/Generalization-of-Neural-Networks/tree/main/Generalization%20in%20Deep%20Learning) |
