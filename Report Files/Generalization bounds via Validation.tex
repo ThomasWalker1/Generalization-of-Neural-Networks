@@ -11,9 +11,6 @@
 \affiliation{Imperial College London}
 \correspondence{thomas.walker21@imperial.ac.uk}
 \date{July 2023}
-\abstract{
-Notes on generalization bounds via validation methods. The theory behind these notes will be gathered from.
-}
 
 \runningauthor{Thomas Walker}
 \runningtitle{Generalization Bounds via Validation}
@@ -39,7 +36,7 @@ where the generalization gap is given by $\mathcal{R}\left(f_{\mathcal{A}(S)}\ri
 \section{Generalization bounds via validation}
 The training-validation paradigm involves holding out a validation set to optimize model architecture. Giving rise to the hypothesis that \textit{deep neural networks can obtain good generalization error by performing a model search on the validation set.}
 \begin{proposition}
-    Let $S_{m_{\mathrm{val}}}^{\mathrm{(val)}}$ be a held-out validation set, where $\vert S_{m_{\mathrm{val}}}^{\mathrm{(val)}}\vert=m_{\mathrm{(val)}}$. Assume that $m_{\mathrm{(val)}}$ is an $\mathrm{i.i.d}$ sample from $\mathbb{P}_{\mathcal(X,Y)}$. Let $\kappa_{f,i}=\mathcal{R}(f)-\mathcal{L}(f(x_i),y_i)$ for $(x_i,y_i)\in S_{m_{\mathrm{val}}}^{\mathrm{(val)}}$. Suppose that $\mathbb{E}(\kappa_{f,i}^2)\leq\gamma^2$ and $\vert\kappa_{f,i}\vert\leq C$ almost surely for all $(f,i)\in\mathcal{F}_{\mathrm{val}}\times\{1,\dots,m_{\mathrm{val}}$. Then, for $\delta\in(0,1]$, with probability $1-\delta$
+    Let $S_{m_{\mathrm{val}}}^{\mathrm{(val)}}$ be a held-out validation set, where $\vert S_{m_{\mathrm{val}}}^{\mathrm{(val)}}\vert=m_{\mathrm{(val)}}$. Assume that $m_{\mathrm{(val)}}$ is an $\mathrm{i.i.d}$ sample from $\mathbb{P}_{\mathcal(X,Y)}$. Let $\kappa_{f,i}=\mathcal{R}(f)-\mathcal{L}(f(x_i),y_i)$ for $(x_i,y_i)\in S_{m_{\mathrm{val}}}^{\mathrm{(val)}}$. Suppose that $\mathbb{E}(\kappa_{f,i}^2)\leq\gamma^2$ and $\vert\kappa_{f,i}\vert\leq C$ almost surely for all $(f,i)\in\mathcal{F}_{\mathrm{val}}\times\{1,\dots,m_{\mathrm{val}}\}$. Then, for $\delta\in(0,1]$, with probability $1-\delta$
     $$\mathcal{R}(f)\leq\mathcal{R}_{S_{m_{\mathrm{val}}}^{\mathrm{(val)}}}(f)+\frac{2C\log\left(\frac{\vert\mathcal{F}_{\mathrm{val}}\vert}{\delta}\right)}{3m_{\mathrm{val}}}+\sqrt{\frac{2\gamma^2\log\left(\frac{\vert\mathcal{F}_{\mathrm{val}}\vert}{\delta}\right)}{m_{\mathrm{val}}}}$$
     holds for all $f\in\mathcal{F}_{\mathrm{val}}$.
 \end{proposition}
