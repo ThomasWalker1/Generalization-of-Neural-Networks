@@ -32,4 +32,4 @@ A Survey of the Methods for Deriving Bounds on the Generalization Error of Deep 
 |  | Algorithmic Stability | On the Generalization Mystery in Deep Learning | [PDF](https://arxiv.org/pdf/2203.10036.pdf) | [CODE](https://github.com/ThomasWalker1/Generalization-of-Neural-Networks/tree/main/Generalization%20in%20Deep%20Learning/Gradients) |
 | V | Unit-Wise Capacity Measures | Towards Understanding the Role of Over-Parameterization in Generalization of Neural Networks | [PDF](https://arxiv.org/pdf/1805.12076.pdf) | [CODE](https://github.com/ThomasWalker1/Generalization-of-Neural-Networks/tree/main/Generalization%20in%20Deep%20Learning/Unit-Wise%20Capacity) |
 |  | Validation Paradigm | Generalization In Deep Learning | [PDF](https://arxiv.org/pdf/1710.05468.pdf) | [CODE](https://github.com/ThomasWalker1/Generalization-of-Neural-Networks/tree/main/Generalization%20in%20Deep%20Learning/Validation) |
-| VI |  | Topology of Deep Neural Networks | [PDF](https://arxiv.org/pdf/2004.06093.pdf) |  |
+| VI | Topological Evolution of the Data | Topology of Deep Neural Networks | [PDF](https://arxiv.org/pdf/2004.06093.pdf) |  |
