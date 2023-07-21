@@ -8,7 +8,7 @@ A Survey of the Methods for Deriving Bounds on the Generalization Error of Deep 
 - Part III - Information Theoretic Approach
 - Part IV - Appealing to Gradients
 - Part V - Other Approaches to Investigating Generalization
-- Part VI - A Topological Perspective of Deep Neural Networks
+- Part VI - A Topological Perspective of Neural Networks
 - Part VII - Conclusion
 
 | Part | Section of Report | Paper Title | Paper PDF | Project Code
