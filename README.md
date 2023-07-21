@@ -3,11 +3,11 @@
 This repository contains the code for an undergraduate research project I conducted in the summer of 2023. The project looks into the theory regarding the generalization of deep neural networks. Throughout the repository, the generalization bounds proposed by various papers are tested and investigated. Some of the work is my own work that extends the concepts in the papers and links them together in a concise and coherent manner. The aim of the project is to understand how current literature intertwines to give us an understanding of how deep neural networks generalize.
 
 A Survey of the Methods for Deriving Bounds on the Generalization Error of Deep Neural Networks.
-- Part I - Research on the Generalization Capacity of Deep Neural Networks.
+- Part I - Research on the Generalization of Neural Networks.
 - Part II - PAC-Bayes Bounds
 - Part III - Information Theoretic Approach
 - Part IV - Appealing to Gradients
-- Part V - Other Approaches to Investigating Network Generalization
+- Part V - Other Approaches to Investigating Generalization
 - Part VI - A Topological Perspective of Deep Neural Networks
 - Part VII - Conclusion
 
