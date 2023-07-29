@@ -39,7 +39,7 @@ These bounds can be seen as a refinement of the uniform convergence bounds as th
 
 Occam bounds are derived under the assumption that $\mathcal{H}$ is countable and that we have some bias $\pi$ defined on the hypothesis space. Note that in our setup this does not necessarily mean that $\mathcal{W}$ is countable, as multiple weights may correspond to the same classifier. However, as the Occam bounds hold true for all $h\in\mathcal{H}$ it must also be the case that they hold for all classifiers corresponding to the weight $\mathbf{w}\in\mathcal{W}$. Using this we will instead assume that $\pi$ is defined over $\mathcal{W}$.
 
-**Theorem**[(McAllester, 2013)]\label{Theorem-Occam Bound} *Simultaneously for all $\mathbf{w}\in\mathcal{W}$ and $\delta\in(0,1)$ the following holds, $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\inf_{\lambda>\frac{1}{2}}\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C}{m}\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$*
+**Theorem** (McAllester, 2013) \label{Theorem-Occam Bound} *Simultaneously for all $\mathbf{w}\in\mathcal{W}$ and $\delta\in(0,1)$ the following holds, $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\inf_{\lambda>\frac{1}{2}}\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C}{m}\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$*
  
 
 ## Expected Risk Minimization
@@ -59,16 +59,10 @@ Suppose that our neural network has $d$ fully connected layers and let $x^i$ be 
 $$x^i=A^i\phi\left(x^{i-1}\right),\;x^j=M^{i,j}\left(x^i\right),\text{ and }M^{i,j}\left(x^i\right)=J_{x^i}^{i,j}x^i.$$
 For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ its spectral norm and $\frac{\Vert B\Vert_F^2}{\Vert B\Vert_2^2}$ its stable rank.
 
-**Definition**
-    Let $h$ be a classifier and $G_{\mathcal{W}}=\{g_{\mathbf{w}}:\mathbf{w}\in\mathcal{W}\}$ be a class of classifiers. We say that $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W}}$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in\mathcal{X}$,
-    $$\left\vert h(x)[y]-g_{\mathbf{w}}(x)[y]\right\vert\leq\gamma$$
-    for all $y\in\{1,\dots,k\}$.
+**Definition** *Let $h$ be a classifier and $G_{\mathcal{W}}=\{g_{\mathbf{w}}:\mathbf{w}\in\mathcal{W}\}$ be a class of classifiers. We say that $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W}}$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in\mathcal{X}$, $$\left\vert h(x)[y]-g_{\mathbf{w}}(x)[y]\right\vert\leq\gamma$$ for all $y\in\{1,\dots,k\}$.*
  
 
-**Definition**
-    Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ is a class of classifiers indexed by trainable parameters $\mathbf{w}$ and fixed string $s$. A classifier $h$ is $(\gamma,S)$-compressible with respect to $G_{\mathcal{W},s}$ using helper string $s$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in \mathcal{X}$, 
-    $$\vert h(x)[y]-g_{\mathbf{w},s}(x)[y]\vert\leq\gamma$$
-    for all $y\in\{1,\dots,k\}$.
+**Definition** *Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ is a class of classifiers indexed by trainable parameters $\mathbf{w}$ and fixed string $s$. A classifier $h$ is $(\gamma,S)$-compressible with respect to $G_{\mathcal{W},s}$ using helper string $s$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in \mathcal{X}$, $$\vert h(x)[y]-g_{\mathbf{w},s}(x)[y]\vert\leq\gamma$$ for all $y\in\{1,\dots,k\}$.*
  
 **Theorem**\label{Theorem-Compression PAC Bound} *Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ where $\mathbf{w}$ is a set of $q$ parameters each of which has at most $r$ discrete values and $s$ is a helper string. Let $S$ be a training set with $m$ samples. If the trained classifier $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W},s}$ with helper string $s$, then there exists $\mathbf{w}\in\mathcal{W}$ with high probably such that $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+O\left(\sqrt{\frac{q\log(r)}{m}}\right)$$
 over the training set.*
@@ -78,23 +72,23 @@ over the training set.*
 **Corollary**\label{Corollary-Compression on Fraction} *If the compression works for $1-\xi$ fraction of the training sample, then with a high probability $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\xi+O\left(\sqrt{\frac{q\log r}{m}}\right).$$*
  
 ###  Compression of a Linear Classifier
-We now develop an algorithm to compress the decision vector of a linear classifier. We will use linear classifiers to conduct binary classification, where the members of one class have label $1$ and the other have label $-1$. The linear classifiers will be parameterised by the weight vector $\mathbf{w}\in\mathbb{R}^d$ such that for $x\in\mathcal{X}$ we have $h_{\mathbf{w}}(x)=\mathrm{sgn}(\mathbf{w}^\top x)$. Define the margin, $\gamma>0$, of $\mathbf{w}$ to be such that $y\left(\mathbf{w}^\top x\right)\geq\gamma$ for all $(x,y)$ in the training set. In compressing $\mathbf{w}$, according to Algorithm \ref{Algorithm-Vector Compression}, we end up with a linear classifier parameterized by the weight vector $\hat{\mathbf{w}}$ with some PAC bounds relating to its performance.
+We now develop an algorithm to compress the decision vector of a linear classifier. We will use linear classifiers to conduct binary classification, where the members of one class have label $1$ and the other have label $-1$. The linear classifiers will be parameterised by the weight vector $\mathbf{w}\in\mathbb{R}^d$ such that for $x\in\mathcal{X}$ we have $h_{\mathbf{w}}(x)=\mathrm{sgn}(\mathbf{w}^\top x)$. Define the margin, $\gamma>0$, of $\mathbf{w}$ to be such that $y\left(\mathbf{w}^\top x\right)\geq\gamma$ for all $(x,y)$ in the training set. In compressing $\mathbf{w}$, according to Algorithm 1, we end up with a linear classifier parameterized by the weight vector $\hat{\mathbf{w}}$ with some PAC bounds relating to its performance.
 
 <font size="3"> **Algorithm 1 $(\gamma,\mathbf{w})$**</font>
 > **Require** vector $\mathbf{w}$ with $\Vert\mathbf{w}\Vert\leq 1$, $\eta$.\
 **Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\left\vert\mathbf{w}^\top\mathbf{u}-\hat{\mathbf{w}}^\top\mathbf{u}\right\vert\leq\gamma$. Vector $\hat{\mathbf{w}}$ has $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries.\
-**for** $i=1\to d$\
+**for** $i=1\to d$ **do**\
 ----Let $z_i=1$ with probability $p_i=\frac{2w_i^2}{\eta\gamma^2}$ and $0$ otherwise.\
 ----Let $\hat{\mathbf{w}}_i=\frac{z_iw_i}{p_i}$.\
 **end for**\
 **return** $\hat{\mathbf{w}}$
 
 
-**Lemma** \label{Lemma-Continuous Vector Compression} *Algorithm \ref{Algorithm-Vector Compression} $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $\mathbf{u}$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
+**Lemma** \label{Lemma-Continuous Vector Compression} *Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $\mathbf{u}$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
  
 
 In the discrete case, a similar result holds.
-**Lemma** \label{Lemma-Discrete Vector Compression} *Let Algorithm \ref{Algorithm-Vector Compression} $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let,
+**Lemma** \label{Lemma-Discrete Vector Compression} *Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let,
 $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{h}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$
 Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma.$*
  
@@ -116,7 +110,7 @@ Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
 
  **Remark** *The vectors $\mathbf{v}_i$ are the helper string.*
   
-**Lemma** *For any fixed vector $u$, Algorithm \ref{Algorithm-Vector Compression with Helper} $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.*
+**Lemma** *For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.*
  
 
 **Lemma** *For any number of sample $m$, there is an efficient algorithm with a helper string to generate a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\sqrt{\frac{1}{\gamma^2m}}\right).$$*
@@ -124,13 +118,13 @@ Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
 
 ###  Compression of a Fully Connected Network
 
-In a similar way, the layer matrices of a fully connected network can be compressed in such a way as to maintain a reasonable level of performance. A similar compression on how to do this is detailed in Algorithm \ref{Algorithm-Layer Compression}. Throughout we will let $\mathbf{w}$ parameterize our classifier. It can just be thought of as a list of layer matrices for our neural network.
+In a similar way, the layer matrices of a fully connected network can be compressed in such a way as to maintain a reasonable level of performance. A similar compression on how to do this is detailed in Algorithm 3. Throughout we will let $\mathbf{w}$ parameterize our classifier. It can just be thought of as a list of layer matrices for our neural network.
 
 <font size="3"> **Algorithm 3 $(A,\epsilon,\eta)$**</font>
 > **Require** Layer matrix $A\in\mathbb{R}^{n_1\times n_2}$, error parameters $\epsilon,\eta$.\
 **Ensure** Returns $\hat{A}$ such that for all vectors $\mathbf{u},\mathbf{v}$ we have that $$\mathbb{P}\left(\left\vert\mathbf{u}^\top\hat{A}\mathbf{v}-\mathbf{u}^\top A\mathbf{v}\right\vert\geq\epsilon\Vert A\Vert_F\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\right)\leq\eta$$\
 Sample $k=\frac{\log(\frac{1}{\eta})}{\epsilon^2}$ random matrices $M_1,\dots,M_k$ with $\mathrm{i.i.d}$ entries $\pm1$.\
-**for** $k^\prime=1\to k$\
+**for** $k^\prime=1\to k$ **do**\
 ----Let $Z_{k^\prime}=\langle A,M_{k^\prime}\rangle M_{k^\prime}$\
 **end for**\
 **return** $\hat{A}=\frac{1}{k}\sum_{k^\prime=1}^kZ_{k^\prime}$
@@ -155,17 +149,17 @@ Furthermore, $\frac{1}{\mu_{i,j}^2}$ is the noise sensitivity of $J_x^{i,j}$ wit
   
 **Definition** *The activation contraction $c$ is defined as the smallest number such that for any layer $i$ $$\left\Vert\phi\left(x^i\right)\right\Vert\geq\frac{\left\Vert x^i\right\Vert}{c}$$ for any $x\in\mathcal{X}$.*
  
-**Definition** *Let $\eta$ be the noise generated as a result of applying Algorithm \ref{Algorithm-Layer Compression} to some of the layers before layer $i$. Define the inter-layer smoothness $\rho_{\delta}$ to be the smallest number such that with probability $1-\delta$ we have that for layers $i<j$ $$\left\Vert M^{i,j}\left(x^i+\eta\right)-J_{x^i}^{i,j}\left(x^i+\eta\right)\right\Vert\leq\frac{\Vert\eta\Vert\left\Vert x^j\right\Vert}{\rho_{\delta}\left\Vert x^i\right\Vert}$$ for any $x\in\mathcal{X}$.*
+**Definition** *Let $\eta$ be the noise generated as a result of applying Algorithm 3 to some of the layers before layer $i$. Define the inter-layer smoothness $\rho_{\delta}$ to be the smallest number such that with probability $1-\delta$ we have that for layers $i<j$ $$\left\Vert M^{i,j}\left(x^i+\eta\right)-J_{x^i}^{i,j}\left(x^i+\eta\right)\right\Vert\leq\frac{\Vert\eta\Vert\left\Vert x^j\right\Vert}{\rho_{\delta}\left\Vert x^i\right\Vert}$$ for any $x\in\mathcal{X}$.*
  
 
-**Lemma** \label{Lemma-Error Bound on Set} *For any $0<\delta$ and $\epsilon\leq 1$ let $G=\left\{\left(U^i,x^i\right)\right\}_{i=1}^m$ be a set of matrix-vector pairs of size $m$ where $U\in\mathbb{R}^{k\times n_1}$ and $x\in\mathbb{R}^{n_2}$, let $\hat{A}\in\mathbb{R}^{n_1\times n_2}$ be the output of Algorithm \ref{Algorithm-Layer Compression} $\left(A,\epsilon,\eta=\frac{\delta}{mk}\right)$. With probability at least $1-\delta$ we have for any $(U,x)\in G$ that $\left\Vert U(\hat{A}-A)x\right\Vert\leq\epsilon \Vert A\Vert_F\Vert U\Vert_F\Vert x\Vert$.*
+**Lemma** \label{Lemma-Error Bound on Set} *For any $0<\delta$ and $\epsilon\leq 1$ let $G=\left\{\left(U^i,x^i\right)\right\}_{i=1}^m$ be a set of matrix-vector pairs of size $m$ where $U\in\mathbb{R}^{k\times n_1}$ and $x\in\mathbb{R}^{n_2}$, let $\hat{A}\in\mathbb{R}^{n_1\times n_2}$ be the output of Algorithm 3 $\left(A,\epsilon,\eta=\frac{\delta}{mk}\right)$. With probability at least $1-\delta$ we have for any $(U,x)\in G$ that $\left\Vert U(\hat{A}-A)x\right\Vert\leq\epsilon \Vert A\Vert_F\Vert U\Vert_F\Vert x\Vert$.*
  
  **Remark** *For a neural network let $x$ be the input, $A$ be the layer matrix and $U$ the Jacobian of the network output with respect to the layer input. Then the network output before compression is given by $UAx$ and after compression the output is given by $U\hat{A}x$.*
   
 
 Use Lemma \ref{Lemma-Error Bound on Set} to prove the following.
 
-**Lemma** \label{Lemma-Probabilistic Bound with Parameter Count} *For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any $0<\epsilon\leq 1$, Algorithm \ref{Algorithm-Layer Compression} can generate weights $\tilde{\mathbf{w}}$ for a network with $$\frac{72c^2d^2\log\left(\frac{mdn}{\delta}\right)}{\epsilon^2}\cdot\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}$$ total parameters such that with probability $1-\frac{\delta}{2}$ over the generated weights $\tilde{w}$, for any $x\in\mathcal{X}$ $$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{w}}(x)\right\Vert\leq\epsilon\Vert h_{\mathbf{w}}(x)\Vert,$$ where $\mu_i,\mu_{i\to},c$ and $\rho_{\delta}$ are the layer cushion, inter-layer cushion, activation contraction and inter-layer smoother for the network.*
+**Lemma** \label{Lemma-Probabilistic Bound with Parameter Count} *For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any $0<\epsilon\leq 1$, Algorithm 3 can generate weights $\tilde{\mathbf{w}}$ for a network with $$\frac{72c^2d^2\log\left(\frac{mdn}{\delta}\right)}{\epsilon^2}\cdot\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}$$ total parameters such that with probability $1-\frac{\delta}{2}$ over the generated weights $\tilde{w}$, for any $x\in\mathcal{X}$ $$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{w}}(x)\right\Vert\leq\epsilon\Vert h_{\mathbf{w}}(x)\Vert,$$ where $\mu_i,\mu_{i\to},c$ and $\rho_{\delta}$ are the layer cushion, inter-layer cushion, activation contraction and inter-layer smoother for the network.*
  
 
 Subsequently, the following result holds.
@@ -175,6 +169,6 @@ Subsequently, the following result holds.
 
 **Lemma** \label{Lemma-Error FC Bound} *Let $h_{\mathbf{w}}$ be a $d$-layer network with weights $A=\left\{A^1,\dots,A^d\right\}$. Then for any input $x$, weights $A$ and $\hat{A}$, if for any layer $i$, $\left\Vert A^i-\hat{A}^i\right\Vert\leq\frac{1}{d}\Vert A^i\Vert$, then $$\Vert h_\mathbf{w}(x)-h_{\hat{\mathbf{w}}}(x)\Vert\leq e\Vert x\Vert\left(\prod_{i=1}^d\left\Vert A^i\right\Vert_2\right)\sum_{i=1}^d\frac{\left\Vert A^i-\hat{A}^i\right\Vert_2}{\Vert A^i\Vert_2}$$*
  
-Using Lemmas \ref{Lemma-Probabilistic Bound with Parameter Count},\ref{Lemma-Compression FC Parameter Bound} and \ref{Lemma-Error FC Bound} it can be shown that Algorithm \ref{Algorithm-Layer Compression} provides a generalization bound for suitable fully connected neural networks.
+Using Lemmas \ref{Lemma-Probabilistic Bound with Parameter Count},\ref{Lemma-Compression FC Parameter Bound} and \ref{Lemma-Error FC Bound} it can be shown that Algorithm 3 provides a generalization bound for suitable fully connected neural networks.
 
-**Theorem** *For any fully connected network $h_{{\mathbf{w}}}$ with $\rho_{\delta}\geq3d$, any probability $0<\delta\leq 1$ and any margin $\gamma$. Algorithm \ref{Algorithm-Layer Compression} generates weights $\tilde{{\mathbf{w}}}$ such that with probability $1-\delta$ over the training set, $$L_0(h_{\tilde{{\mathbf{w}}}})\leq\hat{L}_{\gamma}(h_{\mathbf{w}})+\tilde{O}\left(\sqrt{\frac{c^2d^2\max_{x\in S}\Vert h_{\mathbf{w}}(x)\Vert_2^2\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}}{\gamma^2m}}\right).$$*
+**Theorem** *For any fully connected network $h_{{\mathbf{w}}}$ with $\rho_{\delta}\geq3d$, any probability $0<\delta\leq 1$ and any margin $\gamma$. Algorithm 3 generates weights $\tilde{{\mathbf{w}}}$ such that with probability $1-\delta$ over the training set, $$L_0(h_{\tilde{{\mathbf{w}}}})\leq\hat{L}_{\gamma}(h_{\mathbf{w}})+\tilde{O}\left(\sqrt{\frac{c^2d^2\max_{x\in S}\Vert h_{\mathbf{w}}(x)\Vert_2^2\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}}{\gamma^2m}}\right).$$*
