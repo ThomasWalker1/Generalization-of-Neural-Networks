@@ -86,8 +86,8 @@ This motivates the following PAC-Bayes learning algorithm.
 \begin{itemize}
     \item Fix a $\delta>0$ and a distribution $\pi$ on $\mathcal{W}$,
     \item Collect an $\mathrm{i.i.d}$ sample $S_m$ of size $m$,
-    \item Compute the optimal distribution $\rho$ on $\mathcal{W}$ that minimizes
-    \begin{equation}\label{Equation-Optimization Equation for PAC-Bayes via SGD}\mathrm{kl}^{-1}\left(\hat{R}(\rho),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right),\end{equation}
+    \item Compute the optimal distribution $\rho$ on $\mathcal{W}$ that minimizes \label{Equation-Optimization Equation for PAC-Bayes via SGD}
+    $$\begin{equation}\mathrm{kl}^{-1}\left(\hat{R}(\rho),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right),\end{equation}$$
     \item Then return the randomized classifier given by $\rho$.
 \end{itemize}
 Implementing such an algorithm in this general form is intractable in practice. Recall, that we are considering neural networks and so $\mathbf{w}$ represents the weights and biased of our neural network. To make the algorithm more practical we therefore consider
