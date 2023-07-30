@@ -33,7 +33,6 @@ $$\mathrm{kl}^{-1}(q, c):=\sup\{p\in[0,1]:\mathrm{kl}(q, p)\leq c\}.$$
 The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
 
 **Theorem** (Alquier, 2023)\label{Theorem-Catoni Bound} *For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$*
- 
 *Proof.*  $\square$
 
 Theorem \ref{Theorem-Catoni Bound} motivates the study of the data-dependent probability measure
@@ -47,7 +46,6 @@ This is distribution is known as the Gibbs posterior.*
 For a learning algorithm, we noted that there are different methodologies for how the learned classifier is sampled from the posterior. In the case where consider a single random realisation of the posterior distribution, we have the following result.
 
 **Theorem** (Alquier, 2023) *For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta$$*
- 
 *Proof.*  $\square$
 
 Note that Theorem \ref{Theorem-Catoni Bound} is a bound in probability. We now state an equivalent bound that holds in expectation.
@@ -78,18 +76,17 @@ Recall, that this definition implicitly depends on the training sample $S_m$. We
 $$R(\rho)=\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w})),\text{ and }\hat{R}(\rho)=\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)$$
 respectively. We will use these definitions throughout the remaining sections of this report as well. As noted previously the work (Dziugaite, 2017) looks to minimize the KL divergence between the prior and the posterior to achieve non-vacuous bounds. To do this they work under a restricted setting and construct a process to find the posterior $\rho$ that minimizes the divergence. To being (Dziugaite, 2017) utilize the following bound.
 
-**Theorem**[(Dziugaite, 2017)]\label{Theorem-Bound on KL Divergence on Errors} *For every $\delta>0$,$m\in\mathbb{N}$, distribution $\mathcal{D}$ on $\mathbb{R}^k\times\{\pm 1\}$, distribution $\pi$ on $\mathcal{W}$ and distribution $\rho\in\mathcal{M}(\mathcal{W})$, we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\rho), R(\rho)\right)\leq\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{m}{\delta}\right)}{m-1}\right)\geq1-\delta.$$*
+**Theorem** (Dziugaite, 2017) \label{Theorem-Bound on KL Divergence on Errors} *For every $\delta>0$,$m\in\mathbb{N}$, distribution $\mathcal{D}$ on $\mathbb{R}^k\times\{\pm 1\}$, distribution $\pi$ on $\mathcal{W}$ and distribution $\rho\in\mathcal{M}(\mathcal{W})$, we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\rho), R(\rho)\right)\leq\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{m}{\delta}\right)}{m-1}\right)\geq1-\delta.$$*
  
 **Remark**  *Note how this is a slightly weaker statement than Theorem \ref{Theorem-Maurer Bound}. This is because (Dziugaite, 2017) cited this Theorem from (Seeger, 2001), however, since then (Maurer, 2004) was able to tighten the result by providing Theorem \ref{Theorem-Maurer Bound}. In the following we will update the work of (Dziugaite, 2020) and use the tightened result provided by \ref{Theorem-Maurer Bound}.*
  
 This motivates the following PAC-Bayes learning algorithm.
-\begin{itemize}
-    \item Fix a $\delta>0$ and a distribution $\pi$ on $\mathcal{W}$,
-    \item Collect an $\mathrm{i.i.d}$ sample $S_m$ of size $m$,
-    \item Compute the optimal distribution $\rho$ on $\mathcal{W}$ that minimizes \label{Equation-Optimization Equation for PAC-Bayes via SGD}
+1. Fix a $\delta>0$ and a distribution $\pi$ on $\mathcal{W}$,
+2. Collect an $\mathrm{i.i.d}$ sample $S_m$ of size $m$,
+3. Compute the optimal distribution $\rho$ on $\mathcal{W}$ that minimizes \label{Equation-Optimization Equation for PAC-Bayes via SGD}
     $$\begin{equation}\mathrm{kl}^{-1}\left(\hat{R}(\rho),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right),\end{equation}$$
-    \item Then return the randomized classifier given by $\rho$.
-\end{itemize}
+4. Then return the randomized classifier given by $\rho$.
+
 Implementing such an algorithm in this general form is intractable in practice. Recall, that we are considering neural networks and so $\mathbf{w}$ represents the weights and biased of our neural network. To make the algorithm more practical we therefore consider
 $$\mathcal{M}(\mathcal{W})=\left\{\mathcal{N}_{\mathbf{w},\mathbf{s}}=\mathcal{N}(\mathbf{w},\mathrm{diag}(\mathbf{s})):\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}_+^d\right\}.$$
 Utilizing the bound $\mathrm{kl}^{-1}(q,c)\leq q+\sqrt{\frac{c}{2}}$ in Equation (\ref{Equation-Optimization Equation for PAC-Bayes via SGD}) and replacing the loss with the convex surrogate loss we obtain the updated optimization problem
@@ -97,7 +94,7 @@ Utilizing the bound $\mathrm{kl}^{-1}(q,c)\leq q+\sqrt{\frac{c}{2}}$ in Equation
 $$\begin{equation}\min_{\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}^d_+}\tilde{R}\left(\mathcal{N}_{\mathbf{w},\mathbf{s}}\right)+\sqrt{\frac{\mathrm{KL}(\mathcal{N}_{\mathbf{w},\mathbf{s}},\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{2m}}.\end{equation}$$
 We now suppose our prior $\pi$ is of the form $\mathcal{N}(\mathbf{w}_0,\lambda I)$. As we will see the choice of $\mathbf{w}_0$ is not too impactful, as long as it is not $\mathbf{0}$. However, to efficiently choose a judicious value for $\lambda$ we discretize the problem, with the side-effect of expanding the eventual generalization bound. We let $\lambda$ have the for $c\exp\left(-\frac{j}{b}\right)$ for $j\in\mathbb{N}$, so that $c$ is an upper bound and $b$ controls precision. By ensuring that Theorem \ref{Theorem-Maurer Bound} holds with probability $1-\frac{6\delta}{\pi^2j^2}$ for each $j\in\mathbb{N}$ then we can apply a union bound argument to ensure that we get results that hold for probability $1-\delta$. A union bound argument refers to applying Theorem \ref{Theorem-Union Bound}. 
 
-**Theorem**[(Dziugaite, 2017)]\label{Theorem-Union Bound} *Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$*
+**Theorem** (Dziugaite, 2017)\label{Theorem-Union Bound} *Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$*
  
 Treating $\lambda$ as continuous during the optimization process and then discretizing at the point of evaluating the bound yields the updated optimization problem 
 \label{Equation-Updated Optimization PAC-Bayes via SGD with Prior}
