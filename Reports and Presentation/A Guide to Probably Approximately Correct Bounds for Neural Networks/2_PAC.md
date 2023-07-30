@@ -17,8 +17,12 @@ Probably Approximately Correct bounds refer to a general class of bounds on the 
 <summary>Proof</summary>
 <br>
 
-**Lemma** (Scott, 2014) *Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)$$*
+**Lemma 1** (Scott, 2014) *Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)$$*
  
+<details>
+<summary>Proof</summary>
+<br>
+
 *Proof.* For $s>0$ the function $x\mapsto e^{sx}$ is convex 
 so that
 $$e^{sx}\leq\frac{x-a}{b-a}e^{sb}+\frac{b-x}{b-a}e^{sa}.$$
@@ -31,24 +35,57 @@ $$\psi(u)=\psi(0)+\psi^\prime(0)u+\frac{1}{2}\psi^{\prime\prime}(\xi)u^2.$$
 As
 $$\psi^\prime(u)=(p-1)+1-\frac{p}{p+(1-p)e^u}$$
 we have that $\psi(0)=0$ and $\psi^\prime(0)=0$. Furthermore, as
-$$\psi^{\prime\prime}=\frac{p(1-p)e^u}{(p+(1-p)e^u)^2},$$
-we see that $\psi^{\prime\prime}$ has a stationary point at 
+$$\psi^{\prime\prime}(u)=\frac{p(1-p)e^u}{(p+(1-p)e^u)^2},\text{ and }\psi^{(3)}(u)=\frac{p(1-p)e^u(p+(1-p)e^u)(p-(1-p)e^u)}{(p+(1-p)e^u)^2}$$
+we see that $\psi^{\prime\prime}(u)$ has a stationary point at $u^*=\log\left(\frac{p}{p-1}\right)$. For $u$ slightly less than $u^*$ we have $\psi^{(3)}(u)>0$ and for $u$ slightly larger than $u^*$ we have $\psi^{(3)}(u)<0$. Therefore, $u^*$ is a maximum point and so
+$$\psi^{\prime\prime}(u)\leq\psi^{\prime\prime}(u^*)=\frac{1}{4}.$$
+Hence, $\psi(u)\leq\frac{u^2}{8}$ which implies that
+$$\log\left(\mathbb{E}\left(\exp(sV_i)\right)\right)\leq\frac{u^2}{8}=\frac{s^2(b-a)^2}{8}.$$
+Therefore,
+$$\begin{align*}\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)&=\prod_{i=1}^n\mathbb{E}\left(\exp\left(t(U_i-\mathbb{E}(U_i))\right)\right)\\&\leq\prod_{i=1}^n\exp\left(\frac{t^2(b-a)^2}{8}\right)\\&\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)\end{align*}$$
+which completes the proof. $\square$
+</details>
 
-$\square$
+Recall that we have our random sample $S=\{(x_i,y_i)\}_{i=1}^m\sim\mathcal{D}^m$. If we fix $\mathbf{w}\in\mathcal{W}$ we can let $l_i=l(h_{\mathbf{w}}(x_i),y_i)$. We can apply Lemma 1 with $U_i=\mathbb{E}(l_i(\mathbf{w})-l_i(\mathbf{w}))$ to get that
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(tm\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{mt^2C^2}{8}\right).$$
+Therefore, for any $s>0$ we can apply Markov's Inequality to get that
+$$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})>s\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(mt\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)>\exp(mts)\right)\\&\leq\frac{\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(mt\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)}{\exp(mts)}\\&\leq\exp\left(\frac{mt^2C^2}{8}-mts\right).\end{align*}$$
+This bound is minimized for $t=\frac{4s}{C^2}$ so that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})>\hat{R}(\mathbf{w})+s\right)\leq\exp\left(-\frac{2ms^2}{C^2}\right).$$
+
+The above bound holds for fixed $\mathbf{w}\in\mathcal{W}$ so develop a uniform bound we consider the following.
+$$\begin{align*}\mathbb{P}_{\mathcal{S}\sim\mathcal{D}^m}\left(\sup_{\mathbf{w}\in\mathcal{W}}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)>s\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\bigcup_{\mathbf{w}\in\mathcal{W}}\left\{R(\mathbf{w})-\hat{R}(\mathbf{w})>s\right\}\right)\\&\leq\sum_{\mathbf{w}\in\mathcal{W}}\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})>\hat{R}(\mathbf{w})+s\right)\\&\leq M\exp\left(-\frac{2ms^2}{C^2}\right).\end{align*}$$
+Now taking $\delta=M\exp\left(-\frac{2ms^2}{C^2}\right)$ we get that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\sup_{\mathbf{w}\in\mathcal{W}}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)>C\sqrt{\frac{\log\left(\frac{M}{\delta}\right)}{2m}}\right)\leq\delta$$
+which upon taking complements completes the proof of the theorem. $\square$
+
 </details>
  
 Theorem 2.1 says that with arbitrarily high probability we can bound the performance of our trained classifier on the unknown distribution $\mathcal{D}$. However, there is nothing to guarantee that the bound is useful in practice. Note that requiring bounds to hold for greater precision involves sending $\epsilon$ to $0$ which increases the bound. If the bound exceeds $C$ then it is no longer useful as we know already that $R(\mathbf{w})\leq C$. It is important to note at this stage that are two ways in which PAC bounds can hold. One set of bounds holds in expectation whilst the other hold in probability. Risk is a concept that will develop bounds in expectation. In Section 2.3 we will introduce definitions that will let us work with bounds that hold in probability. There are two general forms of PAC bounds, we have uniform convergence bounds and algorithmic-dependent bounds (Viallard, 2021). Uniform convergence bounds have the general form
 $$\mathbb{P}_{\mathcal{S}\sim\mathcal{D}^m}\left(\sup_{\mathbf{w}\in\mathcal{W}}\left\vert R(\mathbf{w})-\hat{R}(\mathbf{w})\right\vert\leq\epsilon\left(\frac{1}{\delta},\frac{1}{m},\mathcal{W}\right)\right)\geq 1-\delta.$$
 This can be considered as a worst-case analysis of hypothesis generalization, and so in practice will lead to non-vacuous bounds. Algorithmic-dependent bounds involve the details of a learning algorithm $A$ and take the form
 $$\mathbb{P}_{\mathcal{S}\sim\mathcal{D}^m}\left(\left\vert R\left(A(S)\right)-\hat{R}\left(A(S)\right)\right\vert\leq\epsilon\left(\frac{1}{\delta},\frac{1}{m},A\right)\right)\geq1-\delta.$$
-These bounds can be seen as a refinement of the uniform convergence bounds as they are only required to hold for the output of the learning algorithm. It will be the subject of Section \ref{Section-Disintegration} to explore such bounds further.
+These bounds can be seen as a refinement of the uniform convergence bounds as they are only required to hold for the output of the learning algorithm. It will be the subject of Section 5.1 to explore such bounds further.
 
 ###  2.1.3 Occam Bounds
 
 Occam bounds are derived under the assumption that $\mathcal{H}$ is countable and that we have some bias $\pi$ defined on the hypothesis space. Note that in our setup this does not necessarily mean that $\mathcal{W}$ is countable, as multiple weights may correspond to the same classifier. However, as the Occam bounds hold true for all $h\in\mathcal{H}$ it must also be the case that they hold for all classifiers corresponding to the weight $\mathbf{w}\in\mathcal{W}$. Using this we will instead assume that $\pi$ is defined over $\mathcal{W}$.
 
 **Theorem 2.2** (McAllester, 2013) *Simultaneously for all $\mathbf{w}\in\mathcal{W}$ and $\delta\in(0,1)$ the following holds, $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\inf_{\lambda>\frac{1}{2}}\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C}{m}\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$*
- 
+<details>
+<summary>Proof</summary>
+<br>
+
+For the proof we consider the case when $C=1$, with the more general case following by rescaling the loss function. For $\mathbf{w}\in\mathcal{W}$ let
+$$\epsilon(\mathbf{w})=\sqrt{\frac{2R(\mathbf{w})\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}}.$$
+Then the relative Chernoff bound states that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\leq R(\mathbf{w})-\epsilon(\mathbf{w})\right)\leq\exp\left(-\frac{m\epsilon(\mathbf{w})^2}{2R(\mathbf{w})}\right)=\delta\pi(\mathbf{w}).$$
+Summing over all $\mathbf{w}$ and applying the union bound we conclude that the probability that a $\mathbf{w}$ exists with the property that $R(\mathbf{w})>\hat{R}(\mathbf{w})+\epsilon(\mathbf{w})$ is $\delta$. Therefore, for all $\mathbf{w}$
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\sqrt{R(\mathbf{w})\left(\frac{2\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)}\right)\geq1-\delta.$$
+Using $\sqrt{ab}=\inf_{\lambda>0}\left(\frac{a}{2\lambda}+\frac{\lambda b}{2}\right)$ we get that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\frac{R(\mathbf{w})}{2\lambda}+\frac{\lambda\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)\geq1-\delta,$$
+which upon rearrangement completes the proof. $\square$
+
+</details>
 
 ## 2.2 Expected Risk Minimization
 
@@ -74,10 +111,37 @@ For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ 
  
 **Theorem 2.5** *Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ where $\mathbf{w}$ is a set of $q$ parameters each of which has at most $r$ discrete values and $s$ is a helper string. Let $S$ be a training set with $m$ samples. If the trained classifier $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W},s}$ with helper string $s$, then there exists $\mathbf{w}\in\mathcal{W}$ with high probably such that $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+O\left(\sqrt{\frac{q\log(r)}{m}}\right)$$
 over the training set.*
+<details>
+<summary>Proof</summary>
+<br>
+
+For $\mathbf{w}\in\mathcal{W}$, the empirical classification margin $\hat{L}_0(g_{\mathbf{w}})$ is the average of $m$ $\mathrm{i.i.d}$ Bernoulli random variables with parameter $L_0(g_{\mathbf{w}})$. Therefore, by Chernoff bound
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(L_0(g_{\mathbf{w}})-\hat{L}_0(g_{\mathbf{w}})\geq\tau\right)\leq\exp\left(-2\tau^2m\right).$$
+Therefore, with $\tau=\sqrt{\frac{q\log(r)}{m}}$ we have that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(L_0(g_{\mathbf{w}})\leq\hat{L}_0(g_{\mathbf{w}})+\tau\right)\geq1-\exp(-2q\log(r)).$$
+As there are only $r^q$ different $\mathbf{w}$, we can apply a union bound arguements to conclude that for all $\mathbf{w}\in\mathcal{W}$ we have that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(L_0(g_{\mathbf{w}})\leq\hat{L}_0(g_{\mathbf{w}})+\sqrt{\frac{q\log(r)}{m}}\right)\geq1-\exp(-q\log(r)).$$
+As $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W},S}$ then there exists a $\mathbf{w}\in\mathcal{W}$ such that for any $x\in\mathcal{X}$ and any $y$ we have
+$$\vert h(x)[y]-g_{\mathbf{w}}(x)[y]\vert\leq\gamma.$$
+Therefore, as long as $h$ has a margin at least $\gamma$ the classifier $g_{\mathbf{w}}$ classifies the examples correctly so that
+$$\hat{L}_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h).$$
+Combining this with the previous observations completes the proof of the theorem. $\square$
+
+
+</details>
  
 **Remark 2.6** *Theorem 2.5 only gives a bound for $g_{\mathbf{w}}$ which is the compression of $h$. However, there are no requirements of a hypothesis class, assumptions are only made on $h$ and its properties on a finite training set.*
   
 **Corollary 2.7** *If the compression works for $1-\xi$ fraction of the training sample, then with a high probability $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\xi+O\left(\sqrt{\frac{q\log r}{m}}\right).$$*
+<details>
+<summary>Proof</summary>
+<br>
+
+The proof this corollary proceeds in exactly the same ways as the proof of Theorem 2.5, however, in the last step we can use the upper-bound
+$$\hat{L}_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\xi.$$
+Which arises as for the fraction of the training sample where the compression doesn't work we assume that the loss is maximized, which was assumed to be $1$. 
+
+</details>
  
 ###  2.3.2 Compression of a Linear Classifier
 We now develop an algorithm to compress the decision vector of a linear classifier. We will use linear classifiers to conduct binary classification, where the members of one class have label $1$ and the other have label $-1$. The linear classifiers will be parameterised by the weight vector $\mathbf{w}\in\mathbb{R}^d$ such that for $x\in\mathcal{X}$ we have $h_{\mathbf{w}}(x)=\mathrm{sgn}(\mathbf{w}^\top x)$. Define the margin, $\gamma>0$, of $\mathbf{w}$ to be such that $y\left(\mathbf{w}^\top x\right)\geq\gamma$ for all $(x,y)$ in the training set. In compressing $\mathbf{w}$, according to Algorithm 1, we end up with a linear classifier parameterized by the weight vector $\hat{\mathbf{w}}$ with some PAC bounds relating to its performance.
