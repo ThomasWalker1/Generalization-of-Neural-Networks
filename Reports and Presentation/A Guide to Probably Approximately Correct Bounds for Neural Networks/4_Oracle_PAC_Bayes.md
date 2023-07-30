@@ -6,12 +6,12 @@ Where $r_m(\delta)$ is a remainder term that tends to $0$ as $m$ tends to $\inft
 
 ### Oracle PAC-Bayes Bounds in Expectation
 **Theorem** *For $\lambda>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\theta))+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$*
-\textit{Proof.}$\square$
+*Proof.*$\square$
 
 ### Oracle PAC-Bayes Bounds in Probability
 
 **Theorem** *For any $\lambda>0$, and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})\right)+\frac{\lambda C^2}{4m}+\frac{2\mathrm{KL}(\rho,\pi)+\log\left(\frac{2}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta$$*
-\textit{Proof.}$\square$
+*Proof.*$\square$
 
 ### Bernstein's Assumption
 
@@ -19,17 +19,17 @@ Where $r_m(\delta)$ is a remainder term that tends to $0$ as $m$ tends to $\inft
  
 
 **Theorem** *Assume Bernstein's assumption is satisfied with some constant $K>0$. Take $\lambda=\frac{m}{\max(2K,C)}$ then we have $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)-R\left(\mathbf{w}^*\right)\leq2\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))-R\left(\mathbf{w}^*\right)+\frac{\max(2K,C)\mathrm{KL}(\rho,\pi)}{m}\right).$$*
-\textit{Proof.}$\square$
+*Proof.*$\square$
 
 ## Data Driven PAC-Bayes Bounds
 
 A lot of work to obtain non-vacuous PAC-Bayes bounds is to develop priors that reduce the size of the KL divergence between the prior and the posterior. The idea behind the work of (Dziugaite, 2020) is to hold out some of the training data to obtain data-inspired priors. For this section, we use a PAC-Bayes bound that can be thought of as the Bayesian equivalent of Theorem \ref{Theorem-Occam Bound}, however, now we are dealing with potentially uncountable hypothesis sets.
 
 **Theorem** (McAllester, 2013)\label{Theorem-Occam Style PAC Bayes Bound} For $\lambda>\frac{1}{2}$ selected before drawing our training sample, then for all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\hat{R}(\mathbf{\rho})+\frac{\lambda C}{m}\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)\right)\geq1-\delta.$$
-\textit{Proof.}$\square$
+*Proof.*$\square$
 
 **Corollary** (Dziugaite, 2020)\label{Corollary-Occam Style PAC Bayes Bound} *Let $\beta,\delta\in(0,1)$, $\mathcal{D}$ a probability distribution over $\mathcal{Z}$, and $\pi\in\mathcal{M}(\mathcal{W})$. Then for all $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Psi_{\beta,\delta}(\rho,\pi;S)\right)\geq1-\delta,$$ where $\Psi_{\beta,\delta}(\rho,\pi;S)=\frac{1}{\beta}\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{2\beta(1-\beta)m}.$*
-\textit{Proof.}$\square$
+*Proof.*$\square$
 
 As we have done previously, we can consider the optimization problem of minimizing the bound of Corollary \ref{Corollary-Occam Style PAC Bayes Bound}.
 
