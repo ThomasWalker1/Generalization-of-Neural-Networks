@@ -108,7 +108,7 @@ Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
 **return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_i\mathbf{v}_i$
 
 
- **Remark** *The vectors $\mathbf{v}_i$ are the helper string.*
+ **Remark** *The vectors $\mathbf{v}_i$ of Algorithm 2 form the helper string.*
   
 **Lemma** *For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.*
  
