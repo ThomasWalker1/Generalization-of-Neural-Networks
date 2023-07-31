@@ -12,13 +12,11 @@ Note that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)=R(\ma
 Probably Approximately Correct bounds refer to a general class of bounds on the performance of a learned classifier. They aim to determine with high probability what the performance of a classifier will be like on the distribution $\mathcal{D}$ when trained on some training data taken from this distribution.
 
  **Theorem 2.1** (Alquier, 2023) *Let $\vert\mathcal{W}\vert=M<\infty$, $\delta\in(0,1)$, and $\mathbf{w}\in\mathcal{W}$ then it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+C\sqrt{\frac{\log\left(\frac{M}{\epsilon}\right)}{2n}}\right)\geq 1-\delta.$$*
-
 <details>
 <summary>Proof</summary>
 <br>
 
 **Lemma 1** (Scott, 2014) *Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)$$*
- 
 <details>
 <summary>Proof</summary>
 <br>
@@ -43,6 +41,7 @@ $$\log\left(\mathbb{E}\left(\exp(sV_i)\right)\right)\leq\frac{u^2}{8}=\frac{s^2(
 Therefore,
 $$\begin{align*}\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)&=\prod_{i=1}^n\mathbb{E}\left(\exp\left(t(U_i-\mathbb{E}(U_i))\right)\right)\\&\leq\prod_{i=1}^n\exp\left(\frac{t^2(b-a)^2}{8}\right)\\&\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)\end{align*}$$
 which completes the proof. $\square$
+
 </details>
 
 Recall that we have our random sample $S=\{(x_i,y_i)\}_{i=1}^m\sim\mathcal{D}^m$. If we fix $\mathbf{w}\in\mathcal{W}$ we can let $l_i=l(h_{\mathbf{w}}(x_i),y_i)$. We can apply Lemma 1 with $U_i=\mathbb{E}(l_i(\mathbf{w})-l_i(\mathbf{w}))$ to get that
