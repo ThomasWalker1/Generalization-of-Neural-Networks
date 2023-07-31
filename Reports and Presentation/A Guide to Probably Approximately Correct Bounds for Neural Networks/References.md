@@ -1,3 +1,4 @@
+(Habib, 1998) Michel Habib, Colin McDiarmid, Jorge Ramirez-Alfonsin, Bruce Reed. Probabilistic Methods for Algorithmic Discrete Mathematics. 1998\
 (McAllester, 1998) David A. McAllester. “Some PAC-Bayesian Theorems”. In: Machine Learning 37 (1998), pp. 355–363.\
 (Seeger, 2001) John Langford and Matthias Seeger. “Bounds for Averaging Classifiers”. In: (Feb. 2001).\
 (Maurer, 2004) Andreas Maurer. “A Note on the PAC Bayesian Theorem”. In: CoRR (2004).\
