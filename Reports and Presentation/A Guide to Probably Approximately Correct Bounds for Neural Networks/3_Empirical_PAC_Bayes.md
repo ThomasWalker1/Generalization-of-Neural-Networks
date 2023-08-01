@@ -147,7 +147,7 @@ and so using the linearity of expectation and rearranging completes the proof. $
 
 In the results that follow we will consider the $0$-$1$ loss. This is a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to\{0,1\}$ defined by $l(y,y^\prime)=\mathbf{1}(y\neq y^\prime)$.
 
-**Theorem 3.10** (McAllester, 1998) *For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$*
+**Theorem 3.10** (McAllester, 1998) *For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$*
 
 ----
 

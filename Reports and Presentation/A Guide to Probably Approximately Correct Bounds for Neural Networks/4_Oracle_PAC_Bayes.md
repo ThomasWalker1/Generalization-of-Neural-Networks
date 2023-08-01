@@ -102,7 +102,7 @@ which completes the proof.$\square$
 
 A lot of work to obtain non-vacuous PAC-Bayes bounds is to develop priors that reduce the size of the KL divergence between the prior and the posterior. The idea behind the work of (Dziugaite, 2020) is to hold out some of the training data to obtain data-inspired priors. For this section, we use a PAC-Bayes bound that can be thought of as the Bayesian equivalent of Theorem \ref{Theorem-Occam Bound}, however, now we are dealing with potentially uncountable hypothesis sets.
 
-**Theorem 4.5** (McAllester, 2013) *For $\lambda>\frac{1}{2}$ selected before drawing our training sample, then for all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\hat{R}(\mathbf{\rho})+\frac{\lambda C}{m}\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)\right)\geq1-\delta.$$*
+**Theorem 4.5** (McAllester, 2013) *For $\lambda>\frac{1}{2}$ selected before drawing our training sample, then for all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{\rho})+\frac{\lambda C}{m}\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$*
 <details>
 <summary>Proof</summary>
 <br>
@@ -169,6 +169,8 @@ Therefore, by re-arranging and applying Lemma 1 the proof of the theorem is comp
 <details>
 <summary>Proof</summary>
 <br>
+
+This is the result of the previous Theorem 4.5 with $\lambda=\frac{1}{2(1-\beta)}$ and $C=1$.
 
 </details>
 
