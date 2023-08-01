@@ -234,16 +234,81 @@ Furthermore, $\frac{1}{\mu_{i,j}^2}$ is the noise sensitivity of $J_x^{i,j}$ wit
 <br>
 
 **Lemma 1** For any $0<\delta$ and $\epsilon\leq 1$ let $G=\left\{\left(U^i,x^i\right)\right\}_{i=1}^m$ be a set of matrix-vector pairs of size $m$ where $U\in\mathbb{R}^{k\times n_1}$ and $x\in\mathbb{R}^{n_2}$, let $\hat{A}\in\mathbb{R}^{n_1\times n_2}$ be the output of Algorithm 3 $\left(A,\epsilon,\eta=\frac{\delta}{mk}\right)$. With probability at least $1-\delta$ we have for any $(U,x)\in G$ that $\left\Vert U(\hat{A}-A)x\right\Vert\leq\epsilon \Vert A\Vert_F\Vert U\Vert_F\Vert x\Vert$.
+<details>
+<summary>Proof</summary>
+<br>
 
-Use Lemma \ref{Lemma-Error Bound on Set} to prove the following.
+For fixed vectors $u,v$ we have that
+$$u^\top\hat{A}v=\frac{1}{k}\sum_{l=1}^ku^\top Z_lv=\frac{1}{k}\sum_{l=1}^k\langle A,M_l\rangle\left\langle uv^\top,M_l\right\rangle.$$
+By standard concentration inequalities we deduce that
+$$\mathbb{P}\left(\left\vert\frac{1}{k}\sum_{l=1}^k\langle A,M_l\rangle\left\langle uv^\top,M_l\right\rangle-\left\langle A,uv^\top\right\rangle\right\vert\geq\epsilon\Vert A\Vert_F\left\Vert uv^\top\right\Vert_F\right)\leq\exp\left(-k\epsilon^2\right).$$
+Therefore, for the choice of $k$ from Algorithm 3 we know that
+$$\mathbb{P}\left(\left\vert u^\top\hat{A}v-u^\top Av\right\vert\geq\epsilon\Vert A\Vert_F\left\Vert u\right\Vert\left\Vert v\right\Vert\right)\leq\eta.$$
+Let $(U,x)\in G$ and $u_i$ be the $i^\text{th}$ row of $U$. We can apply the above result with a union bound to get that
+$$\mathbb{P}\left(\left\vert u_i^\top\hat{A}v-u_i^\top Av\right\vert\leq\epsilon\Vert A\Vert_F\left\Vert u_i\right\Vert\left\Vert v\right\Vert\right)\geq1-\delta$$
+for all $i$ simultaneously. Furthermore,
+$$\left\Vert U\left(\hat{A}-A\right)x\right\Vert^2=\sum_{i=1}^n\left(u_i^\top\left(\hat{A}-A\right)x\right)^2,\text{ and }\Vert U\Vert_F^2=\sum_{i=1}^n\Vert u_i\Vert^2$$
+we see that with probability at least $1-\delta$ we have
+$$\begin{align*}\left\Vert U(\hat{A}-A)x\right\Vert^2&=\sum_{i=1}^n\left(u_i^\top\left(\hat{A}-A\right)x\right)^2\\&\leq\sum_{i=1}^n\epsilon^2\Vert A\Vert_F^2\Vert u_i\Vert^2\Vert x\Vert\\&=\epsilon^2\Vert A\Vert_F^2\Vert U\Vert^2\Vert x\Vert\end{align*}$$
+which completes the proof of the lemma. $\square$
+</details>
 
 **Lemma 2** For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any $0<\epsilon\leq 1$, Algorithm 3 can generate weights $\tilde{\mathbf{w}}$ for a network with $$\frac{72c^2d^2\log\left(\frac{mdn}{\delta}\right)}{\epsilon^2}\cdot\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}$$ total parameters such that with probability $1-\frac{\delta}{2}$ over the generated weights $\tilde{w}$, for any $x\in\mathcal{X}$ $$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{w}}(x)\right\Vert\leq\epsilon\Vert h_{\mathbf{w}}(x)\Vert,$$ where $\mu_i,\mu_{i\to},c$ and $\rho_{\delta}$ are the layer cushion, inter-layer cushion, activation contraction and inter-layer smoother for the network.
+<details>
+<summary>Proof</summary>
+<br>
 
-Subsequently, the following result holds.
+The proof of this lemma proceeds by induction. For $i\geq0$ let $\hat{x}_i^j$ be the output at layer $j$ if weights $A^1,\dots,A^i$ are replaced with $\tilde{A}^1,\dots,\tilde{A}^i$. We want to show for any $i$ if $j\geq i$ then
+$$\mathbb{P}\left(\left\Vert\hat{x}_i^j-x^j\right\Vert\leq\frac{i}{d}\epsilon\left\Vert x^j\right\Vert\right)\geq1-\frac{i\delta}{2d}.$$
+For $i=0$ the result is clear as the weight matrices are unchanged. Suppose the result holds true for $i-1$. Let $\hat{A}^i$ be the result of applying Algorithm 3 to $A^i$ with $\epsilon_i=\frac{\epsilon\mu_i\mu_{i\to}}{4cd}$ and $\eta=\frac{\delta}{6d^2h^2m}$. Consider the set 
+$$G=\left\{\left(J_{x^i}^{i,j}\right):x\in\mathcal{X},j\geq i\right\}$$
+and let $\Delta^i=\hat{A}^i-A^i$. Note that
+$$\left\Vert\hat{x}_i^j-x^j\right\Vert\leq\left\Vert\hat{x}_i^j-\hat{x}_{i-1}^j\right\Vert+\left\Vert\hat{x}_{i-1}^j-x^j\right\Vert.$$
+The second term is bounded by $\frac{(i-1)\epsilon\left\Vert x^j\right\Vert}{d}$ by inductive assumption. Therefore, it suffices to show that the first term is bounded by $\frac{\epsilon}{d}$ to complete the inductive step. First observe that,
+$$\left\Vert\hat{x}_i^j-\hat{x}_{i-1}^j\right\Vert\leq\left\Vert J_{x^i}^{i,j}\left(\Delta^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert+\left\Vert M^{i,j}\left(\hat{A}^i\phi\left(\hat{x}^{i-1}\right)\right)-M^{i,j}\left(A^i\phi\left(\hat{x}^{i-1}\right)\right)-J_{x^i}^{i,j}\left(\Delta^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert.$$
+The first term can be bounded as follows
+$$\begin{align*}\left\Vert J_{x^i}^{i,j}\left(\Delta^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert&\leq\frac{\epsilon\mu_i\mu_{i\to}}{6cd}\left\Vert J_{x^i}^{i,j}\right\Vert\left\Vert A^i\right\Vert_F\left\Vert\phi\left(\hat{x}^{i-1}\right)\right\Vert\quad\text{Lemma 2}\\&\leq\frac{\epsilon\mu_i\mu_{i\to}}{6cd}\left\Vert J_{x^i}^{i,j}\right\Vert\left\Vert A^i\right\Vert_F\left\Vert\hat{x}^{i-1}\right\Vert\quad\text{Lipschitz of $\phi$}\\&\leq\frac{\epsilon\mu_i\mu_{i\to}}{3cd}\left\Vert J_{x^i}^{i,j}\right\Vert\left\Vert A^i\right\Vert_F\left\Vert x^{i-1}\right\Vert\quad\text{ Inductive Assumption}\\&\leq\frac{\epsilon\mu_{i\to}}{3d}\left\Vert J_{x^i}^{i,j}\right\Vert\left\Vert A^i\phi\left(x^{i-1}\right)\right\Vert\\&\leq\frac{\epsilon\mu_{i\to}}{3d}\left\Vert J_{x^i}^{i,j}\right\Vert\left\Vert x^i\right\Vert\\&\leq\frac{\epsilon}{3d}\left\Vert x^j\right\Vert.\end{align*}$$
+The second term can be split as
+$$\left\Vert\left(M^{i,j}-J_{x^i}^{i,j}\right)\left(\hat{A}^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert+\left\Vert\left(M^{i,j}-J_{x^i}^{i,j}\right)\left(A^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert,$$
+which can be bounded by inter-layer smoothness. By inductive assumption
+$$\left\Vert A^i\phi\left(\hat{x}^{i-1}\right)-x^i\right\Vert\leq\frac{(a-1)\epsilon\left\Vert x^i\right\Vert}{d}\leq\epsilon\left\Vert x^i\right\Vert.$$
+Then by inter-layer smoothness
+$$\left\Vert\left(M^{i,j}-J_{x^i}^{i,j}\right)\left(A^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert\leq\frac{\left\Vert x^b\right\Vert\epsilon}{\rho_{\delta}}\leq\frac{\epsilon}{3d}\left\Vert x^j\right\Vert.$$
+On the other hand,
+$$\left\Vert\hat{A}^i\phi\left(\hat{x}^{i-1}\right)-x^i\right\Vert\leq\left\Vert A^i\phi\left(\hat{x}^{i-1}\right)-x^i\right\Vert+\left\Vert\Delta^i\phi\left(\hat{x}^{i-1}\right)\right\Vert\leq\frac{(i-1)\epsilon}{d}+\frac{\epsilon}{3d}\leq\epsilon$$
+so that
+$$\left\Vert\left(M^{i,j}-J_{x^i}^{i,j}\right)\left(A^i\phi\left(\hat{x}^{i-1}\right)\right)\right\Vert\leq\frac{\epsilon}{3d}\left\Vert x^j\right\Vert.$$
+This completes the inductive step and the proof of the lemma. $\square$
 
-**Lemma 3** For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any margin $\gamma>0$, $h_{\mathbf{w}}$ can be compressed (with respect to a random string) to another fully connected network $h_{\mathbf{w}}$ such that for $x\in\mathcal{X}$, $\hat{L}_0(h_{\hat{\mathbf{w}}})\leq\hat{L}_{\gamma}(h_\mathbf{w})$ and the number of parameters in $h_{\tilde{\mathbf{w}}}$ is at most $$\tilde{O}\left(\frac{c^2d^2\max_{x\in\mathcal{X}}\Vert h_{\mathbf{w}}(x)\Vert_2^2}{\gamma^2}\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}\right).$$
+</details>
+
+**Lemma 3** For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any margin $\gamma>0$, $h_{\mathbf{w}}$ can be compressed (with respect to a random string) to another fully connected network $h_{\mathbf{w}}$ such that for $x\in\mathcal{X}$, $\hat{L}_0(h_{\tilde{\mathbf{w}}})\leq\hat{L}_{\gamma}(h_\mathbf{w})$ and the number of parameters in $h_{\tilde{\mathbf{w}}}$ is at most $$\tilde{O}\left(\frac{c^2d^2\max_{x\in\mathcal{X}}\Vert h_{\mathbf{w}}(x)\Vert_2^2}{\gamma^2}\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}\right).$$
+<details>
+<summary>Proof</summary>
+<br>
+
+In the first case suppose that $\gamma^2>2\max_{x\sin\mathcal{X}}\left\Vert h_{\mathbf{w}}(x)\right\Vert_2^2$, then
+$$\left\vert h_{\mathbf{w}}(x)[y]-\max_{i\neq y}h_{\mathbf{w}}(x)[i]\right\vert^2\leq 2\max_{x\in\mathcal{X}}\left\Vert h_{\mathbf{w}}(x)\right\Vert_2^2\leq\gamma^2.$$
+Therefore, the margin can be at most $\gamma$ which implies that $\hat{L}_{\gamma}(h_{\mathbf{w}})=1$ and so the statement holds in this case. If instead $\gamma^2\leq2\max_{x\in\mathcal{X}}\left\Vert h_{\mathbf{w}}(x)\right\Vert_2^2$, then setting $\epsilon=\frac{\gamma^2}{2\max_{x\in\mathcal{X}}\left\Vert h_{\mathbf{w}}(x)\right\Vert_2^2}$ in Lemma 2 we conclude that
+$$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{\mathbf{w}}}(x)\right\Vert\leq\frac{\gamma}{\sqrt{2}}$$
+for any $x\in\mathcal{X}$. If $\hat{L}_{\gamma}(h_{\mathbf{w}})=1$ then clearly $\hat{L}_0(h_{\mathbf{w}})\leq1=\hat{L}_{\gamma}(h_{\mathbf{w}})$. Suppose instead that $\hat{L}_{\gamma}(h_{\mathbf{w}})<1$. Then there exists an $(x,y)\in\mathcal{Z}$ such that $h_{\mathbf{w}}(x)[y]>\max$
+
+</details>
  
 
-**Lemma 4** Let $h_{\mathbf{w}}$ be a $d$-layer network with weights $A=\left\{A^1,\dots,A^d\right\}$. Then for any input $x$, weights $A$ and $\hat{A}$, if for any layer $i$, $\left\Vert A^i-\hat{A}^i\right\Vert\leq\frac{1}{d}\Vert A^i\Vert$, then $$\Vert h_\mathbf{w}(x)-h_{\hat{\mathbf{w}}}(x)\Vert\leq e\Vert x\Vert\left(\prod_{i=1}^d\left\Vert A^i\right\Vert_2\right)\sum_{i=1}^d\frac{\left\Vert A^i-\hat{A}^i\right\Vert_2}{\Vert A^i\Vert_2}$$
+**Lemma 4** For any matrix $A$ let $\hat{A}$ be the truncated version of $A$ where singular values that are smaller than $\delta\left\Vert A\right\Vert_2$.Let $h_{\mathbf{w}}$ be a $d$-layer network with weights $A=\left\{A^1,\dots,A^d\right\}$. Then for any input $x$, weights $A$ and $\hat{A}$, if for any layer $i$, $\left\Vert A^i-\hat{A}^i\right\Vert\leq\frac{1}{d}\Vert A^i\Vert$, then $$\Vert h_\mathbf{w}(x)-h_{\hat{\mathbf{w}}}(x)\Vert\leq e\Vert x\Vert\left(\prod_{i=1}^d\left\Vert A^i\right\Vert_2\right)\sum_{i=1}^d\frac{\left\Vert A^i-\hat{A}^i\right\Vert_2}{\Vert A^i\Vert_2}$$
 
+We can assume without loss of generality that for any $i\neq j$ that
+$$\Vert A_i\Vert_F=\Vert A_j\Vert_F=\beta.$$
+Therefore, for any $x\in\mathcal{X}$ we have
+$$\beta^d=\prod_{i=1}^d\left\Vert A^i\right\Vert_F\leq\frac{c\left\Vert x^1\right\Vert}{\Vert x\Vert\mu_1}\prod_{i=2}^d\left\Vert A^i\right\Vert_F\leq\dots\leq\frac{c^d\left\Vert h_{\mathbf{w}}(x)\right\Vert}{\Vert x\Vert\prod_{i=1}^d\mu_i}.$$
+By Lemma 2 we know that $\left\Vert\tilde{A}^i\right\Vert_F\leq\beta\left(1+\frac{1}{d}\right)$. As 
+$$\tilde{A}^i=\frac{1}{k}\sum_{l=1}^k\left\langle A^i,M_l\right\rangle M_{l},$$
+if $\hat{A}^i$ are the approximations of $\tilde{A}^i$ with accuracy $\mu$ then
+$$\left\Vert\hat{A}^i-\tilde{A}^i\right\Vert_F\leq\sqrt{k} h\nu\leq\sqrt{q}h\nu$$
+where $q$ is the total number of parameters. Therefore, by Lemma 4 we have that
+$$\begin{align*}\left\vert l_{\gamma}(h_{\tilde{w}}(x),y)-l_{\gamma}(h_{\hat{\mathbf{w}}}(x),y)\right\vert&\leq\frac{2e}{\gamma}\Vert x\Vert\left(\prod_{i=1}^d\left\Vert\tilde{A}^i\right\Vert\right)\sum_{i=1}^d\frac{\left\Vert\tilde{A}^i-\hat{A}^i\right\Vert_F}{\left\Vert\tilde{A}^i\right\Vert_F}\\&\leq\frac{e^2}{\gamma}\Vert x\Vert\beta^{d-1}\sum_{i=1}^d\left\Vert \tilde{A}^i-\hat{A}^i\right\Vert_F\\&\leq\frac{e^2c^d\left\Vert h_{\mathbf{w}}(x)\right\Vert\sum_{i=1}^d\left\Vert\tilde{A}^i-\hat{A}^i\right\Vert_F}{\gamma\beta\prod_{i=1}^d\mu_i}\\&\leq\frac{qh\nu}{\beta},\quad\text{By Lemma }10:\frac{e^2d\left\Vert h_{\mathbf{w}}(x)\right\Vert}{\gamma\beta\prod_{i=1}^d\mu_i}\leq\sqrt{q}.\end{align*}$$
+The absolute value of each parameter in layer $i$ is at most $\beta h$, therefore, to get an $\epsilon$-cover the logarithm of the number of choices for each parameter is $\log\left(\frac{kh^2}{\epsilon}\right)\leq2\log\left(\frac{kh}{\epsilon}\right)$ giving a covering number of
+$$2q\log\left(\frac{kh}{\epsilon}\right).$$
+Bounding the Rademacher complexity using Dudley entropy integral completes the proof.
 </detials>
