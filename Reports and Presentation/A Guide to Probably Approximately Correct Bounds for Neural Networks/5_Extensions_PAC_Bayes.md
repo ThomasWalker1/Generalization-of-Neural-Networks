@@ -59,6 +59,50 @@ Putting this and our bound into our deductions from Theorem 5.2 completes the pr
 </details>
  
 **Corollary 5.4** *Under the assumptions of Corollary 5.3 with $\delta\in(0,1)$ and for all $\pi_t\in\mathbf{P}$ we have that $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}&\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\leq\frac{1}{m}\left(\frac{\Vert\mathbf{w}+\mathbf{\epsilon}-\mathbf{w}_t\Vert_2^2-\Vert\mathbf{\epsilon}\Vert_2^2}{2\sigma^2}+\log\left(\frac{2T\sqrt{m}}{\delta}\right)\right)\right),\\\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}&\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\leq\frac{1}{m}\left(\frac{m+1}{m}\frac{\Vert\mathbf{w}+\mathbf{\epsilon}-\mathbf{w}_t\Vert_2^2-\Vert\mathbf{\epsilon}\Vert_2^2}{2\sigma^2}+\log\left(\frac{T(m+1)}{\delta}\right)\right)\right),\end{align*}$$ and for all $c\in\mathbf{C}$ $$R(\mathbf{w})\leq\frac{1-\exp\left(-c\hat{R}(\mathbf{w})-\frac{1}{m}\left(\frac{\Vert\mathbf{w}+\mathbf{\epsilon}-\mathbf{w}_t\Vert_2^2-\Vert\mathbf{\epsilon}\Vert_2^2}{2\sigma^2}+\log\left(\frac{T\vert\mathbf{C}\vert}{\delta}\right)\right)\right)}{1-\exp(-c)}.$$ Where $\mathbf{\epsilon}\sim\mathcal{N}\left(\mathbf{0},\sigma^2\mathbf{I}_d\right)$ is Gaussian noise such that $\mathbf{w}+\mathbf{\epsilon}$ acts as the weights sampled from $\mathcal{N}(\mathbf{w},\sigma^2\mathbf{I}_d)$, and $\mathbf{C}$ is a set of hyper-parameters fixed a priori.*
+<details>
+<summary>Proof</summary>
+<br>
+
+The proof of these individual statements follow the same structure. We will only prove the first of these by applying the theorem proven below. The first two can be proven in a similar way but applying Theorem 1 $(i)$ from (Rivasplata, 2020) and Proposition 3.1 from (Blanchard, 2007) respectively.
+
+**Lemma 1**
+For $\rho_S=\mathcal{N}\left(\mathbf{w},\sigma^2I_d\right)$ and $\pi=\mathcal{N}\left(\mathbf{v},\sigma^2I_d\right)$, we have that
+$$\log\left(\frac{\rho_S(\mathbf{w+\epsilon})}{\pi(\mathbf{w+\epsilon})}\right)=\frac{1}{2\sigma^2}\left(\Vert\mathbf{w+\epsilon-v}\Vert_2^2-\Vert\mathbf{\epsilon}\Vert_2^2\right),$$
+where $\mathbf{\epsilon}\sim\mathcal{N}\left(\mathbf{0},\sigma^2I_d\right)$ such that $\mathbf{w+\epsilon}$ acts as the weights sampled from $\mathcal{N}(\mathbf{w},\sigma^2\mathbf{I}_d)$.
+<details>
+<summary>Proof</summary>
+<br>
+
+This follows from simple computations after recalling that
+$$\rho_S(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{\epsilon}\Vert_2^2\right),\text{ and }\pi(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{w+\epsilon-v}\Vert_2^2\right).$$
+So this completes the proof of the lemma. $\square$
+</details>
+
+**Lemma 2**
+For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, with $\delta\in(0,1)$ we have that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\mathbf{w}))+\frac{\log(\delta)}{\lambda}\leq\hat{R}(\mathbf{w})\right)\leq1-\delta$$
+
+**Theorem 3**
+For any positive $\lambda$, any posterior distribution $\rho\in\mathcal{M}(\mathcal{W})$, then
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{1}{\lambda}\log\left(\frac{1}{\delta}\frac{d\rho}{d\pi}\right)\right)\right)\geq1-\delta.$$
+<details>
+<summary>Proof</summary>
+<br>
+
+To prove this we start from Lemma 2 and integrate with respect to $\pi$ to get that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\mathbf{\pi}))+\frac{\log(\delta)}{\lambda}\leq\hat{R}(\mathbf{\pi})\right)\leq1-\delta.$$
+Which for any posterior $\rho$ can be written as
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\rho))+\frac{\log(\delta)}{\lambda}-\log\left(\frac{d\rho}{d\pi}\right)\leq\hat{R}(\rho)\right)\leq1-\delta,$$
+which upon re-arrangement completes the proof of the theorem. $\square$
+
+</details>
+
+Apply Theorem 3 $T\vert\mathbf{C}\vert$ times with confidence $\frac{\delta}{T\vert\mathbf{C}\vert}$. For each prior $\pi_t\in\mathbf{P}$ and hyperparameter $c\in\mathbf{C}$, we have that
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho_S)\leq\frac{1}{1-e^{-c}}\left(1-\exp\left(-c\hat{R}(\rho_S)-\frac{1}{m}\left(\log\left(\frac{\rho_S(\mathbf{w})}{\pi_t(\mathbf{w})}\right)+\log\left(\frac{T\vert\mathbf{C}\vert}{\delta}\right)\right)\right)\right)\right)\geq1-\frac{\delta}{T\vert\mathbf{C}\vert}.$$
+Applying a union bound argument and Lemma 1 the conclusions of the theorem follows which completes the proof. $\square$
+
+</details>
+
 
 ## 5.2 PAC-Bayes Compression Bounds
 
@@ -73,7 +117,7 @@ We start from Theorem 3.11 and try to optimize the bound with respect to $\lambd
 $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\inf_{\lambda^\prime\in\Lambda}\Phi^{-1}_{\frac{\lambda^\prime}{m}}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+2\log\left(\frac{\log\left(\alpha^2\lambda^\prime\right)}{\log(\alpha)}\right)}{\lambda^\prime}\right)\right)\geq1-\delta.$$
 We note that $\lambda\in(1,\infty)$ (as for $\lambda<1$ we get a bound larger than $1$) and so there is a $\lambda^\prime\in\Lambda$ such that
 $$\frac{\lambda}{\alpha}\leq\lambda^\prime\leq\lambda.$$
-Moreover, for any $q\in(0,1)$ we have that $\beta\mapsto\Phi_{\beta}(q)$ is increasing on $\mathbb{R}_+$. THerefore,
+Moreover, for any $q\in(0,1)$ we have that $\beta\mapsto\Phi_{\beta}(q)$ is increasing on $\mathbb{R}_+$. Therefore,
 $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\inf_{\lambda\in(1,\infty)}\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{\alpha}{\lambda}\left(\mathrm{KL}(\rho,\pi)-\log\left(\delta\right)+2\log\left(\frac{\log\left(\alpha^2\lambda^\prime\right)}{\log(\alpha)}\right)\right)\right)\right)\geq1-\delta,$$
 which completes the proof. $\square$
 
@@ -89,13 +133,15 @@ The intention now is to motivate the choice of $\pi$ using ideas of compressibil
 
 Let $\mathcal{H}_c\subseteq\mathcal{H}$ be the set of classifiers corresponding to the compressed classifiers. Then let $\pi_c$ be a distribution on $\mathcal{H}_c$ defined by
 $$\pi_c(h)=\frac{1}{Z}M(\vert h\vert_c)\cdot2^{-\vert h\vert_c},\text{ where }Z=\sum_{h\in\mathcal{H}_c}M(\vert h\vert_c)\cdot 2^{-\vert h\vert_c}.$$
-As $c$ is injective on $\mathcal{H}_c$ we have that $Z\leq 1$
+As $c$ is injective on $\mathcal{H}_c$ we have that $Z\leq 1$. Therefore,
+$$\begin{align*}\mathrm{KL}(\rho,\pi_c)=\log\left(\frac{\rho\left(\hat{h}\right)}{\pi_c\left(\hat{h}\right)}\right)\rho\left(\hat{h}\right)&=-\log\left(\pi_c\left(\hat{h}\right)\right)\\&=\log(Z)+\left\vert\hat{h}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{h}\right\vert_c\right)\right)\\&\leq\left\vert\hat{h}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{h}\right\vert_c\right)\right).\end{align*}$$
+Which completes the proof of the theorem. $\square$
 
 </details>
  
 **Remark 5.7** *An example of a coding scheme $c$ could be the Huffman encoding. However, such a compression scheme is agnostic to any structure of the hypothesis class $\mathcal{H}$. By exploiting structure in the hypothesis class the bound can be improved substantially.*
  
-We now formalise compression schemes to allow us to refine Theorem \ref{Theorem-KL Divergence Bound using Coding Schemes}. Denote a compression procedure by a triple $(S,C,Q)$ where
+We now formalise compression schemes to allow us to refine Theorem 5.6. Denote a compression procedure by a triple $(S,C,Q)$ where
 - $S=\{s_1,\dots,s_k\}\subseteq\{1,\dots,d\}$ is the location of the non-zero weights,
 - $C=\{c_1,\dots,c_r\}\subseteq\mathbb{R}$, is a codebook, and 
 - $Q=(q_1,\dots,q_k)$ for $q_i\in\{1,\dots,r\}$ are the quantized values.
@@ -105,5 +151,22 @@ $$w_i(S,Q,C)=\begin{cases}c_{q_j}&i=s_j\\0&\text{otherwise}.\end{cases}$$
 Training a neural network is a stochastic process due to the randomness of SGD. So to analyse the generalization error we try to capture randomness in the analysis by applying Gaussian noise to weights. For this we use $\rho\sim\mathcal{N}\left(\mathbf{w},\sigma^2J\right)$, with $J$ being a diagonal matrix.
 
 **Theorem 5.8** (Zhou, 2019) *Let $(S,C,Q)$ be the output of a compression scheme, and let $\rho_{S,C,Q}$ be the stochastic estimator given by the weights decoded from the triplet and variance $\sigma^2$. Let $c$ denote an arbitrary fixed coding scheme and let $M$ denote an arbitrary distribution on the positive integers. Then for any $\tau>0$, there is a prior $\pi$ such that $$\begin{align*}\mathrm{KL}(\rho_{S,C,Q},\pi)\leq&(k\lceil\log(r)\rceil+\vert S\vert_c+\vert C\vert_c)\log(2)-\log(M(k\lceil\log(r)\rceil+\vert S\vert_c+\vert C\vert_c))\\&+\sum_{i=1}^k\mathrm{KL}\left(\mathcal{N}\left(c_{q_i},\sigma^2\right),\sum_{j=1}^r\mathcal{N}\left(c_j,\tau^2\right)\right).\end{align*}$$*
+<details>
+<summary>Proof</summary>
+<br>
+
+The following is a proof by construction, that is we construct prior $\pi$ with the desired property. To do this we want to express the prior as a mixture over all possible compressions provided by the algorithm. We first define the mixture component 
+$$\pi_{S,Q,C}=\mathcal{N}\left(\mathbf{w}(S,Q,C),\tau^2\right).$$
+We then define our prior to be a weighted mixture over all possible compressions, that is
+$$\pi=\frac{1}{Z}\sum_{S,Q,C}M\left(\vert S\vert_c+\vert C\vert_c+k\lceil\log(r)\rceil\right)\cdot2^{-\vert S\vert_c-\vert C\vert_c-k\lceil\log(r)\rceil}\pi_{S,Q,C}.$$
+Where $Z\leq1$ as the compression scheme is injective. Let $\left(\hat{S},\hat{Q},\hat{C}\right)$ be the output of our compression algorithm, so that out posterior $\rho$ is $\mathcal{N}\left(\mathbf{w}\left(\hat{S},\hat{Q},\hat{C}\right),\sigma^2\right)$. Therefore,
+$$\begin{align*}\mathrm{KL}(\rho,\pi)&\leq\mathrm{KL}\left(\rho,\sum_{S,Q,C}M\left(\vert S\vert_c+\vert C\vert_c+k\lceil\log(r)\rceil\right)\cdot2^{-\vert S\vert_c-\vert C\vert_c-k\lceil\log(r)\rceil}\pi_{S,Q,C}\right)\\&\leq\mathrm{KL}\left(\rho,\sum_QM\left(\left\vert \hat{S}\right\vert_c+\left\vert \hat{C}\right\vert_c+k\lceil\log\left(\hat{r}\right)\rceil\right)\cdot2^{-\left\vert \hat{S}\right\vert_c-\left\vert \hat{C}\right\vert_c-k\lceil\log\left(\hat{r}\right)\rceil}\pi_{\hat{S},Q,\hat{C}}\right)\\&\leq\left(\left\vert \hat{S}\right\vert_c+\left\vert \hat{C}\right\vert_c+k\lceil\log\left(\hat{r}\right)\rceil\right)\log(2)+\log\left(M\left(\left\vert \hat{S}\right\vert_c+\left\vert \hat{C}\right\vert_c+k\lceil\log\left(\hat{r}\right)\rceil\right)\right)+\mathrm{KL}\left(\rho,\sum_Q\pi_{\hat{S},Q,\hat{C}}\right)\end{align*}$$
+Let $\phi_{\tau}=\mathrm{N}\left(0,\tau^2\right)$. Then as the mixture term is independent across coordinates we have that
+$$\left(\sum_Q\pi_{\hat{S},Q,\hat{C}}\right)(x)=\sum_{q^1,\dots q^k=1}^r\prod_{i=1}^k\phi_{\tau}\left(x_i-\hat{c}_{q^i}\right)=\prod_{i=1}^k\sum_{q^i=1}^r\phi_{\tau}\left(x_i-\hat{c}_{q^i}\right).$$
+Furthermore, as $\rho$ is independent over the coordinates, we get that
+$$\mathrm{KL}\left(\rho,\sum_Q\pi_{\hat{S},Q,\hat{C}}k\right)=\sum_{i=1}^k\mathrm{KL}\left(\rho_i,\sum_{q^i=1}^r\mathcal{N}\left(\hat{c}_{q^i},\tau^2\right)\right),$$
+from which the result follows and completes the proof of the theorem. $\square$
+
+</details>
  
 Choosing the prior alluded to by Theorem 5.8 and utilizing Theorem 5.5 one can obtain a PAC-Bayes generalization bound that exploits notions of compressibility.
