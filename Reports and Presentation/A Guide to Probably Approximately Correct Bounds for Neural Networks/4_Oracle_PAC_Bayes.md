@@ -2,18 +2,18 @@
 
 ## 4.1 Theory of Oracle PAC-Bayes Bounds
 
-Oracle bounds are theoretical objects that are not suitable for practical applications. Their utility lies in their ability to highlight properties about the behaviour of our bounds. For example, they can take the form
+Oracle bounds are theoretical objects that are not suitable for practical applications. Their utility lies in their ability to highlight properties about the behaviour of the bounds and they can take the form
 $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R\left(\hat{\mathbf{w}}\right)\leq\inf_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w})+r_m(\delta)\right)\geq1-\delta.$$
 Where $r_m(\delta)$ is a remainder term that tends to $0$ as $m$ tends to $\infty$. Although this bound cannot be computed in practice it is illustrative of the behaviour of the bound. Just like empirical bounds, there exist oracle bounds that hold in expectation and in probability.
 
 ### 4.1.1 Oracle PAC-Bayes Bounds in Expectation
 
-**Theorem 4.1** *For $\lambda>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\theta))+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$*
+**Theorem 4.1** For $\lambda>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
 
-We adopt the introduction of notation made in Theorem 3.12 and proceed from Corollary 3.9 to deduce that
+We proceed from Corollary 3.9 to deduce that
 $$\begin{align*}\mathbb{E}_{S\sim\mathcal{D}^m}\left(R\left(\hat{\rho}_{\lambda}\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\right)\\&\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\right)\\&=\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\\&=\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)\right)\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\end{align*}$$
 where Fubini's theorem has been applied in the last inequality. Recalling that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)=R(\mathbf{w})$ completes the proof of the theorem. $\square$
 
@@ -21,30 +21,30 @@ where Fubini's theorem has been applied in the last inequality. Recalling that $
 
 ### 4.1.2 Oracle PAC-Bayes Bounds in Probability
 
-**Theorem 4.2** *For any $\lambda>0$, and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})\right)+\frac{\lambda C^2}{4m}+\frac{2\mathrm{KL}(\rho,\pi)+\log\left(\frac{2}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta$$*
+**Theorem 4.2** For any $\lambda>0$, and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{4m}+\frac{2\mathrm{KL}(\rho,\pi)+\log\left(\frac{2}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
 
 Recall the proof of Theorem 3.4 and the subsequent application to the Gibbs posterior that yielded Corollary 3.6. 
 
-$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 
 In the proof we utilized the result of Theorem 2.1. The inequality of Theorem 2.1 can be reversed by replacing the $U_i$ by $-U_i$ in its proof. Applying the reverse inequality of Theorem 2.1 in the proof of Theorem 3.4 gives the updated corollary
 $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\leq R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
 Which holds for all $\rho\in\mathcal{M}(\mathcal{W})$. Applying a union bound on Corollary 3.6 and the updated result above gives
-$$\mathbb{P}_{S\sim\mathcal{D}^m}\begin{pmatrix}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right),\\\hat{R}(\rho)\leq R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\end{pmatrix}\geq1-2\delta,$$
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\begin{pmatrix}R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right),\\\hat{R}(\rho)\leq R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\end{pmatrix}\geq1-2\delta,$$
 which holds for all $\rho\in\mathcal{M}(\mathcal{W})$. Using the upper bound on $\hat{R}(\rho)$ from the second event on the first event gives
-$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{4m}+\frac{2\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)}{\lambda}\right)\right)\geq1-2\delta.$$
+$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{4m}+\frac{2\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)}{\lambda}\right)\right)\geq1-2\delta.$$
 We can simply replace the $\delta$ with $\frac{\delta}{2}$ to complete the proof. $\square$
 
 </details>
 
 ### Bernstein's Assumption
 
-**Definition 4.3** *Let $\mathbf{w}^*$ denote a minimizer of $R$ when it exists, $$R(\mathbf{w}^*)=\min_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w}).$$ When $\mathbf{w}^*$ exists and there is a constant $K$ such that for any $\mathbf{w}\in\mathcal{W}$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\left(l(h_{\mathbf{w}}(x_i),y_i)-l(h_{\mathbf{w}^*}(x_i),y_i)\right)^2\right)\leq K\left(R(\mathbf{w})-R(\mathbf{w}^*)\right)$$ we say that Bernstein's assumption is satisfied with constant $K$.*
+**Definition 4.3** Let $\mathbf{w}^*$ denote a minimizer of $R$ when it exists, $$R(\mathbf{w}^*)=\min_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w}).$$ When $\mathbf{w}^*$ exists and there is a constant $K$ such that for any $\mathbf{w}\in\mathcal{W}$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\left(l(h_{\mathbf{w}}(x_i),y_i)-l(h_{\mathbf{w}^*}(x_i),y_i)\right)^2\right)\leq K\left(R(\mathbf{w})-R(\mathbf{w}^*)\right)$$ we say that Bernstein's assumption is satisfied with constant $K$.
 
-**Theorem 4.4** *Assume Bernstein's assumption is satisfied with some constant $K>0$. Take $\lambda=\frac{m}{\max(2K,C)}$ then we have $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)-R\left(\mathbf{w}^*\right)\leq2\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))-R\left(\mathbf{w}^*\right)+\frac{\max(2K,C)\mathrm{KL}(\rho,\pi)}{m}\right).$$*
+**Theorem 4.4** Assume Bernstein's assumption is satisfied with some constant $K>0$. Take $\lambda=\frac{m}{\max(2K,C)}$ then we have $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})-R\left(\mathbf{w}^*\right)\leq2\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)-R\left(\mathbf{w}^*\right)+\frac{\max(2K,C)\mathrm{KL}(\rho,\pi)}{m}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -102,7 +102,7 @@ which completes the proof.$\square$
 
 A lot of work to obtain non-vacuous PAC-Bayes bounds is to develop priors that reduce the size of the KL divergence between the prior and the posterior. The idea behind the work of (Dziugaite, 2020) is to hold out some of the training data to obtain data-inspired priors. For this section, we use a PAC-Bayes bound that can be thought of as the Bayesian equivalent of Theorem \ref{Theorem-Occam Bound}, however, now we are dealing with potentially uncountable hypothesis sets.
 
-**Theorem 4.5** (McAllester, 2013) *For $\lambda>\frac{1}{2}$ selected before drawing our training sample, then for all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{\rho})+\frac{\lambda C}{m}\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$*
+**Theorem 4.5** (McAllester, 2013) For $\lambda>\frac{1}{2}$ selected before drawing our training sample, then for all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{\rho})+\frac{\lambda C}{m}\left(\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -112,7 +112,7 @@ $$\mathrm{kl}_{\gamma}(q,p)=\gamma q-\log\left(1-p+pe^{\gamma}\right),$$
 for $p,q\in[0,1]$ and $\gamma\in\mathbb{R}$. One can show that
 $$\mathrm{kl}(q,p)=\sup_{\gamma}\left(\mathrm{kl}_{\gamma}(q,p)\right).$$
 
-**Lemma 1** *For $\lambda>\frac{1}{2}$, if $\mathrm{kl}_{-\frac{1}{\gamma}}(q,p)\leq c$ then $$p\leq\frac{1}{1-\frac{1}{2\lambda}}(q+\lambda c).$$*
+**Lemma 1** For $\lambda>\frac{1}{2}$, if $\mathrm{kl}_{-\frac{1}{\gamma}}(q,p)\leq c$ then $$p\leq\frac{1}{1-\frac{1}{2\lambda}}(q+\lambda c).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -125,7 +125,7 @@ which when we substitute $\lambda$ back in completes the proof of the lemma. $\s
 
 </details>
 
-**Lemma 2** *Let $x_1,\dots,x_n$ be realizations of a random variable $X$ with range $[0,1]$ and mean $\mu$. Let $\hat{\mu}=\frac{1}{n}\sum_{i=1}^nx_i$. Then for any fixed $\gamma$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}_{\gamma}(\hat{\mu},\mu)\right)\right)\leq1.$$*
+**Lemma 2** Let $x_1,\dots,x_n$ be realizations of a random variable $X$ with range $[0,1]$ and mean $\mu$. Let $\hat{\mu}=\frac{1}{n}\sum_{i=1}^nx_i$. Then for any fixed $\gamma$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}_{\gamma}(\hat{\mu},\mu)\right)\right)\leq1.$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -140,7 +140,7 @@ which completes the proof of the lemma. $\square$
 
 </details>
 
-**Lemma 3** *For probability distributions defined on the sample space $\mathcal{X}$ and a measurable function $f$ we have that $$\mathbb{E}_{x\in Q}(f(x))\leq\mathrm{KL}(Q,P)+\log\left(\mathbb{E}_{x\in P}\left(\exp(f(x))\right)\right).$$*
+**Lemma 3** For probability distributions defined on the sample space $\mathcal{X}$ and a measurable function $f$ we have that $$\mathbb{E}_{x\in Q}(f(x))\leq\mathrm{KL}(Q,P)+\log\left(\mathbb{E}_{x\in P}\left(\exp(f(x))\right)\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -150,7 +150,7 @@ $$\begin{align*}\mathbb{E}_{x\in Q}\left(f(x)\right)&=\mathbb{E}_{x\in Q}\left(\
 </details>
 
 
-We can similar reasoning to that given in the proof of Theorem 3.12 to conclude from Lemma 2 that
+We can use similar reasoning to that given in the proof of Theorem 3.12 to conclude from Lemma 2 that
 $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}_{\gamma}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\right)\leq1$$
 for fixed $\mathbf{w}\in\mathcal{W}$.
 Now we can take expectations over $\pi$ on both sides an apply Fubini's theorem to deduce that
@@ -165,7 +165,7 @@ Therefore, by re-arranging and applying Lemma 1 the proof of the theorem is comp
 
 </details>
 
-**Corollary 4.6** (Dziugaite, 2020) *Let $\beta,\delta\in(0,1)$, $\mathcal{D}$ a probability distribution over $\mathcal{Z}$, and $\pi\in\mathcal{M}(\mathcal{W})$. Then for all $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Psi_{\beta,\delta}(\rho,\pi;S)\right)\geq1-\delta,$$ where $\Psi_{\beta,\delta}(\rho,\pi;S)=\frac{1}{\beta}\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{2\beta(1-\beta)m}.$*
+**Corollary 4.6** (Dziugaite, 2020) Let $\beta,\delta\in(0,1)$, $\mathcal{D}$ a probability distribution over $\mathcal{Z}$, and $\pi\in\mathcal{M}(\mathcal{W})$. Then for all $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Psi_{\beta,\delta}(\rho,\pi;S)\right)\geq1-\delta,$$ where $\Psi_{\beta,\delta}(\rho,\pi;S)=\frac{1}{\beta}\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{2\beta(1-\beta)m}.$
 <details>
 <summary>Proof</summary>
 <br>
@@ -176,7 +176,7 @@ This is the result of the previous Theorem 4.5 with $\lambda=\frac{1}{2(1-\beta)
 
 As we have done previously, we can consider the optimization problem of minimizing the bound of Corollary 4.6.
 
-**Theorem 4.7** (Dziugaite, 2020) *Let $m\in\mathbb{N}$ and fix a probability kernel $\rho:\mathcal{Z}^m\to\mathcal{M}(\mathcal{W})$. Then for all $\beta,\delta\in(0,1)$ and distributions $\mathcal{D}$ defined on $\mathcal{Z}$ we that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\Psi_{\beta,\delta}(\rho(S),\pi;S\right)$ is minimized, in $\pi$, by the oracle prior $\pi^*=\mathbb{E}_{S\sim\mathcal{D}^m}(\rho(S))$.*
+**Theorem 4.7** (Dziugaite, 2020) Let $m\in\mathbb{N}$ and fix a probability kernel $\rho:\mathcal{Z}^m\to\mathcal{M}(\mathcal{W})$. Then for all $\beta,\delta\in(0,1)$ and distributions $\mathcal{D}$ defined on $\mathcal{Z}$ we that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\Psi_{\beta,\delta}(\rho(S),\pi;S\right)$ is minimized, in $\pi$, by the oracle prior $\pi^*=\mathbb{E}_{S\sim\mathcal{D}^m}(\rho(S))$.
  
 For a subset $J$ of $\{1,\dots,m\}$ of size $n$, we can use it to sample the training data and yield the subset $S_J$. We can then define the data-dependent oracle prior as $$\pi^*(S_J)=\inf_{\pi\in\mathcal{Z}^n\to\mathcal{M}(\mathcal{W})}\mathbb{E}(\mathrm{KL}(\rho(s),\pi(S_J))$$
 which turns out to be $\pi^*(S_J)=\mathbb{E}(\rho(S)\vert S_J)$. It can be shown that the data-dependent oracle prior minimizes the bound of Corollary 4.6 in expectation. Therefore, despite being a theoretical quantity, as it cannot be computed in practice, it motivates the construction of practical data-dependent priors as a method to tighten the bounds.
