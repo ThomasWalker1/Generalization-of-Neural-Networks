@@ -89,7 +89,7 @@ Setting $s=\log\left(\frac{1}{\delta}\right)$ and rearranging completes the proo
 Theorem 3.4 motivates the study of the data-dependent probability measure
 $$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
 
-**Definition 3.5**  The optimization problem defined by Equation \ref{Equation-Minimizer of Catoni Bound} has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\exp\left(-\lambda\hat{R}(\pi)\right)}.$$
+**Definition 3.5**  The optimization problem defined by Equation $(1)$ has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\exp\left(-\lambda\hat{R}(\pi)\right)}.$$
 This is distribution is known as the Gibbs posterior.
  
 **Corollary 3.6** For all $\lambda>0$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
