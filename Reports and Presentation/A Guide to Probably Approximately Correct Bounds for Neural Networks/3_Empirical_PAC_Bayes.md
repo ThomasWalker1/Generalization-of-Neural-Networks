@@ -33,8 +33,6 @@ The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall,
 
 **Theorem 3.4** (Alquier, 2023) *For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$*
 
-----
-
 <details>
 <summary>Proof</summary>
 <br>
@@ -86,8 +84,6 @@ $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}&\left(\sup_{\rho\in\mathcal{M}(\
 Setting $s=\log\left(\frac{1}{\delta}\right)$ and rearranging completes the proof. $\square$
 </details>
 
-----
-
 Theorem 3.4 motivates the study of the data-dependent probability measure
 $$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
 
@@ -100,7 +96,6 @@ For a learning algorithm, we noted that there are different methodologies for ho
 
 **Theorem 3.7** (Alquier, 2023) *For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta$$*
 
-----
 
 <details>
 <summary>Proof</summary>
@@ -116,13 +111,10 @@ Now in a similar to the previous proofs we apply the Chernoff, set $\delta$ and 
 
 </details>
 
-----
-
 Note that Theorem 3.4 is a bound in probability. We now state an equivalent bound that holds in expectation.
 
 **Theorem 3.8** (Alquier, 2023) *For all $\lambda>0$, and data-dependent probability measure $\tilde{\rho}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}(R(\mathbf{w}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\tilde{\rho},\pi)}{\lambda}\right).$$*
 
-----
 
 <details>
 <summary>Proof</summary>
@@ -139,32 +131,33 @@ $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\tilde{\
 and so using the linearity of expectation and rearranging completes the proof. $\square$
 
 </details>
- 
-----
 
 **Corollary 3.9** *For $\tilde{\rho}=\hat{\rho}_{\lambda}$, the following holds $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$*
  
 
 In the results that follow we will consider the $0$-$1$ loss. This is a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to\{0,1\}$ defined by $l(y,y^\prime)=\mathbf{1}(y\neq y^\prime)$.
 
-**Theorem 3.10** (McAllester, 1998) *For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$*
-
-----
+**Theorem 3.10** (McAllester, 1999) *For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$*
 
 <details>
 <summary>Proof</summary>
 <br>
 
-</details>
+Refer to (McAllester, 1999) for the proof of this theorem.
 
-----
+</details>
 
 **Theorem 3.11** (Catoni, 2007) *For $a>0$ and $p\in(0,1)$ let $$\Phi_{a}(p)=\frac{-\log\left(1-p(1-\exp(-a)\right)}{a}.$$
 Then for any $\lambda>0$, $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$*
+<details>
+<summary>Proof</summary>
+<br>
+
+Refer to (Catoni, 2007) for the proof of this theorem.
+
+</details>
  
 **Theorem 3.12** (Maurer, 2004) *For any $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ then we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathrm{kl}^{-1}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)\right)\geq1-\delta.$$*
-
-----
 
 <details>
 <summary>Proof</summary>
@@ -189,8 +182,6 @@ $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\m
 Taking the complement of this completes the proof. $\square$
 
 </details>
-
-----
  
 ## 3.2 Optimizing PAC-Bayes Bounds via SGD
 In practice, it is often the case that these bounds are not useful. Despite providing insight into how generalization relates to each of the components of the learning process they do not have much utility in providing non-vacuous bounds on the performance of neural networks on the underlying distribution. The significance of the KL divergence between the posterior and the prior can be noted in each of the bounds of Section 3.1.2. This motivated the work of (Dziugaite, 2017) who successfully minimized this term to provide non-vacuous results in practice. They considered a restricted problem that lends itself to efficient optimization. They use stochastic gradient descent to refine the prior, which is effective as SGD is known to find flat minima. This is important as around flat minima such as $\mathbf{w}^*$ we have that $\hat{R}(\mathbf{w})\approx\hat{R}(\mathbf{w}^*)$ (Alquier, 2023). The setup considered by (Dziugaite, 2017) is the same as the one we have considered throughout this report. With $\mathcal{X}\subset\mathbb{R}^k$ and labels being $\pm 1$. That is, we are considering binary classification based on a set of features. We explicitly state our hypothesis set as
