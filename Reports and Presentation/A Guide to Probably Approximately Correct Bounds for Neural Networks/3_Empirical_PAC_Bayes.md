@@ -4,44 +4,46 @@
 
 ### 3.1.1 Bayesian Machine Learning
 
-Here we will outline an introduction to Bayesian learning given by (Guedj, 2019). This will provide some context to the framework under which PAC-Bayes bounds are derived. As before we suppose that our training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of samples from the distribution $\mathcal{D}$ defined on $\mathcal{Z}$. Bayesian machine learning is used to find a parameter $\hat{\mathbf{w}}$ that corresponds to a hypothesis $h_{\hat{\mathbf{w}}}$ with the property that $h_{\hat{\mathbf{w}}}(x)\approx y$. To do this a learning algorithm is employed, which is simply a map from the data space to the parameter space, $\mathcal{W}$. In this framework, our loss function takes the form $l:\mathcal{X}\times\mathcal{Y}\to\mathbb{R}_+$.
-The learning algorithm requires some prior distribution, $\pi$, to be defined on $\mathcal{W}$. Then using the training data the posterior distribution, $\rho$, is formed from the prior distribution. From the posterior distribution, there are many methodologies to then determine the parameter $\hat{\mathbf{w}}$. For example, one could take $\hat{\mathbf{w}}$ to be the mean, median or a random realisation of $\rho$.
+Here we will outline an introduction to Bayesian learning given by (Guedj, 2019). This will provide some context to the framework under which PAC-Bayes bounds are derived. As before we suppose that our training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of samples from the distribution $\mathcal{D}$ defined on $\mathcal{Z}$. Bayesian machine learning is used to find a parameter $\hat{\mathbf{w}}$ that corresponds to a hypothesis $h_{\hat{\mathbf{w}}}$ with the property that $h_{\hat{\mathbf{w}}}(x)\approx y$. To do this a learning algorithm is employed, which is simply a map from the data space to the parameter space, $\mathcal{W}$. The learning algorithm requires some prior distribution, $\pi$, to be defined on $\mathcal{W}$. Then using the training data the posterior distribution, $\rho$, is formed from the prior distribution. From the posterior distribution, there are many methodologies to then determine the parameter $\hat{\mathbf{w}}$. For example, one could take $\hat{\mathbf{w}}$ to be the mean, median or a random realisation of $\rho$.
 
 ### 3.1.2 Introducing PAC-Bayes Bounds
 
 Bayesian machine learning is a way to manage randomness and uncertainty in the learning task. PAC-Bayes are PAC bounds that operate under this framework.
 
-**Definition 3.1** *Let $\mathcal{M}(\mathcal{W})$ be a set of probability distributions defined over $\mathcal{W}$. A data-dependent probability measure is a function $$\hat{\rho}:\bigcup_{n=1}^{\infty}(\mathcal{X}\times\mathcal{Y})^n\to\mathcal{M}(\mathcal{W}).$$*
+**Definition 3.1** Let $\mathcal{M}(\mathcal{W})$ be a set of probability distributions defined over $\mathcal{W}$. A data-dependent probability measure is a function $$\hat{\rho}:\bigcup_{n=1}^{\infty}(\mathcal{X}\times\mathcal{Y})^n\to\mathcal{M}(\mathcal{W}).$$
  
 For ease of notation we will simple write $\hat{\rho}$ to mean $\hat{\rho}((X_1,Y_1),\dots,(X_n,Y_n))$. The Kullback-Liebler (KL) divergence is a measure of similarity between probability measures defined on the same measurable space.
-**Definition 3.2** *Given two probability measures $Q$ and $P$ defined on some sample space $\mathcal{X}$, the KL divergence between $Q$ and $P$ is $$\mathrm{KL}(Q,P)=\int\log\left(\frac{dQ(x)}{dP(x)}\right)Q(dx)$$
-when $Q$ is absolutely continuous with respect to $P$. Otherwise, $\mathrm{KL}(Q,P)=\infty$.*
+
+**Definition 3.2** Given two probability measures $Q$ and $P$ defined on some sample space $\mathcal{X}$, the KL divergence between $Q$ and $P$ is $$\mathrm{KL}(Q,P)=\int\log\left(\frac{dQ(x)}{dP(x)}\right)Q(dx)$$
+when $Q$ is absolutely continuous with respect to $P$. Otherwise, $\mathrm{KL}(Q,P)=\infty$.
  
-**Remark 3.3** *When $Q, P$ are probability measures on Euclidean space $\mathbb{R}^d$ with densities $q,p$ respectively. The KL divergence is $$\mathrm{KL}(Q, P):=\int\log\left(\frac{q(x)}{p(x)}\right)q(x)dx.$$
-Note that KL divergence can take values in the range $[0,\infty]$. Also, note the asymmetry in the definition.*
+**Remark 3.3** When $Q, P$ are probability measures on Euclidean space $\mathbb{R}^d$ with densities $q,p$ respectively. The KL divergence is $$\mathrm{KL}(Q, P):=\int\log\left(\frac{q(x)}{p(x)}\right)q(x)dx.$$
+Note that KL divergence can take values in the range $[0,\infty]$. Also, note the asymmetry in the definition.
  
 For the multivariate normal distributions $N_{q}\sim\mathcal{N}(\mu_{q},\Sigma_{q})$ and $N_{p}\sim\mathcal{N}(\mu_{p},\Sigma_{p})$ defined on $\mathbb{R}^d$ we have that,
 $$\mathrm{KL}(N_q, N_p)=\frac{1}{2}\left(\mathrm{tr}\left(\Sigma_p^{-1}\Sigma_q\right)-d+(\mu_p-\mu_q)^\top\Sigma_p^{-1}(\mu_p-\mu_q)+\log\left(\frac{\det\Sigma_p}{\det\Sigma_q}\right)\right).$$
 Similarly, for Bernoulli distributions $\mathcal{B}(q)\sim\mathrm{Bern}(q)$ and $\mathcal{B}(p)\sim\mathrm{Bern}(p)$ it follows that
 $$\mathrm{kl}(q, p):=\mathrm{KL}(\mathcal{B}(q),\mathcal{B}(p))=q\log\left(\frac{q}{p}\right)+(1-q)\log\left(\frac{1-q}{1-p}\right),$$
-For $p^*\in[0,1]$ bounds of the form $\mathrm{KL}(q, p^*)\leq c$ for some $q\in[0,1]$ and $c\geq0$ are of interest. Hence, we introduce the notation
+For $p^*\in[0,1]$ bounds of the form $\mathrm{kl}(q, p^*)\leq c$ for some $q\in[0,1]$ and $c\geq0$ are of interest. Hence, we introduce the notation
 $$\mathrm{kl}^{-1}(q, c):=\sup\{p\in[0,1]:\mathrm{kl}(q, p)\leq c\}.$$
 
 ### 3.1.3 PAC-Bayes Bounds
 
-The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
+For a distribution $Q$ defined on $\mathcal{W}$ we will use the notation
+$$\mathbb{E}_{\mathbf{w}\sim Q}(R(\mathbf{w}))=R(Q)\text{ and }\mathbb{E}_{\mathbf{w}\sim Q}\left(\hat{R}(\mathbf{w})\right)=\hat{R}(Q)$$
+for convenience. The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
 
-**Theorem 3.4** (Alquier, 2023) *For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$*
+**Theorem 3.4** (Alquier, 2023) For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
 
 <details>
 <summary>Proof</summary>
 <br>
 
-We first recall Jensen's Inequality. Which says that for a convex function $f(x)$ and a random variable $X$ defined on sample space $\mathcal{X}, if $\mathbb{E}(f(X))$ and $f(\mathbb{E}(X))$ are finite then
+We first recall Jensen's Inequality. Which says that for a convex function $f(x)$ and a random variable $X$ defined on sample space $\mathcal{X}$, if $\mathbb{E}(f(X))$ and $f(\mathbb{E}(X))$ are finite then
 $$\mathbb{E}(f(X))\geq f(\mathbb{E}(X)).$$
 Where equality only holds if and only if $f$ is a linear function on some convex set $A$ such that $\mathbb{P}(X\in A)=1$. If $f$ doesn't have this property then equality holds if and only if the random variable is constant.
 
-**Proposition 1** *For any probability measures $Q$ and $P$ it follows that $\mathrm{KL}(Q,P)\geq0$ with equality if and only if $Q$ and $P$ are the same probability distribution.*
+**Proposition 1** For any probability measures $Q$ and $P$ it follows that $\mathrm{KL}(Q,P)\geq0$ with equality if and only if $Q$ and $P$ are the same probability distribution.
 <details>
 <summary>Proof</summary>
 <br>
@@ -54,17 +56,17 @@ Therefore, equality must hold for Jensen's inequality which implies that $\frac{
  
 </details>
 
-**Lemma 2** *For any measurable, bounded function $f:\mathcal{W}\to\mathbb{R}$* we have, $$\log\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)\right)=\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(f(\mathbf{w})\right)-\mathrm{KL}(\rho,\pi)\right).$$ Moreover, the supremum with respect to $\rho$ is achieved for the Gibbs measure $\pi_f$ defined by its density with respect to $\pi$
-$$\frac{d\pi_f(\mathbf{w})}{d\pi(\mathbf{w})}=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)}.$$ 
+**Lemma 2** For any measurable, bounded function $f:\mathcal{W}\to\mathbb{R}$ we have, $$\log\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)\right)=\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(f(\mathbf{w})\right)-\mathrm{KL}(\rho,\pi)\right).$$ Moreover, the supremum with respect to $\rho$ is achieved for the Gibbs measure $\pi_f$ defined by its density with respect to $\pi$
+$$\frac{d\pi_f(\mathbf{w})}{d\pi_f(\mathbf{w})}=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}.$$ 
 
 <details>
 <summary>Proof</summary>
 <br>
 
 From the definition of $\pi_f(\mathbf{w})$ we have that
-$$\pi_f(\mathbf{w})=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)}\pi(\mathbf{w}).$$
+$$\pi_f(\mathbf{w})=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}\pi_f(\mathbf{w}).$$
 Therefore, 
-$$\begin{align*}\mathrm{KL}\left(\rho,\pi_f\right)&=\int_{\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathcal{W}}\log(\rho(\mathbf{w}))\rho(\mathbf{w})d\mathbf{w}-\int_{\mathcal{W}}\log\left(\frac{e^{h(\mathbf{w})}\pi(\mathbf{w})}{\mathbb{E}_{\pi}\left(e^{f(\mathbf{w})}\right)}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}-\int_{\mathcal{W}}h(\mathbf{w})\rho(\mathbf{w})d\mathbf{w}+\log\left(\mathbb{E}_{\pi}\left(e^{f(\mathbf{w})}\right)\right)\\&=\mathrm{KL}(\rho,\pi)-\mathbb{E}_{\rho}(f(\mathbf{w}))+\log\left(\mathbb{E}_{\pi}\left(e^{f(\mathbf{w})}\right)\right).\end{align*}$$
+$$\begin{align*}\mathrm{KL}\left(\rho,\pi_f\right)&=\int_{\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathcal{W}}\log(\rho(\mathbf{w}))\rho(\mathbf{w})d\mathbf{w}-\int_{\mathcal{W}}\log\left(\frac{e^{h(\mathbf{w})}\pi_f(\mathbf{w})}{\mathbb{E}_{\pi_f}\left(e^{f(\mathbf{w})}\right)}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}-\int_{\mathcal{W}}h(\mathbf{w})\rho(\mathbf{w})d\mathbf{w}+\log\left(\mathbb{E}_{\pi_f}\left(e^{f(\mathbf{w})}\right)\right)\\&=\mathrm{KL}(\rho,\pi_f)-\mathbb{E}_{\rho}(f(\mathbf{w}))+\log\left(\mathbb{E}_{\pi_f}\left(e^{f(\mathbf{w})}\right)\right).\end{align*}$$
 By Proposition 1 the left hand side is non-negative and equal to $0$ only when $\rho=\pi_f$, which completes the proof. $\square$
 
 </details>
@@ -76,25 +78,25 @@ $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat
 Integrating this with respect to $\pi$ gives
 $$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$
 To which we can apply Fubini's theorem to interchange the order of integration
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right),$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\exp\left(\lambda\left(R(\pi)-\hat{R}(\pi)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right),$$
 to which we apply Lemma 2 to get
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
 Now fix $s>0$ and apply Chernoff bound to get that
-$$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}&\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}>s\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)\right)\right)e^{-s}\\&\leq e^{-s}.\end{align*}$$
+$$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}&\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}>s\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)\right)\right)e^{-s}\\&\leq e^{-s}.\end{align*}$$
 Setting $s=\log\left(\frac{1}{\delta}\right)$ and rearranging completes the proof. $\square$
 </details>
 
 Theorem 3.4 motivates the study of the data-dependent probability measure
-$$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
+$$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
 
-**Definition 3.5**  *The optimization problem defined by Equation \ref{Equation-Minimizer of Catoni Bound} has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\right)}.$$
-This is distribution is known as the Gibbs posterior.*
+**Definition 3.5**  The optimization problem defined by Equation \ref{Equation-Minimizer of Catoni Bound} has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\exp\left(-\lambda\hat{R}(\pi)\right)}.$$
+This is distribution is known as the Gibbs posterior.
  
-**Corollary 3.6** *For all $\lambda>0$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\phi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$*
+**Corollary 3.6** For all $\lambda>0$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}\left(R(\mathbf{w})\right)\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 
 For a learning algorithm, we noted that there are different methodologies for how the learned classifier is sampled from the posterior. In the case where consider a single random realisation of the posterior distribution, we have the following result.
 
-**Theorem 3.7** (Alquier, 2023) *For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta$$*
+**Theorem 3.7** (Alquier, 2023) For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta$$
 
 
 <details>
@@ -113,7 +115,7 @@ Now in a similar to the previous proofs we apply the Chernoff, set $\delta$ and 
 
 Note that Theorem 3.4 is a bound in probability. We now state an equivalent bound that holds in expectation.
 
-**Theorem 3.8** (Alquier, 2023) *For all $\lambda>0$, and data-dependent probability measure $\tilde{\rho}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}(R(\mathbf{w}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\tilde{\rho},\pi)}{\lambda}\right).$$*
+**Theorem 3.8** (Alquier, 2023) For all $\lambda>0$, and data-dependent probability measure $\tilde{\rho}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}(R(\tilde{\rho}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\tilde{\rho})+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\tilde{\rho},\pi)}{\lambda}\right).$$
 
 
 <details>
@@ -121,23 +123,23 @@ Note that Theorem 3.4 is a bound in probability. We now state an equivalent boun
 <br>
 
 Once again we proceed in the same way as Theorem 3.4 to the point where we deduce that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
 Now we apply Jensen's inequality to get that
-$$\exp\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1,$$
+$$\exp\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1,$$
 which implies that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\rho}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0.$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0.$$
 In particular this holds for our data-dependent probability measure $\tilde{\rho}$. Therefore,
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\lambda\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)-\mathrm{KL}(\tilde{\rho},\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0,$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\lambda\left(R(\tilde{\rho})-\hat{R}(\tilde{\rho})\right)-\mathrm{KL}(\tilde{\rho},\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0,$$
 and so using the linearity of expectation and rearranging completes the proof. $\square$
 
 </details>
 
-**Corollary 3.9** *For $\tilde{\rho}=\hat{\rho}_{\lambda}$, the following holds $$\mathbb{E}_{S\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}\sim\hat{\rho}_{\lambda}}(R(\mathbf{w}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$*
+**Corollary 3.9** For $\tilde{\rho}=\hat{\rho}_{\lambda}$, the following holds $$\mathbb{E}_{S\sim\mathcal{D}^m}(R(\tilde{\rho}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
  
 
 In the results that follow we will consider the $0$-$1$ loss. This is a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to\{0,1\}$ defined by $l(y,y^\prime)=\mathbf{1}(y\neq y^\prime)$.
 
-**Theorem 3.10** (McAllester, 1999) *For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$*
+**Theorem 3.10** (McAllester, 1999) For all $\rho\in\mathcal{M}(\mathcal{W})$ and $\delta>0$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\hat{R}(\rho)+\sqrt{\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)+\frac{5}{2}\log(m)+8}{2m-1}}\right)\geq1-\delta.$$
 
 <details>
 <summary>Proof</summary>
@@ -147,8 +149,8 @@ Refer to (McAllester, 1999) for the proof of this theorem.
 
 </details>
 
-**Theorem 3.11** (Catoni, 2007) *For $a>0$ and $p\in(0,1)$ let $$\Phi_{a}(p)=\frac{-\log\left(1-p(1-\exp(-a)\right)}{a}.$$
-Then for any $\lambda>0$, $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$*
+**Theorem 3.11** (Catoni, 2007) For $a>0$ and $p\in(0,1)$ let $$\Phi_{a}(p)=\frac{-\log\left(1-p(1-\exp(-a))\right)}{a}.$$
+Then for any $\lambda>0$, $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -157,7 +159,7 @@ Refer to (Catoni, 2007) for the proof of this theorem.
 
 </details>
  
-**Theorem 3.12** (Maurer, 2004) *For any $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ then we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))\leq\mathrm{kl}^{-1}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)\right)\geq1-\delta.$$*
+**Theorem 3.12** (Maurer, 2004) For any $\delta>0$ and $\rho\in\mathcal{M}(\mathcal{W})$ then we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\mathrm{kl}^{-1}\left(\hat{R}(\rho),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)\right)\geq1-\delta.$$
 
 <details>
 <summary>Proof</summary>
@@ -165,16 +167,14 @@ Refer to (Catoni, 2007) for the proof of this theorem.
 
 For $X_1,\dots,X_n$ $\mathrm{i.i.d}$ random variables in $[0,1]$ and with $\mathbb{E}(X_i)=\mu$ let $\mathbf{X}=(X_1,\dots,X_n)$ and $$M(\mathbf{X})=\frac{1}{n}\sum_{i=1}^nX_i.$$ For any random variable $X$ in $[0,1]$ let $X^\prime$ denote the Bernoulli random variables with parameter $\mathbb{E}(X)$. Similarly, let $\mathbf{X}^\prime=(X_1^\prime,\dots,X_n^\prime)$. 
 
-**Theorem 1** *For $n\geq2$ with the notation as above we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq\exp\left(\frac{1}{12n}\right)\sqrt{\frac{\pi n}{2}}+2.$$*
+**Theorem 1** For $n\geq2$ with the notation as above we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq\exp\left(\frac{1}{12n}\right)\sqrt{\frac{\pi n}{2}}+2.$$
 
-**Corollary 2** *For $n\geq2$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq2\sqrt{n}.$$*
+**Corollary 2** For $n\geq2$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq2\sqrt{n}.$$
 
 Recall, that
 $$\hat{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^ml(h_{\mathbf{w}}(x_i),y_i)$$
 and $R({\mathbf{w}})=\mathbb{E}_{(x,y)\sim\mathcal{D}}\left(l(h(x),y)\right)$. As we are considering a loss function bounded to the interval $[0,1]$ we can consider each of the $l(h_{\mathbf{w}}(x_i),y_i)$ as $\mathrm{i.i.d}$ random variables with mean $R(\mathbf{w})$. Therefore, for any $\mathbf{w}\in\mathcal{W}$ we can apply Corollary 2 to deduce that
 $$\mathbb{E}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\leq2\sqrt{m}.$$
-For the following we introduce some notation for clarity,
-$$\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w}))=R(\rho),\text{ and }\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)=\hat{R}(\rho).$$
 Now applying Jensen's Inequality to the convexity of $\mathrm{kl}$ divergence and the exponential function we have that
 $$\begin{align*}\mathbb{E}-{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\rho),R(\rho)\right)-\mathrm{kl}\left(\rho,\pi\right)\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&=\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\left(\frac{d\rho}{d\pi}\right)^{-1}\frac{d\rho}{d\pi}\right)\right)\\&\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\right)\right)\\&\leq2\sqrt{n}.\end{align*}$$
 Applying Markov's Inequality we conclude that
@@ -191,13 +191,11 @@ For optimization purposes we use the convex surrogate loss function $\tilde{l}:\
 $$\tilde{l}(y,\hat{y})=\frac{\log\left(1+\exp\left(-\hat{y}y\right)\right)}{\log(2)}.$$ 
 For the empirical risk under the convex surrogate loss we write
 $$\tilde{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^m\tilde{l}(h_{\mathbf{w}}(x_i),y_i).$$
-Recall, that this definition implicitly depends on the training sample $S_m$. We now introduce some new notations to simplify the upcoming bounds. For a randomized classifier $\rho$ on $\mathcal{W}$ we define the expected risk and the expected empirical risk as
-$$R(\rho)=\mathbb{E}_{\mathbf{w}\sim\rho}(R(\mathbf{w})),\text{ and }\hat{R}(\rho)=\mathbb{E}_{\mathbf{w}\sim\rho}\left(\hat{R}(\mathbf{w})\right)$$
-respectively. We will use these definitions throughout the remaining sections of this report as well. As noted previously the work (Dziugaite, 2017) looks to minimize the KL divergence between the prior and the posterior to achieve non-vacuous bounds. To do this they work under a restricted setting and construct a process to find the posterior $\rho$ that minimizes the divergence. To being (Dziugaite, 2017) utilize the following bound.
+Recall, that this definition implicitly depends on the training sample $S_m$. We will use these definitions throughout the remaining sections of this report as well. As noted previously the work (Dziugaite, 2017) looks to minimize the KL divergence between the prior and the posterior to achieve non-vacuous bounds. To do this they work under a restricted setting and construct a process to find the posterior $\rho$ that minimizes the divergence. To being (Dziugaite, 2017) utilize the following bound.
 
-**Theorem 3.13** (Dziugaite, 2017) *For every $\delta>0$,$m\in\mathbb{N}$, distribution $\mathcal{D}$ on $\mathbb{R}^k\times\{\pm 1\}$, distribution $\pi$ on $\mathcal{W}$ and distribution $\rho\in\mathcal{M}(\mathcal{W})$, we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\rho), R(\rho)\right)\leq\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{m}{\delta}\right)}{m-1}\right)\geq1-\delta.$$*
+**Theorem 3.13** (Dziugaite, 2017) For every $\delta>0$,$m\in\mathbb{N}$, distribution $\mathcal{D}$ on $\mathbb{R}^k\times\{\pm 1\}$, distribution $\pi$ on $\mathcal{W}$ and distribution $\rho\in\mathcal{M}(\mathcal{W})$, we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\rho), R(\rho)\right)\leq\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{m}{\delta}\right)}{m-1}\right)\geq1-\delta.$$
  
-**Remark 3.14**  *Note how this is a slightly weaker statement than Theorem 3.12. This is because (Dziugaite, 2017) cited this Theorem from (Seeger, 2001), however, since then (Maurer, 2004) was able to tighten the result by providing Theorem 3.12. In the following we will update the work of (Dziugaite, 2020) and use the tightened result provided by 3.12.*
+**Remark 3.14**  Note how this is a slightly weaker statement than Theorem 3.12. This is because (Dziugaite, 2017) cited this Theorem from (Seeger, 2001), however, since then (Maurer, 2004) was able to tighten the result by providing Theorem 3.12. In the following we will update the work of (Dziugaite, 2020) and use the tightened result provided by 3.12.
  
 This motivates the following PAC-Bayes learning algorithm.
 1. Fix a $\delta>0$ and a distribution $\pi$ on $\mathcal{W}$,
@@ -212,7 +210,7 @@ Utilizing the bound $\mathrm{kl}^{-1}(q,c)\leq q+\sqrt{\frac{c}{2}}$ in Equation
 $$\begin{equation}\min_{\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}^d_+}\tilde{R}\left(\mathcal{N}_{\mathbf{w},\mathbf{s}}\right)+\sqrt{\frac{\mathrm{KL}(\mathcal{N}_{\mathbf{w},\mathbf{s}},\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{2m}}.\end{equation}$$
 We now suppose our prior $\pi$ is of the form $\mathcal{N}(\mathbf{w}_0,\lambda I)$. As we will see the choice of $\mathbf{w}_0$ is not too impactful, as long as it is not $\mathbf{0}$. However, to efficiently choose a judicious value for $\lambda$ we discretize the problem, with the side-effect of expanding the eventual generalization bound. We let $\lambda$ have the for $c\exp\left(-\frac{j}{b}\right)$ for $j\in\mathbb{N}$, so that $c$ is an upper bound and $b$ controls precision. By ensuring that Theorem 3.12 holds with probability $1-\frac{6\delta}{\pi^2j^2}$ for each $j\in\mathbb{N}$ then we can apply a union bound argument to ensure that we get results that hold for probability $1-\delta$. A union bound argument refers to applying Theorem 3.15. 
 
-**Theorem 3.15** (Dziugaite, 2017) *Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$*
+**Theorem 3.15** (Dziugaite, 2017) Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$
 <details>
 <summary>Proof</summary>
 <br>

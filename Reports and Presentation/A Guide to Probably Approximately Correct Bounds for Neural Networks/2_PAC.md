@@ -3,7 +3,7 @@
 ## 2.1 Introducing PAC Bounds
 
 ###  2.1.1 Notation
-We will first introduce some basic notation that is for the most part consistent with (Alquier, 2023) and will remain constant throughout the report. Along the way, we will need to introduce some more specialized notation for the different sections. The problems we will encounter will mainly be supervised classification tasks. Informally this means, we have a feature space $\mathcal{X}$ and a label space $\mathcal{Y}$ which combine to form the data space $\mathcal{Z}=\mathcal{X}\times\mathcal{Y}$ for which some unknown $\mathcal{D}$ is defined on. The challenge now is to learn a classifier $h:\mathcal{X}\to\mathcal{Y}$ that correctly labels samples from $\mathcal{X}$ according to $\mathcal{D}$. Formally, $\mathcal{X}$ and $\mathcal{Y}$ come associated with $\sigma$-algebras $\mathcal{S}_x$ and $\mathcal{S}_y$ respectively. Then $\mathcal{D}$ is a probability distribution defined on the space $(\mathcal{X}\times\mathcal{Y},\mathcal{S}_x\otimes\mathcal{S}_y)$. The training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of $m$ $\mathrm{i.i.d}$ samples from $\mathcal{D}$. As we are considering neural networks, a classifier will be parameterised by a weight vector $\mathbf{w}$ which we will denote $h_{\mathbf{w}}$. Let $\mathcal{W}$ denote the set of possible weights for a classifier and the set of all possible classifiers $\mathcal{H}$ will sometimes be referred to as the hypothesis set. To assess the quality of a classifier we define a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to[0,\infty)$ called the loss function and we will assume that $0\leq l\leq C$. As our training data is just a sample from the underlying (unknown) distribution $\mathcal{D}$ there is the possibility that our classifier performs well on the training data, but performs poorly on the true distribution. Let the risk of our classifier be defined as
+We will first introduce some basic notation that is for the most part consistent with (Alquier, 2023) and will remain constant throughout the report. Along the way, we will need to introduce some more specialized notation for the different sections. The problems we will concern ourselves most with will be supervised classification tasks. This means, we have a feature space $\mathcal{X}$ and a label space $\mathcal{Y}$ which combine to form the data space $\mathcal{Z}=\mathcal{X}\times\mathcal{Y}$ for which some unknown $\mathcal{D}$ is defined on. The challenge now is to learn a classifier $h:\mathcal{X}\to\mathcal{Y}$ that correctly labels samples from $\mathcal{X}$ according to $\mathcal{D}$. The training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of $m$ $\mathrm{i.i.d}$ samples from $\mathcal{D}$. As we are considering neural networks, a classifier will be parameterised by a weight vector $\mathbf{w}$ which we will denote $h_{\mathbf{w}}$. Let $\mathcal{W}$ denote the set of possible weights for a classifier and the set of all possible classifiers $\mathcal{H}$ will sometimes be referred to as the hypothesis set. We will often denote the set of probability distributions over $\mathcal{W}$ as $\mathcal{M}(\mathcal{W})$. To assess the quality of a classifier we define a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to[0,\infty)$ called the loss function and we will assume that $0\leq l\leq C$. As our training data is just a sample from the underlying (unknown) distribution $\mathcal{D}$ there is the possibility that our classifier performs well on the training data, but performs poorly on the true distribution. Let the risk of our classifier be defined as
 $$R(h_{\mathbf{w}})=\mathbb{E}_{(x,y)\sim\mathcal{D}}\left(l(h(x),y)\right).$$
 As our classifier is parameterised $\mathbf{w}$ we will instead just write $R(\mathbf{w})$ for the risk of our classifier. Similarly, we define the empirical risk of our classifier to be
 $$\hat{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^ml(h_{\mathbf{w}}(x_i),y_i).$$
@@ -11,12 +11,12 @@ Note that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)=R(\ma
 ###  2.1.2 PAC Bounds
 Probably Approximately Correct bounds refer to a general class of bounds on the performance of a learned classifier. They aim to determine with high probability what the performance of a classifier will be like on the distribution $\mathcal{D}$ when trained on some training data taken from this distribution.
 
- **Theorem 2.1** (Alquier, 2023) *Let $\vert\mathcal{W}\vert=M<\infty$, $\delta\in(0,1)$, and $\mathbf{w}\in\mathcal{W}$ then it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+C\sqrt{\frac{\log\left(\frac{M}{\epsilon}\right)}{2n}}\right)\geq 1-\delta.$$*
+ **Theorem 2.1** (Alquier, 2023) Let $\vert\mathcal{W}\vert=M<\infty$, $\delta\in(0,1)$, and $\mathbf{w}\in\mathcal{W}$ then it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+C\sqrt{\frac{\log\left(\frac{M}{\epsilon}\right)}{2n}}\right)\geq 1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
 
-**Lemma 1** (Scott, 2014) *Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right)$$*
+**Lemma 1** (Scott, 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -44,7 +44,7 @@ which completes the proof. $\square$
 
 </details>
 
-Recall that we have our random sample $S=\{(x_i,y_i)\}_{i=1}^m\sim\mathcal{D}^m$. If we fix $\mathbf{w}\in\mathcal{W}$ we can let $l_i=l(h_{\mathbf{w}}(x_i),y_i)$. We can apply Lemma 1 with $U_i=\mathbb{E}(l_i(\mathbf{w})-l_i(\mathbf{w}))$ to get that
+Recall that we have our random sample $S=\{(x_i,y_i)\}_{i=1}^m\sim\mathcal{D}^m$. If we fix $\mathbf{w}\in\mathcal{W}$ we can let $l_i(\mathbf{w})=l(h_{\mathbf{w}}(x_i),y_i)$. This is a random variable due to the randomness of $S$ and so we can apply Lemma 1 to $U_i=\mathbb{E}(l_i(\mathbf{w}))-l_i(\mathbf{w})$ to get that
 $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(tm\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{mt^2C^2}{8}\right).$$
 Therefore, for any $s>0$ we can apply Markov's Inequality to get that
 $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})-\hat{R}(\mathbf{w})>s\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(mt\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)>\exp(mts)\right)\\&\leq\frac{\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(mt\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)}{\exp(mts)}\\&\leq\exp\left(\frac{mt^2C^2}{8}-mts\right).\end{align*}$$
@@ -155,18 +155,16 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 **return** $\hat{\mathbf{w}}$
 
 
-**Lemma** *For any number of samples $m$, there is an efficient algorithm to generate a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right).$$*
+**Theorem 2.8** *For any number of samples $m$, Algorithm 1 generates a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right).$$*
 <details>
 <summary>Proof</summary>
 <br>
 
-**Lemma** \label{Lemma-Continuous Vector Compression} *Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $\mathbf{u}$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
+**Lemma 1** *Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $\mathbf{u}$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
 
 In the discrete case, a similar result holds.
 
-**Lemma** \label{Lemma-Discrete Vector Compression} *Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let,
-$$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{h}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$
-Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma.$*
+**Lemma 2** Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let, $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{h}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$ Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma.$
 
 </details>
 
@@ -182,11 +180,16 @@ Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
 **return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_i\mathbf{v}_i$
 
 **Remark** *The vectors $\mathbf{v}_i$ of Algorithm 2 form the helper string.*
-  
-**Lemma** *For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.*
- 
 
-**Lemma** *For any number of sample $m$, there is an efficient algorithm with a helper string to generate a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\sqrt{\frac{1}{\gamma^2m}}\right).$$*
+**Theorem 2.11** For any number of sample $m$, Algorithm 2 with the helper string to generates a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\sqrt{\frac{1}{\gamma^2m}}\right).$$
+
+<details>
+<summary>Proof</summary>
+<br>
+
+**Lemma 1** For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.
+
+</details>
  
 
 ### 2.3.3 Compression of a Fully Connected Network
@@ -230,20 +233,17 @@ Furthermore, $\frac{1}{\mu_{i,j}^2}$ is the noise sensitivity of $J_x^{i,j}$ wit
 <summary>Proof</summary>
 <br>
 
-**Lemma** \label{Lemma-Error Bound on Set} *For any $0<\delta$ and $\epsilon\leq 1$ let $G=\left\{\left(U^i,x^i\right)\right\}_{i=1}^m$ be a set of matrix-vector pairs of size $m$ where $U\in\mathbb{R}^{k\times n_1}$ and $x\in\mathbb{R}^{n_2}$, let $\hat{A}\in\mathbb{R}^{n_1\times n_2}$ be the output of Algorithm 3 $\left(A,\epsilon,\eta=\frac{\delta}{mk}\right)$. With probability at least $1-\delta$ we have for any $(U,x)\in G$ that $\left\Vert U(\hat{A}-A)x\right\Vert\leq\epsilon \Vert A\Vert_F\Vert U\Vert_F\Vert x\Vert$.*
+**Lemma 1** For any $0<\delta$ and $\epsilon\leq 1$ let $G=\left\{\left(U^i,x^i\right)\right\}_{i=1}^m$ be a set of matrix-vector pairs of size $m$ where $U\in\mathbb{R}^{k\times n_1}$ and $x\in\mathbb{R}^{n_2}$, let $\hat{A}\in\mathbb{R}^{n_1\times n_2}$ be the output of Algorithm 3 $\left(A,\epsilon,\eta=\frac{\delta}{mk}\right)$. With probability at least $1-\delta$ we have for any $(U,x)\in G$ that $\left\Vert U(\hat{A}-A)x\right\Vert\leq\epsilon \Vert A\Vert_F\Vert U\Vert_F\Vert x\Vert$.
 
 Use Lemma \ref{Lemma-Error Bound on Set} to prove the following.
 
-**Lemma** \label{Lemma-Probabilistic Bound with Parameter Count} *For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any $0<\epsilon\leq 1$, Algorithm 3 can generate weights $\tilde{\mathbf{w}}$ for a network with $$\frac{72c^2d^2\log\left(\frac{mdn}{\delta}\right)}{\epsilon^2}\cdot\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}$$ total parameters such that with probability $1-\frac{\delta}{2}$ over the generated weights $\tilde{w}$, for any $x\in\mathcal{X}$ $$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{w}}(x)\right\Vert\leq\epsilon\Vert h_{\mathbf{w}}(x)\Vert,$$ where $\mu_i,\mu_{i\to},c$ and $\rho_{\delta}$ are the layer cushion, inter-layer cushion, activation contraction and inter-layer smoother for the network.*
- 
+**Lemma 2** For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any $0<\epsilon\leq 1$, Algorithm 3 can generate weights $\tilde{\mathbf{w}}$ for a network with $$\frac{72c^2d^2\log\left(\frac{mdn}{\delta}\right)}{\epsilon^2}\cdot\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}$$ total parameters such that with probability $1-\frac{\delta}{2}$ over the generated weights $\tilde{w}$, for any $x\in\mathcal{X}$ $$\left\Vert h_{\mathbf{w}}(x)-h_{\tilde{w}}(x)\right\Vert\leq\epsilon\Vert h_{\mathbf{w}}(x)\Vert,$$ where $\mu_i,\mu_{i\to},c$ and $\rho_{\delta}$ are the layer cushion, inter-layer cushion, activation contraction and inter-layer smoother for the network.
 
 Subsequently, the following result holds.
 
-**Lemma** \label{Lemma-Compression FC Parameter Bound} *For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any margin $\gamma>0$, $h_{\mathbf{w}}$ can be compressed (with respect to a random string) to another fully connected network $h_{\mathbf{w}}$ such that for $x\in\mathcal{X}$, $\hat{L}_0(h_{\hat{\mathbf{w}}})\leq\hat{L}_{\gamma}(h_\mathbf{w})$ and the number of parameters in $h_{\tilde{\mathbf{w}}}$ is at most $$\tilde{O}\left(\frac{c^2d^2\max_{x\in\mathcal{X}}\Vert h_{\mathbf{w}}(x)\Vert_2^2}{\gamma^2}\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}\right).$$*
+**Lemma 3** For any fully connected network $h_{\mathbf{w}}$ with $\rho_{\delta}\geq 3d$, any probability $0<\delta\leq 1$ and any margin $\gamma>0$, $h_{\mathbf{w}}$ can be compressed (with respect to a random string) to another fully connected network $h_{\mathbf{w}}$ such that for $x\in\mathcal{X}$, $\hat{L}_0(h_{\hat{\mathbf{w}}})\leq\hat{L}_{\gamma}(h_\mathbf{w})$ and the number of parameters in $h_{\tilde{\mathbf{w}}}$ is at most $$\tilde{O}\left(\frac{c^2d^2\max_{x\in\mathcal{X}}\Vert h_{\mathbf{w}}(x)\Vert_2^2}{\gamma^2}\sum_{i=1}^d\frac{1}{\mu_i^2\mu_{i\to}^2}\right).$$
  
 
-**Lemma** \label{Lemma-Error FC Bound} *Let $h_{\mathbf{w}}$ be a $d$-layer network with weights $A=\left\{A^1,\dots,A^d\right\}$. Then for any input $x$, weights $A$ and $\hat{A}$, if for any layer $i$, $\left\Vert A^i-\hat{A}^i\right\Vert\leq\frac{1}{d}\Vert A^i\Vert$, then $$\Vert h_\mathbf{w}(x)-h_{\hat{\mathbf{w}}}(x)\Vert\leq e\Vert x\Vert\left(\prod_{i=1}^d\left\Vert A^i\right\Vert_2\right)\sum_{i=1}^d\frac{\left\Vert A^i-\hat{A}^i\right\Vert_2}{\Vert A^i\Vert_2}$$*
- 
-Using Lemmas \ref{Lemma-Probabilistic Bound with Parameter Count},\ref{Lemma-Compression FC Parameter Bound} and \ref{Lemma-Error FC Bound} it can be shown that Algorithm 3 provides a generalization bound for suitable fully connected neural networks.
+**Lemma 4** Let $h_{\mathbf{w}}$ be a $d$-layer network with weights $A=\left\{A^1,\dots,A^d\right\}$. Then for any input $x$, weights $A$ and $\hat{A}$, if for any layer $i$, $\left\Vert A^i-\hat{A}^i\right\Vert\leq\frac{1}{d}\Vert A^i\Vert$, then $$\Vert h_\mathbf{w}(x)-h_{\hat{\mathbf{w}}}(x)\Vert\leq e\Vert x\Vert\left(\prod_{i=1}^d\left\Vert A^i\right\Vert_2\right)\sum_{i=1}^d\frac{\left\Vert A^i-\hat{A}^i\right\Vert_2}{\Vert A^i\Vert_2}$$
 
 </detials>

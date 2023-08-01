@@ -4,6 +4,7 @@
 (Maurer, 2004) Andreas Maurer. “A Note on the PAC Bayesian Theorem”. In: CoRR (2004).\
 (Catoni, 2007) Olivier Catoni. “Pac-Bayesian Supervised Classification: The Thermodynamics of Statistical Learning”. In: IMS Lecture Notes Monograph Series 56 (2007), pp. 1–163.\
 (McAllester, 2013) David A. McAllester. “A PAC-Bayesian Tutorial with A Dropout Bound”. In: CoRR (2013).\
+(Scott, 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
 (Dziugaite, 2017) Gintare Karolina Dziugaite and Daniel M. Roy. “Computing Nonvacuous Generalization Bounds for Deep (Stochastic) Neural Networks with Many More Parameters than Training Data”. In: CoRR (2017).\
 (Arora, 2018) S. Arora, R. Ge, B. Neyshabur, and Y. Zhang. “Stronger generalization bounds for deep nets via a compression approach”. In: CoRR (2018).\
 (Guedj, 2019) Benjamin Guedj. A Primer on PAC-Bayesian Learning. 2019.\
