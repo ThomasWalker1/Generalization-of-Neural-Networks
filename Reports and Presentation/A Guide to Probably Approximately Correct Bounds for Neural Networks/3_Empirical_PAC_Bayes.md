@@ -29,8 +29,7 @@ For the multivariate normal distributions $N_{q}\sim\mathcal{N}(\mu_{q},\Sigma_{
 <br>
 
 **Theorem 3.4.1 (Jensen's Inequality)**
-For a convex function $f(x)$ and a random variable $X$ defined on sample space $\mathcal{X}$, if $\mathbb{E}(f(X))$ and $f(\mathbb{E}(X))$ are finite then
-$$\mathbb{E}(f(X))\geq f(\mathbb{E}(X)).$$
+For a convex function $f(x)$ and a random variable $X$ defined on sample space $\mathcal{X}$, if $\mathbb{E}(f(X))$ and $f(\mathbb{E}(X))$ are finite then $$\mathbb{E}(f(X))\geq f(\mathbb{E}(X)).$$
 Equality holds if and only if $f$ is a linear function on some convex set $A$ such that $\mathbb{P}(X\in A)=1$. If $f$ doesn't have this property then equality holds if and only if the random variable is constant.
 
 **Proposition 3.4.2** For any probability measures $Q$ and $P$ it follows that $\mathrm{KL}(Q,P)\geq0$ with equality if and only if $Q$ and $P$ are the same probability distribution.
@@ -38,39 +37,23 @@ Equality holds if and only if $f$ is a linear function on some convex set $A$ su
 <summary>Proof</summary>
 <br>
 
-Note that $\log$ is a concave function so Jensen's inequality is reversed. Therefore, $$\begin{align*}-\mathrm{KL}(Q,P)&=-\int_{\mathcal{X}}\log\left(\frac{q(x)}{p(x)}\right)q(x)dx\\&=\int_{\mathcal{X}}\log\left(\frac{p(x)}{q(x)}\right)q(x)dx\\&=\mathbb{E}_{Q}\left(\log\left(\frac{p(x)}{q(x)}\right)\right)\\&\leq\log\left(\mathbb{E}_Q\left(\frac{p(x)}{q(x)}\right)\right)\\&=\log\left(\int_{\mathcal{X}}p(x)dx\right)\\&=\log(1)=0,\end{align*}$$ where Jensen's inequality has been used to get the inequality. This shows that $\mathrm{KL}(Q,P)\geq0$. Note that if $\mathrm{KL}(Q,P)=0$ then equality must hold for Jensen's inequality which implies that $\frac{q(x)}{p(x)}=1$ which implies that $Q$ and $P$ are the same probability distribution. On the other hand, if $Q$ and $P$ are the same probability distribution on the sample space $\mathcal{X}$ then,
-$$\mathrm{KL}(Q,P)=\int_{\mathcal{X}}\log\left(\frac{q(x)}{p(x)}\right)q(x)dx=\int_{\mathcal{X}}\log(1)q(x)dx=0.$$
+Note that $\log$ is a concave function so Jensen's inequality is reversed. Therefore, $$\begin{align*}-\mathrm{KL}(Q,P)&=-\int_{\mathcal{X}}\log\left(\frac{q(x)}{p(x)}\right)q(x)dx\\&=\int_{\mathcal{X}}\log\left(\frac{p(x)}{q(x)}\right)q(x)dx\\&=\mathbb{E}_{Q}\left(\log\left(\frac{p(x)}{q(x)}\right)\right)\\&\leq\log\left(\mathbb{E}_Q\left(\frac{p(x)}{q(x)}\right)\right)\\&=\log\left(\int_{\mathcal{X}}p(x)dx\right)\\&=\log(1)=0,\end{align*}$$ where Jensen's inequality has been used to get the inequality. This shows that $\mathrm{KL}(Q,P)\geq0$. Note that if $\mathrm{KL}(Q,P)=0$ then equality must hold for Jensen's inequality which implies that $\frac{q(x)}{p(x)}=1$ which implies that $Q$ and $P$ are the same probability distribution. On the other hand, if $Q$ and $P$ are the same probability distribution on the sample space $\mathcal{X}$ then, $$\mathrm{KL}(Q,P)=\int_{\mathcal{X}}\log\left(\frac{q(x)}{p(x)}\right)q(x)dx=\int_{\mathcal{X}}\log(1)q(x)dx=0.$$
  
 </details>
 
-**Lemma 3.4.3** For any measurable, bounded function $f:\mathcal{W}\to\mathbb{R}$ we have, $$\log\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)\right)=\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(f(\mathbf{w})\right)-\mathrm{KL}(\rho,\pi)\right).$$ Moreover, the supremum with respect to $\rho$ is achieved for the Gibbs posterior $\pi_f$ defined by its density with respect to $\pi$ as
-$$\frac{d\pi_f(\mathbf{w})}{d\pi_f(\mathbf{w})}=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}.$$ 
-
+**Lemma 3.4.3** For any measurable, bounded function $f:\mathcal{W}\to\mathbb{R}$ we have, $$\log\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(e^{f(\mathbf{w})}\right)\right)=\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(f(\mathbf{w})\right)-\mathrm{KL}(\rho,\pi)\right).$$ Moreover, the supremum with respect to $\rho$ is achieved for the Gibbs posterior $\pi_f$ defined by its density with respect to $\pi$ as $$\frac{d\pi_f(\mathbf{w})}{d\pi_f(\mathbf{w})}=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}.$$
 <details>
 <summary>Proof</summary>
 <br>
 
 From the definition of $\pi_f(\mathbf{w})$ we have that
-$$\pi_f(\mathbf{w})=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}\pi_f(\mathbf{w}).$$
-Therefore, 
-$$\begin{align*}\mathrm{KL}\left(\rho,\pi_f\right)&=\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathbf{w}\in\mathcal{W}}\log(\rho(\mathbf{w}))\rho(\mathbf{w})d\mathbf{w}-\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{e^{h(\mathbf{w})}\pi_f(\mathbf{w})}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}-\int_{\mathbf{w}\in\mathcal{W}}h(\mathbf{w})\rho(\mathbf{w})d\mathbf{w}+\log\left(\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)\right)\\&=\mathrm{KL}(\rho,\pi_f)-\mathbb{E}_{\rho}(f(\mathbf{w}))+\log\left(\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)\right).\end{align*}$$
-By Proposition 3.4.2 the left hand side is non-negative and equal to $0$ only when $\rho=\pi_f$, which completes the proof. $\square$
+$$\pi_f(\mathbf{w})=\frac{e^{f(\mathbf{w})}}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}\pi_f(\mathbf{w}).$$ Therefore, $$\begin{align*}\mathrm{KL}\left(\rho,\pi_f\right)&=\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathbf{w}\in\mathcal{W}}\log(\rho(\mathbf{w}))\rho(\mathbf{w})d\mathbf{w}-\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{e^{h(\mathbf{w})}\pi_f(\mathbf{w})}{\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)}\right)\rho(\mathbf{w})d\mathbf{w}\\&=\int_{\mathbf{w}\in\mathcal{W}}\log\left(\frac{\rho(\mathbf{w})}{\pi_f(\mathbf{w})}\right)\rho(\mathbf{w})d\mathbf{w}-\int_{\mathbf{w}\in\mathcal{W}}h(\mathbf{w})\rho(\mathbf{w})d\mathbf{w}+\log\left(\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)\right)\\&=\mathrm{KL}(\rho,\pi_f)-\mathbb{E}_{\rho}(f(\mathbf{w}))+\log\left(\mathbb{E}_{\mathbf{w}\sim\pi_f}\left(e^{f(\mathbf{w})}\right)\right).\end{align*}$$ By Proposition 3.4.2 the left hand side is non-negative and equal to $0$ only when $\rho=\pi_f$, which completes the proof. $\square$
 
 </details>
 
-Recall, from the proof of Theorem 2.1 that for any $t>0$ we have that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(tm\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{mt^2C^2}{8}\right).$$
-Letting $t=\frac{\lambda}{m}$ we deduce that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$
-Integrating this with respect to $\pi$ gives
-$$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$
-To which we can apply Fubini's theorem to interchange the order of integration
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\exp\left(\lambda\left(R(\pi)-\hat{R}(\pi)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right),$$
-and then apply Lemma 3.4.3 to get
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
-Now fix $s>0$ and apply Chernoff bound to get that
-$$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}>s\right)\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)\right)\right)e^{-s}\leq e^{-s}.$$
-Setting $s=\log\left(\frac{1}{\delta}\right)$ and rearranging completes the proof. $\square$
+Recall, from the proof of Theorem 2.1 that for any $t>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(tm\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{mt^2C^2}{8}\right).$$ Letting $t=\frac{\lambda}{m}$ we deduce that
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$ Integrating this with respect to $\pi$ gives $$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$ To which we can apply Fubini's theorem to interchange the order of integration $$\mathbb{E}_{S\sim\mathcal{D}^m}\exp\left(\lambda\left(R(\pi)-\hat{R}(\pi)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right),$$ and then apply Lemma 3.4.3 to get $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$ Now fix $s>0$ and apply Chernoff bound to get that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}>s\right)\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)\right)\right)e^{-s}\leq e^{-s}.$$ Setting $s=\log\left(\frac{1}{\delta}\right)$ and rearranging completes the proof. $\square$
+
 </details>
 
 Theorem 3.4 motivates the study of the data-dependent probability measure $$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
@@ -86,13 +69,7 @@ For a learning algorithm, we noted that there are different methodologies for ho
 <summary>Proof</summary>
 <br>
 
-The beginning of this proof proceeds in the same way as that of Theorem 3.4 up to the point where we conclude that
-$$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$
-For any non-negative function $h$ we have that
-$$\begin{align*}\mathbb{E}_{\mathbf{w}\sim\pi}(h(\mathbf{w}))&=\int_{\mathbf{w}\in\mathcal{W}}h(\mathbf{w})\pi(d\mathbf{w})\\&=\int_{\left\{\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})>0\right\}}h(\mathbf{w})\pi(d\mathbf{w})\\&=\int_{\left\{\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})>0\right\}}h(\mathbf{w})\frac{d\pi}{d\tilde{\rho}}(\mathbf{w})\tilde{\rho}(d\mathbf{w})\\&=\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}\left(h(\mathbf{w})\exp\left(-\log\left(\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})\right)\right)\right)\end{align*}$$
-which means that
-$$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)-\log\left(\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$
-Now in a similar to the previous proofs we apply the Chernoff, set $\delta$ and then re-arrange the terms to complete the proof. $\square$
+The beginning of this proof proceeds in the same way as that of Theorem 3.4 up to the point where we conclude that $$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$ For any non-negative function $h$ we have that $$\begin{align*}\mathbb{E}_{\mathbf{w}\sim\pi}(h(\mathbf{w}))&=\int_{\mathbf{w}\in\mathcal{W}}h(\mathbf{w})\pi(d\mathbf{w})\\&=\int_{\left\{\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})>0\right\}}h(\mathbf{w})\pi(d\mathbf{w})\\&=\int_{\left\{\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})>0\right\}}h(\mathbf{w})\frac{d\pi}{d\tilde{\rho}}(\mathbf{w})\tilde{\rho}(d\mathbf{w})\\&=\mathbb{E}_{\mathbf{w}\sim\tilde{\rho}}\left(h(\mathbf{w})\exp\left(-\log\left(\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})\right)\right)\right)\end{align*}$$ which means that $$\mathbb{E}_{\mathbf{w}\sim\pi}\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(R(\mathbf{w})-\hat{R}(\mathbf{w})\right)-\log\left(\frac{d\tilde{\rho}}{d\pi}(\mathbf{w})\right)\right)\right)\leq\exp\left(\frac{\lambda^2C^2}{8m}\right).$$ Now in a similar to the previous proofs we apply the Chernoff, set $\delta$ and then re-arrange the terms to complete the proof. $\square$
 
 </details>
 
@@ -104,15 +81,7 @@ Note that Theorem 3.4 is a bound in probability. We now state an equivalent boun
 <summary>Proof</summary>
 <br>
 
-Once again we proceed in the same way as Theorem 3.4 to the point where we deduce that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$
-Now we apply Jensen's inequality to get that
-$$\exp\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1,$$
-which implies that
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0.$$
-In particular this holds for our data-dependent probability measure $\tilde{\rho}$. Therefore,
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\lambda\left(R(\tilde{\rho})-\hat{R}(\tilde{\rho})\right)-\mathrm{KL}(\tilde{\rho},\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0,$$
-and so using the linearity of expectation and rearranging completes the proof. $\square$
+Once again we proceed in the same way as Theorem 3.4 to the point where we deduce that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1.$$ Now we apply Jensen's inequality to get that $$\exp\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\right)\leq 1,$$ which implies that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\sup_{\rho\in\mathcal{M}(\mathcal{W})}\left(\lambda\left(R(\rho)-\hat{R}(\rho)\right)\right)-\mathrm{KL}(\rho,\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0.$$ In particular this holds for our data-dependent probability measure $\tilde{\rho}$. Therefore, $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\lambda\left(R(\tilde{\rho})-\hat{R}(\tilde{\rho})\right)-\mathrm{KL}(\tilde{\rho},\pi)-\frac{\lambda^2C^2}{8m}\right)\leq0,$$ and so using the linearity of expectation and rearranging completes the proof. $\square$
 
 </details>
 
@@ -159,15 +128,7 @@ For $X_1,\dots,X_n$ $\mathrm{i.i.d}$ random variables in $[0,1]$ and with $\math
 
 **Corollary 3.12.3** For $n\geq2$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq2\sqrt{n}.$$
 
-Recall, that
-$$\hat{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^ml(h_{\mathbf{w}}(x_i),y_i)$$
-and $R({\mathbf{w}})=\mathbb{E}_{(x,y)\sim\mathcal{D}}\left(l(h(x),y)\right)$. As we are considering a loss function bounded to the interval $[0,1]$ we can consider each of the $l(h_{\mathbf{w}}(x_i),y_i)$ as $\mathrm{i.i.d}$ random variables with mean $R(\mathbf{w})$. Therefore, for any $\mathbf{w}\in\mathcal{W}$ we can apply Corollary 3.12.3 to deduce that
-$$\mathbb{E}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\leq2\sqrt{m}.$$
-Now applying Theorem 3.4.1 to the convexity of $\mathrm{kl}$ divergence and the exponential function we have that
-$$\begin{align*}\mathbb{E}-{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\rho),R(\rho)\right)-\mathrm{kl}\left(\rho,\pi\right)\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&=\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\left(\frac{d\rho}{d\pi}\right)^{-1}\frac{d\rho}{d\pi}\right)\right)\\&\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\right)\right)\\&\leq2\sqrt{m}.\end{align*}$$
-Applying Theorem 3.12.1 we conclude that
-$$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)>\frac{\mathrm{kl}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\mathrm{kl}(\rho,\pi)\right)>\frac{2\sqrt{m}}{\delta}\right)\\&\leq\delta.\end{align*}$$
-Taking the complement of this completes the proof. $\square$
+Recall, that $$\hat{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^ml(h_{\mathbf{w}}(x_i),y_i)$$ and $R({\mathbf{w}})=\mathbb{E}_{(x,y)\sim\mathcal{D}}\left(l(h(x),y)\right)$. As we are considering a loss function bounded to the interval $[0,1]$ we can consider each of the $l(h_{\mathbf{w}}(x_i),y_i)$ as $\mathrm{i.i.d}$ random variables with mean $R(\mathbf{w})$. Therefore, for any $\mathbf{w}\in\mathcal{W}$ we can apply Corollary 3.12.3 to deduce that $$\mathbb{E}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\leq2\sqrt{m}.$$ Now applying Jensen's inequality to the convexity of $\mathrm{kl}$ divergence and the exponential function we have that $$\begin{align*}\mathbb{E}-{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\rho),R(\rho)\right)-\mathrm{kl}\left(\rho,\pi\right)\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&=\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\left(\frac{d\rho}{d\pi}\right)^{-1}\frac{d\rho}{d\pi}\right)\right)\\&\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\right)\right)\\&\leq2\sqrt{m}.\end{align*}$$ Applying Markov's inequality we conclude that $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)>\frac{\mathrm{kl}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\mathrm{kl}(\rho,\pi)\right)>\frac{2\sqrt{m}}{\delta}\right)\\&\leq\delta.\end{align*}$$ Taking the complement of this completes the proof. $\square$
 
 </details>
  
@@ -193,9 +154,7 @@ Implementing such an algorithm in this general form is intractable in practice. 
 <summary>Proof</summary>
 <br>
 
-This can be proved by induction on $n$. When $n=1$ the result holds clearly. Now suppose that for events $E_1,\dots, E_k$ we have that $\mathbb{P}\left(\cup_{l=1}^kE_l\right)\leq\sum_{l=1}^k\mathbb{P}(E_l)$. Then for events $E_1,\dots,E_k,E_{k+1}$ it follows that
-$$\begin{align*}\mathbb{P}\left(\bigcup_{l=1}^{k+1}E_l\right)&=\mathbb{P}\left(\bigcup_{l=1}^kE_l\right)+\mathbb{P}\left(E_{k+1}\right)-\mathbb{P}\left(\left(\bigcup_{l=1}^kE_l\right)\cap E_{k+1}\right)\\&\leq\mathbb{P}\left(\bigcup_{l=1}^kE_l\right)+\mathbb{P}\left(E_{k+1}\right)\\&\leq\sum_{l=1}^k\mathbb{P}\left(E_l\right)+\mathbb{P}\left(E_{k+1}\right)\\&=\sum_{l=1}^{k+1}\mathbb{P}\left(E_l\right).\end{align*}$$
-Therefore, by induction the result holds for all $n\in\mathbb{N}$ which completes the proof. $\square$
+This can be proved by induction on $n$. When $n=1$ the result holds clearly. Now suppose that for events $E_1,\dots, E_k$ we have that $\mathbb{P}\left(\cup_{l=1}^kE_l\right)\leq\sum_{l=1}^k\mathbb{P}(E_l)$. Then for events $E_1,\dots,E_k,E_{k+1}$ it follows that $$\begin{align*}\mathbb{P}\left(\bigcup_{l=1}^{k+1}E_l\right)&=\mathbb{P}\left(\bigcup_{l=1}^kE_l\right)+\mathbb{P}\left(E_{k+1}\right)-\mathbb{P}\left(\left(\bigcup_{l=1}^kE_l\right)\cap E_{k+1}\right)\\&\leq\mathbb{P}\left(\bigcup_{l=1}^kE_l\right)+\mathbb{P}\left(E_{k+1}\right)\\&\leq\sum_{l=1}^k\mathbb{P}\left(E_l\right)+\mathbb{P}\left(E_{k+1}\right)\\&=\sum_{l=1}^{k+1}\mathbb{P}\left(E_l\right).\end{align*}$$ Therefore, by induction the result holds for all $n\in\mathbb{N}$ which completes the proof. $\square$
 
 </details>
 
