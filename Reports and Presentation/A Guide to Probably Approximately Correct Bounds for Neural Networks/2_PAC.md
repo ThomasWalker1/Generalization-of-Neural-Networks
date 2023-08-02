@@ -91,17 +91,14 @@ We now show how PAC bounds can be used to bound the performance of a compressed 
 
 ###  2.3.1 Establishing the Notion of Compression
 
-We are in a scenario where we have a learned classifier $h$ that achieves low empirical loss but is complex. In this case, we are considering $\mathcal{Y}=\mathbb{R}^k$ so that the output of $h$ in the $i^\text{th}$ can be thought of as a relative probability that the input belongs to class $i$. With this, we define the classification margin loss for $\gamma>0$ to be $$L_{\gamma}(h)=\mathbb{P}_{(x,y)\sim\mathcal{D}}\left(h(x)[y]\leq\gamma+\max_{i\neq y}f(x)[i]\right).$$ Similarly, we have the empirical classification margin loss defined as $$\hat{L}_{\gamma}(h)=\frac{1}{m}\left\vert\left\{f(x_i)[y_i]\leq\gamma+\max_{i\neq y_i}f(x_i)[i]\right\}\right\vert.$$
-Suppose that our neural network has $d$ fully connected layers and let $x^i$ be the vector before the activation at layer $i=0,\dots,d$ and as $x^0$ is the input denote it $x$. Let $A^i$ be the weight matrix of layer $i$ and let layer $i$ have $n_i$ hidden layers with $n=\max_{i=1}^dn_i$. The classifier calculated by the network will be denoted $h_\mathbf{w}(x)$, where $\mathbf{w}$ can be thought of as a vector containing the weights of the network. For layers $i\leq j$ the operator for composition of the layers will be denoted $M^{i,j}$, the Jacobian of the input $x$ will be denoted $J_x^{i,j}$ and $\phi(\cdot)$ will denote the component-wise ReLU. With these the following hold, $$x^i=A^i\phi\left(x^{i-1}\right),\;x^j=M^{i,j}\left(x^i\right),\text{ and }M^{i,j}\left(x^i\right)=J_{x^i}^{i,j}x^i.$$
-For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ its spectral norm and $\frac{\Vert B\Vert_F^2}{\Vert B\Vert_2^2}$ its stable rank.
+We are in a scenario where we have a learned classifier $h$ that achieves low empirical loss but is complex. In this case, we are considering $\mathcal{Y}=\mathbb{R}^k$ so that the output of $h$ in the $i^\text{th}$ can be thought of as a relative probability that the input belongs to class $i$. With this, we define the classification margin loss for $\gamma>0$ to be $$L_{\gamma}(h)=\mathbb{P}_{(x,y)\sim\mathcal{D}}\left(h(x)[y]\leq\gamma+\max_{i\neq y}f(x)[i]\right).$$ Similarly, we have the empirical classification margin loss defined as $$\hat{L}_{\gamma}(h)=\frac{1}{m}\left\vert\left\{f(x_i)[y_i]\leq\gamma+\max_{i\neq y_i}f(x_i)[i]\right\}\right\vert.$$ Suppose that our neural network has $d$ fully connected layers and let $x^i$ be the vector before the activation at layer $i=0,\dots,d$ and as $x^0$ is the input denote it $x$. Let $A^i$ be the weight matrix of layer $i$ and let layer $i$ have $n_i$ hidden layers with $n=\max_{i=1}^dn_i$. The classifier calculated by the network will be denoted $h_\mathbf{w}(x)$, where $\mathbf{w}$ can be thought of as a vector containing the weights of the network. For layers $i\leq j$ the operator for composition of the layers will be denoted $M^{i,j}$, the Jacobian of the input $x$ will be denoted $J_x^{i,j}$ and $\phi(\cdot)$ will denote the component-wise ReLU. With these the following hold, $$x^i=A^i\phi\left(x^{i-1}\right),\;x^j=M^{i,j}\left(x^i\right),\text{ and }M^{i,j}\left(x^i\right)=J_{x^i}^{i,j}x^i.$$ For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ its spectral norm and $\frac{\Vert B\Vert_F^2}{\Vert B\Vert_2^2}$ its stable rank.
 
 **Definition 2.3** Let $h$ be a classifier and $G_{\mathcal{W}}=\{g_{\mathbf{w}}:\mathbf{w}\in\mathcal{W}\}$ be a class of classifiers. We say that $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W}}$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in\mathcal{X}$, $$\left\vert h(x)[y]-g_{\mathbf{w}}(x)[y]\right\vert\leq\gamma$$ for all $y\in\{1,\dots,k\}$.
  
 
 **Definition 2.4** Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ is a class of classifiers indexed by trainable parameters $\mathbf{w}$ and fixed string $s$. A classifier $h$ is $(\gamma,S)$-compressible with respect to $G_{\mathcal{W},s}$ using helper string $s$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in \mathcal{X}$, $$\vert h(x)[y]-g_{\mathbf{w},s}(x)[y]\vert\leq\gamma$$ for all $y\in\{1,\dots,k\}$.
  
-**Theorem 2.5** Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ where $\mathbf{w}$ is a set of $q$ parameters each of which has at most $r$ discrete values and $s$ is a helper string. Let $S$ be a training set with $m$ samples. If the trained classifier $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W},s}$ with helper string $s$, then there exists $\mathbf{w}\in\mathcal{W}$ with high probably such that $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+O\left(\sqrt{\frac{q\log(r)}{m}}\right)$$
-over the training set.
+**Theorem 2.5** Suppose $G_{\mathcal{W},s}=\{g_{\mathbf{w},s}:\mathbf{w}\in\mathcal{W}\}$ where $\mathbf{w}$ is a set of $q$ parameters each of which has at most $r$ discrete values and $s$ is a helper string. Let $S$ be a training set with $m$ samples. If the trained classifier $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W},s}$ with helper string $s$, then there exists $\mathbf{w}\in\mathcal{W}$ with high probably such that $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+O\left(\sqrt{\frac{q\log(r)}{m}}\right)$$ over the training set.
 <details>
 <summary>Proof</summary>
 <br>
@@ -147,7 +144,7 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 **end for**\
 **return** $\hat{\mathbf{w}}$
 
-**Theorem 2.8** *For any number of samples $m$, Algorithm 1 generates a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right).$$*
+**Theorem 2.8** For any number of samples $m$, Algorithm 1 generates a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -260,8 +257,7 @@ Sample $k=\frac{\log(\frac{1}{\eta})}{\epsilon^2}$ random matrices $M_1,\dots,M_
  
 **Remark 2.15** Note that $\frac{1}{\mu_i^2}$ is equal to the noise sensitivity of $A^i$ at $\phi\left(x^{i-1}\right)$ with respect to noise $\eta\sim\mathcal{N}(0,I)$.
   
-**Definition 2.16** For layers $i\leq j$ the inter-layer cushion $\mu_{i,j}$ is the largest number such that $$\mu_{i,j}\left\Vert J_{x^i}^{i,j}\right\Vert_F\left\Vert x^i\right\Vert\leq\left\Vert J_{x^i}^{i,j}x^i\right\Vert$$
-for any $x\in\mathcal{X}$. Furthermore, let $\mu_{i\to}=\min_{i\leq j\leq d}\mu_{i,j}$.
+**Definition 2.16** For layers $i\leq j$ the inter-layer cushion $\mu_{i,j}$ is the largest number such that $$\mu_{i,j}\left\Vert J_{x^i}^{i,j}\right\Vert_F\left\Vert x^i\right\Vert\leq\left\Vert J_{x^i}^{i,j}x^i\right\Vert$$ for any $x\in\mathcal{X}$. Furthermore, let $\mu_{i\to}=\min_{i\leq j\leq d}\mu_{i,j}$.
  
 **Remark 2.17** Note that $J_{x^i}^{i,i}=I$ so that $$\frac{\left\Vert J_{x^i}^{i,i}x^i\right\Vert}{\left\Vert J_{x^i}^{i,j}\right\Vert_F\left\Vert x^i\right\Vert}=\frac{1}{\sqrt{h^i}}.$$ Furthermore, $\frac{1}{\mu_{i,j}^2}$ is the noise sensitivity of $J_x^{i,j}$ with respect to noise $\eta\sim\mathcal{N}(0,I)$.
   
