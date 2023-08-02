@@ -4,11 +4,11 @@
 
 ### 3.1.1 Bayesian Machine Learning
 
-Here we will outline an introduction to Bayesian learning given by (Guedj, 2019). This will provide some context to the framework under which PAC-Bayes bounds are derived. As before we suppose that our training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of samples from the distribution $\mathcal{D}$ defined on $\mathcal{Z}$. Bayesian machine learning is used to find a parameter $\hat{\mathbf{w}}$ that corresponds to a hypothesis $h_{\hat{\mathbf{w}}}$ with the property that $h_{\hat{\mathbf{w}}}(x)\approx y$. To do this a learning algorithm is employed, which is simply a map from the data space to the parameter space, $\mathcal{W}$. The learning algorithm requires some prior distribution, $\pi$, to be defined on $\mathcal{W}$. Then using the training data the posterior distribution, $\rho$, is formed from the prior distribution. From the posterior distribution, there are many methodologies to then determine the parameter $\hat{\mathbf{w}}$. For example, one could take $\hat{\mathbf{w}}$ to be the mean, median or a random realisation of $\rho$.
+Here we will outline an introduction to Bayesian machine learning given by (Guedj, 2019). This will provide some context to the framework under which PAC-Bayes bounds are derived. As before we suppose that our training data $S_m=\{(x_i,y_i)\}_{i=1}^m$ consists of samples from the distribution $\mathcal{D}$ defined on $\mathcal{Z}$. Bayesian machine learning is used to find a parameter $\hat{\mathbf{w}}$ that corresponds to a hypothesis $h_{\hat{\mathbf{w}}}$ with the property that $h_{\hat{\mathbf{w}}}(x)\approx y$. To do this a learning algorithm is employed, which is simply a map from the data space to the parameter space, $\mathcal{W}$. The learning algorithm requires some prior distribution, $\pi$, to be defined on $\mathcal{W}$. Then using the training data the posterior distribution, $\rho$, is formed from the prior distribution. From the posterior distribution, there are many methodologies to then determine the parameter $\hat{\mathbf{w}}$. For example, one could take $\hat{\mathbf{w}}$ to be the mean, median or a random realization of $\rho$.
 
-### 3.1.2 Introducing PAC-Bayes Bounds
+### 3.1.2 Notations and Definitions
 
-Bayesian machine learning is a way to manage randomness and uncertainty in the learning task. PAC-Bayes are PAC bounds that operate under this framework.
+Bayesian machine learning is a way to manage randomness and uncertainty in the learning task. PAC-Bayes bounds are derived under this framework.
 
 **Definition 3.1** Let $\mathcal{M}(\mathcal{W})$ be a set of probability distributions defined over $\mathcal{W}$. A data-dependent probability measure is a function $$\hat{\rho}:\bigcup_{n=1}^{\infty}(\mathcal{X}\times\mathcal{Y})^n\to\mathcal{M}(\mathcal{W}).$$
  
@@ -27,11 +27,11 @@ $$\mathrm{kl}(q, p):=\mathrm{KL}(\mathcal{B}(q),\mathcal{B}(p))=q\log\left(\frac
 For $p^*\in[0,1]$ bounds of the form $\mathrm{kl}(q, p^*)\leq c$ for some $q\in[0,1]$ and $c\geq0$ are of interest. Hence, we introduce the notation
 $$\mathrm{kl}^{-1}(q, c):=\sup\{p\in[0,1]:\mathrm{kl}(q, p)\leq c\}.$$
 
-### 3.1.3 PAC-Bayes Bounds
-
 For a distribution $Q$ defined on $\mathcal{W}$ we will use the notation
 $$\mathbb{E}_{\mathbf{w}\sim Q}(R(\mathbf{w}))=R(Q)\text{ and }\mathbb{E}_{\mathbf{w}\sim Q}\left(\hat{R}(\mathbf{w})\right)=\hat{R}(Q)$$
 for convenience. The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
+
+### 3.1.3 PAC-Bayes Bounds
 
 **Theorem 3.4** (Alquier, 2023) For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
 
@@ -96,7 +96,7 @@ This is distribution is known as the Gibbs posterior.
 
 For a learning algorithm, we noted that there are different methodologies for how the learned classifier is sampled from the posterior. In the case where consider a single random realisation of the posterior distribution, we have the following result.
 
-**Theorem 3.7** (Alquier, 2023) For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta$$
+**Theorem 3.7** (Alquier, 2023) For all $\lambda>0$, $\delta\in(0,1)$, and data-dependent probability measure $\tilde{\rho}$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\mathbb{P}_{\tilde{\mathbf{w}}\sim\tilde{\rho}}\left(R\left(\tilde{\mathbf{w}}\right)\leq\hat{R}\left(\tilde{\mathbf{w}}\right)+\frac{\lambda C^2}{8m}+\frac{\log\left(\frac{d\rho\left(\tilde{\mathbf{w}}\right)}{d\pi\left(\tilde{\mathbf{w}}\right)}\right)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
 
 
 <details>
@@ -191,11 +191,11 @@ For optimization purposes we use the convex surrogate loss function $\tilde{l}:\
 $$\tilde{l}(y,\hat{y})=\frac{\log\left(1+\exp\left(-\hat{y}y\right)\right)}{\log(2)}.$$ 
 For the empirical risk under the convex surrogate loss we write
 $$\tilde{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^m\tilde{l}(h_{\mathbf{w}}(x_i),y_i).$$
-Recall, that this definition implicitly depends on the training sample $S_m$. We will use these definitions throughout the remaining sections of this report as well. As noted previously the work (Dziugaite, 2017) looks to minimize the KL divergence between the prior and the posterior to achieve non-vacuous bounds. To do this they work under a restricted setting and construct a process to find the posterior $\rho$ that minimizes the divergence. To being (Dziugaite, 2017) utilize the following bound.
+Recall, that this definition implicitly depends on the training sample $S_m$. As noted previously the work (Dziugaite, 2017) looks to minimize the KL divergence between the prior and the posterior to achieve non-vacuous bounds. To do this they work under a restricted setting and construct a process to minimize the divergence between the prior and the posterior, when the learning algorithm is stochastic gradient descent (SGD). To begin (Dziugaite, 2017) utilize the following bound.
 
 **Theorem 3.13** (Dziugaite, 2017) For every $\delta>0$,$m\in\mathbb{N}$, distribution $\mathcal{D}$ on $\mathbb{R}^k\times\{\pm 1\}$, distribution $\pi$ on $\mathcal{W}$ and distribution $\rho\in\mathcal{M}(\mathcal{W})$, we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\rho), R(\rho)\right)\leq\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{m}{\delta}\right)}{m-1}\right)\geq1-\delta.$$
  
-**Remark 3.14**  Note how this is a slightly weaker statement than Theorem 3.12. This is because (Dziugaite, 2017) cited this Theorem from (Seeger, 2001), however, since then (Maurer, 2004) was able to tighten the result by providing Theorem 3.12. In the following we will update the work of (Dziugaite, 2020) and use the tightened result provided by 3.12.
+**Remark 3.14**  Note how this is a slightly weaker statement than Theorem 3.12. This is because (Dziugaite, 2017) cited this Theorem from (Seeger, 2001), however, since then (Maurer, 2004) was able to tighten the result by providing Theorem 3.12. In the following we will update the work of (Dziugaite, 2020) and use the tightened result provided by Theorem 3.12.
  
 This motivates the following PAC-Bayes learning algorithm.
 1. Fix a $\delta>0$ and a distribution $\pi$ on $\mathcal{W}$,
@@ -204,11 +204,11 @@ This motivates the following PAC-Bayes learning algorithm.
     $$\begin{equation}\mathrm{kl}^{-1}\left(\hat{R}(\rho),\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right),\end{equation}$$
 4. Then return the randomized classifier given by $\rho$.
 
-Implementing such an algorithm in this general form is intractable in practice. Recall, that we are considering neural networks and so $\mathbf{w}$ represents the weights and biased of our neural network. To make the algorithm more practical we therefore consider
+Implementing such an algorithm in this general form is intractable in practice. Recall, that we are considering neural networks and so $\mathbf{w}$ represents the weights and biases of our neural network. To make the algorithm more practical we therefore consider
 $$\mathcal{M}(\mathcal{W})=\left\{\mathcal{N}_{\mathbf{w},\mathbf{s}}=\mathcal{N}(\mathbf{w},\mathrm{diag}(\mathbf{s})):\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}_+^d\right\}.$$
-Utilizing the bound $\mathrm{kl}^{-1}(q,c)\leq q+\sqrt{\frac{c}{2}}$ in Equation $(2)$ and replacing the loss with the convex surrogate loss we obtain the updated optimization problem
+Utilizing the bound $\mathrm{kl}^{-1}(q,c)\leq q+\sqrt{\frac{c}{2}}$ and replacing the loss with the convex surrogate loss in Equation $(2)$ we obtain the updated optimization problem
 $$\begin{equation}\min_{\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}^d_+}\tilde{R}\left(\mathcal{N}_{\mathbf{w},\mathbf{s}}\right)+\sqrt{\frac{\mathrm{KL}(\mathcal{N}_{\mathbf{w},\mathbf{s}},\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{2m}}.\end{equation}$$
-We now suppose our prior $\pi$ is of the form $\mathcal{N}(\mathbf{w}_0,\lambda I)$. As we will see the choice of $\mathbf{w}_0$ is not too impactful, as long as it is not $\mathbf{0}$. However, to efficiently choose a judicious value for $\lambda$ we discretize the problem, with the side-effect of expanding the eventual generalization bound. We let $\lambda$ have the for $c\exp\left(-\frac{j}{b}\right)$ for $j\in\mathbb{N}$, so that $c$ is an upper bound and $b$ controls precision. By ensuring that Theorem 3.12 holds with probability $1-\frac{6\delta}{\pi^2j^2}$ for each $j\in\mathbb{N}$ then we can apply a union bound argument to ensure that we get results that hold for probability $1-\delta$. A union bound argument refers to applying Theorem 3.15. 
+We now suppose our prior $\pi$ is of the form $\mathcal{N}(\mathbf{w}_0,\lambda I)$. As we will see the choice of $\mathbf{w}_0$ is not too impactful, as long as it is not $\mathbf{0}$. However, to efficiently choose a judicious value for $\lambda$ we discretize the problem, with the side-effect of expanding the eventual generalization bound. We let $\lambda$ have the for $c\exp\left(-\frac{j}{b}\right)$ for $j\in\mathbb{N}$, so that $c$ is an upper bound and $b$ controls precision. By ensuring that Theorem 3.12 holds with probability $1-\frac{6\delta}{\pi^2j^2}$ for each $j\in\mathbb{N}$ we can then apply a union bound argument to ensure that we get results that hold for probability $1-\delta$. A union bound argument refers to applying Theorem 3.15. 
 
 **Theorem 3.15** (Dziugaite, 2017) Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$
 <details>
@@ -221,7 +221,7 @@ Therefore, by induction the result holds for all $n\in\mathbb{N}$ which complete
 
 </details>
 
-Treating $\lambda$ as continuous during the optimization process and then discretizing at the point of evaluating the bound yields the updated optimization problem 
+Treating $\lambda$ as continuous during the optimization process and then discretized at the point of evaluating the bound yields the updated optimization problem 
 $$\begin{equation}\min_{\mathbf{w}\in\mathbb{R}^d,\mathbf{s}\in\mathbb{R}^d_+,\lambda\in(0,c)}\tilde{R}(\mathcal{N}_{\mathbf{w},\mathbf{s}})+\sqrt{\frac{1}{2}B_{\mathrm{RE}}(\mathbf{w},\mathbf{s},\lambda;\delta)}
 \end{equation}$$
 
