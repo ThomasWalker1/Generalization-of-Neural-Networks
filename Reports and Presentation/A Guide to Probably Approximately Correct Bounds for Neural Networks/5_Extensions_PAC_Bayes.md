@@ -136,14 +136,12 @@ Which completes the proof of the theorem. $\square$
  
 **Remark 5.7** An example of a coding scheme $c$ could be the Huffman encoding. However, such a compression scheme is agnostic to any structure of the hypotheses which is translated to the space $\mathcal{W}$. By exploiting structure in the hypothesis class the bound can be improved substantially.
  
-We now formalise compression schemes to allow us to refine Theorem 5.6. Denote a compression procedure by a triple $(S,C,Q)$ where
+We now formalize compression schemes to allow us to refine Theorem 5.6. Denote a compression procedure by a triple $(S,C,Q)$ where
 - $S=\{s_1,\dots,s_k\}\subseteq\{1,\dots,d\}$ is the location of the non-zero weights,
 - $C=\{c_1,\dots,c_r\}\subseteq\mathbb{R}$, is a codebook, and 
 - $Q=(q_1,\dots,q_k)$ for $q_i\in\{1,\dots,r\}$ are the quantized values.
 
-Define the corresponding weights $\mathbf{w}(S,Q,C)\in\mathbb{R}^d$ as,
-$$w_i(S,Q,C)=\begin{cases}c_{q_j}&i=s_j\\0&\text{otherwise}.\end{cases}$$
-Training a neural network is a stochastic process due to the randomness of SGD. So to analyse the generalization error we try to capture randomness in the analysis by applying Gaussian noise to weights. For this we use $\rho\sim\mathcal{N}\left(\mathbf{w},\sigma^2J\right)$, with $J$ being a diagonal matrix.
+Define the corresponding weights $\mathbf{w}(S,Q,C)\in\mathbb{R}^d$ as, $$w_i(S,Q,C)=\begin{cases}c_{q_j}&i=s_j\\0&\text{otherwise}.\end{cases}$$ Training a neural network is a stochastic process due to the randomness of SGD. So to analyse the generalization error we try to capture randomness in the analysis by applying Gaussian noise to weights. For this we use $\rho\sim\mathcal{N}\left(\mathbf{w},\sigma^2J\right)$, with $J$ being a diagonal matrix.
 
 **Theorem 5.8** (Zhou, 2019) Let $(S,C,Q)$ be the output of a compression scheme, and let $\rho_{S,C,Q}$ be the stochastic estimator given by the weights decoded from the triplet and variance $\sigma^2$. Let $c$ denote an arbitrary fixed coding scheme and let $M$ denote an arbitrary distribution on the positive integers. Then for any $\tau>0$, there is a prior $\pi$ such that $$\begin{align*}\mathrm{KL}(\rho_{S,C,Q},\pi)\leq&(k\lceil\log(r)\rceil+\vert S\vert_c+\vert C\vert_c)\log(2)-\log(M(k\lceil\log(r)\rceil+\vert S\vert_c+\vert C\vert_c))\\&+\sum_{i=1}^k\mathrm{KL}\left(\mathcal{N}\left(c_{q_i},\sigma^2\right),\sum_{j=1}^r\mathcal{N}\left(c_j,\tau^2\right)\right).\end{align*}$$
 <details>
