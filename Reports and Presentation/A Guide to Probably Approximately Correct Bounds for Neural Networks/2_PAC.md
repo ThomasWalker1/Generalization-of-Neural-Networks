@@ -150,7 +150,7 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 **Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\left\vert\mathbf{w}^\top\mathbf{u}-\hat{\mathbf{w}}^\top\mathbf{u}\right\vert\leq\gamma$. Vector $\hat{\mathbf{w}}$ has $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries.\
 **for** $i=1\to d$ **do**\
 ----Let $z_i=1$ with probability $p_i=\frac{2w_i^2}{\eta\gamma^2}$ and $0$ otherwise.\
-----Let $\hat{\mathbf{w}}_i=\frac{z_iw_i}{p_i}$.\
+----Let $\hat{w}_i=\frac{z_iw_i}{p_i}$.\
 **end for**\
 **return** $\hat{\mathbf{w}}$
 
@@ -160,11 +160,44 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 <summary>Proof</summary>
 <br>
 
-**Lemma 1** *Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $\mathbf{u}$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
+**Lemma 1** *Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $u$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.*
+<details>
+<summary>Proof</summary>
+<br>
+
+By the construction of Algorithm 1 it is clear that for all $i$ we have $\mathbb{E}\left(\hat{w}_i\right)=w_i$. Similarly, we have that
+$$\mathrm{Var}\left(\hat{w}_i\right)=2p_i(1-p_i)\frac{w_i^2}{p_i^2}\leq\frac{2c_i^2}{p_i}\leq\eta\gamma^2.$$
+Therefore, for $u$ independent of $\hat{\mathbf{w}}$ we have that
+$$\mathbb{E}\left(\hat{\mathbf{w}}^\top u\right)=\mathbf{w}^\top c\text{ and }\mathrm{Var}\left(\hat{\mathbf{w}} u^\top\right)\leq\frac{\Vert u\Vert^2}{4}\leq\eta\gamma^2.$$
+Therefore, by Chebyshev's inequality we have that
+$$\mathbb{P}\left(\left\vert \hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\gamma\right)\leq\eta.$$
+With the expected number of non-zero entries in $\hat{\mathbf{w}}$ being
+$$\sum_{i=1}^dp_i=\frac{2}{\eta\gamma^2}.$$
+So by Chernoff bound we conclude that with high probability that the number of non-zero entries is at most
+$$O\left(\frac{\log(d)}{\eta\gamma^2}\right),$$
+which completes the proof of the lemma.$\square$
+
+</details>
+
 
 In the discrete case, a similar result holds.
 
-**Lemma 2** Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let, $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{h}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$ Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top \mathbf{u}\right\vert\leq\gamma.$
+**Lemma 2** Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let, $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{h}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$ Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma.$
+<details>
+<summary>Proof</summary>
+<br>
+
+Let $\mathbf{w}^\prime$ be the vector where
+$$w^\prime_i=\begin{cases}w_i&\vert w_i\vert\geq\frac{\gamma}{4\sqrt{h}}\\0&\text{otherwise.}\end{cases}$$
+Then $\left\Vert \mathbf{w}^\prime-\mathbf{w}\right\Vert\leq\frac{\gamma}{4}$. Note that $\left\vert\tilde{\mathbf{w}}_i\right\vert\geq2\eta\gamma\sqrt{d}$ if and only if $\left\vert\mathbf{w}_i\right\vert\leq\frac{\gamma}{4\sqrt{d}}$ and also note that $\left\Vert\hat{\mathbf{w}}-\tilde{\mathbf{w}}\right\Vert\leq\frac{\gamma}{4}$. Combining these observations gives
+$$\begin{align*}\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert&\leq\left\vert\hat{\mathbf{w}}^\top u-\tilde{\mathbf{w}}^\top u\right\vert+\left\vert\tilde{\mathbf{w}}^\top u-(\mathbf{w}^\prime)^\top u\right\vert+\left\vert(\mathbf{w}^\prime)^\top u-\mathbf{w}^\top u\right\vert\\&\leq\frac{\gamma}{4}+\frac{\gamma}{2}+\frac{\gamma}{4}=\gamma,\end{align*}$$
+which completes the proof of the lemma.$\square$
+
+</details>
+
+Now choose $\eta=\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}$. By Lemma 1 and Lemma 2 we know that Algorithm 1 works with probability $1-\eta$ and has at most $\tilde{O}\left(\frac{\log(d)}{\eta\gamma^2}\right)$ parameters. Using Corollary 2.7 we know that
+$$L\left(\hat{\mathbf{w}}\right)\leq\tilde{O}\left(\eta+\sqrt{\frac{1}{\eta\gamma^2m}}\right)\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right)$$
+which completes the proof of the theorem.
 
 </details>
 
@@ -172,12 +205,12 @@ In the discrete case, a similar result holds.
   
  <font size="3"> **Algorithm 2 $(\gamma,\mathbf{w})$**</font>
 > **Require:** vector $\mathbf{w}$ with $\Vert\mathbf{w}\Vert\leq 1$, $\eta$.\
-**Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\vert \mathbf{w}^\top\mathbf{u}-\hat{\mathbf{w}}^\top\mathbf{u}\vert\leq\gamma$.\
+**Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\vert \mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\vert\leq\gamma$.\
 Let $k=\frac{16\log\left(\frac{1}{\eta}\right)}{\gamma^2}$.\
-Sample the random vectors $\mathbf{v}_1,\dots,\mathbf{v}_k\sim\mathcal{N}(0,I)$.\
-Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
+Sample the random vectors $v_1,\dots,v_k\sim\mathcal{N}(0,I)$.\
+Let $z_i=\langle v_i,\mathbf{w}\rangle$.\
 (In Discrete Case) Round $z_i$ to closes multiple of $\frac{\gamma}{2\sqrt{dk}}$.\
-**return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_i\mathbf{v}_i$
+**return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_iv_i$
 
 **Remark** *The vectors $\mathbf{v}_i$ of Algorithm 2 form the helper string.*
 
@@ -187,7 +220,28 @@ Let $z_i=\langle\mathbf{v}_i,\mathbf{w}\rangle$.\
 <summary>Proof</summary>
 <br>
 
-**Lemma 1** For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top\mathbf{u}-\mathbf{w}^\top\mathbf{u}\right\vert\leq\gamma$.
+**Lemma 1** For any fixed vector $u$, Algorithm 2 $(\gamma, \mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that with probability at least $1-\eta$, we have $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma$.
+<details>
+<summary>Proof</summary>
+<br>
+
+Observe that
+$$\hat{\mathbf{w}}^\top u=\frac{1}{k}\sum_{i=1}^k\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle.$$
+Where,
+$$\mathbb{E}\left(\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle\right)=\mathbb{E}\left(\mathbf{w}^\top v_iv_i^\top u\right)=\mathbf{w}^\top\mathbb{E}\left(v_iv_i^\top\right)=\mathbf{w}^\top u$$
+and
+$$\mathrm{Var}\left(\hat{\mathbf{w}}^\top u\right)\leq O\left(\frac{1}{k}\right)\leq O\left(\frac{\gamma}{\sqrt{\log(m)}}\right).$$
+Therefore, by standard concentration inequalities we have that
+$$\mathbb{P}\left(\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\frac{\gamma}{2}\right)\leq\exp\left(\frac{-\gamma^2k}{16}\right)\leq\eta.$$
+Hence, with high probability the vector after discretization can only change by at most $\frac{\gamma}{2}$, which completes the proof. $\square$
+
+</details>
+
+Choosing $\eta=\frac{1}{m}$ and applying Lemma 1 we see that with probability $1-\eta$, the compressed vector has at most
+$$O\left(\frac{\log(m)}{\gamma^2}\right)$$
+parameters. So by Corollary 2.7 we know that
+$$L\left(\mathbf{w}\right)\leq\tilde{O}\left(\eta+\sqrt{\frac{1}{\gamma^2m}}\right)\leq\tilde{O}\left(\sqrt{\frac{1}{\gamma^2m}}\right)$$
+which completes the proof of the theorem. $\square$
 
 </details>
  
