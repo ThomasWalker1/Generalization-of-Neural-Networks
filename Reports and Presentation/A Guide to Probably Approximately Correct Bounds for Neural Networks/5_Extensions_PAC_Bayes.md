@@ -12,15 +12,15 @@ The majority of the PAC-Bayes bounds we have discussed so far have been derived 
 <br>
 
 First note that $\phi(\mathbf{w},S)$ is a non-negative random variable. Therefore, by Markov's inequality
-$$\mathbb{P}_{\mathbf{w}\sim\rho_S}\left(\phi(h,S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2},$$
+$$\mathbb{P}_{\mathbf{w}\sim\rho_S}\left(\phi(\mathbf{w},S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2},$$
 which is equivalent to
-$$\mathbb{E}_{\mathbf{w}\sim\rho_S}\left(\phi(h,S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2}.$$
-Taking the expectations over $S\sim\mathcal{D}^m$ to both we obtain the equivalence between the statements
-$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\phi(h,S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2},$$
+$$\mathbb{E}_{\mathbf{w}\sim\rho_S}\left(\phi(\mathbf{w},S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2}.$$
+Taking the expectations over $S\sim\mathcal{D}^m$ to both we obtain the equivalent statements
+$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\phi(\mathbf{w},S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\geq1-\frac{\delta}{2},$$
 and
-$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho_S}\left(\phi(h,S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\right)\geq1-\frac{\delta}{2}.$$
+$$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho_S}\left(\phi(\mathbf{w},S)\leq\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\right)\geq1-\frac{\delta}{2}.$$
 Taking the $\log$ of the first of these and then multiplying by $\frac{\alpha}{\alpha-1}$ gives
-$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\frac{\alpha}{\alpha-1}\log\left(\phi(h,S)\right)\leq\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\right)\geq1-\frac{\delta}{2}.$$
+$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\frac{\alpha}{\alpha-1}\log\left(\phi(\mathbf{w},S)\right)\leq\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\right)\geq1-\frac{\delta}{2}.$$
 Focusing on the right hand side we see that
 $$\begin{align*}\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\phi\left(\mathbf{w}^\prime,S\right)\right)\right)&=\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\rho_S}\left(\frac{\rho_S(\mathbf{w}^\prime)\pi(\mathbf{w}^\prime)}{\pi(\mathbf{w}^\prime)\rho_S(\mathbf{w}^\prime)}\phi(\mathbf{w}^\prime,S)\right)\right)\end{align*}$$
 for all $\pi\in\mathcal{M}(\mathcal{W})$. As $\frac{1}{\alpha}+\frac{1}{\frac{\alpha}{\alpha-1}}=1$ we can apply Holder's inequality to get that
@@ -28,7 +28,7 @@ $$\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\left(\frac{\rho_S(\mathbf{w}^\prime)}{\p
 Therefore,
 $$\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\left(\frac{\rho_S(\mathbf{w}^\prime)}{\pi(\mathbf{w}^\prime)}\phi\left(\mathbf{w}^\prime,S\right)\right)\right)\leq D_{\alpha}(\rho_S,\pi)+\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\right)+\log\left(\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S)^{\frac{\alpha}{\alpha-1}}\right).$$
 From which we deduce that
-$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\frac{\alpha}{\alpha-1}\log\left(\phi(h,S)\right)\leq D_{\alpha}(\rho_S,\pi)+\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\right)+\log\left(\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S)^{\frac{\alpha}{\alpha-1}}\right)\right)\geq1-\frac{\delta}{2}.\quad(\star)$$
+$$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\frac{\alpha}{\alpha-1}\log\left(\phi(\mathbf{w},S)\right)\leq D_{\alpha}(\rho_S,\pi)+\frac{\alpha}{\alpha-1}\log\left(\frac{2}{\delta}\right)+\log\left(\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S)^{\frac{\alpha}{\alpha-1}}\right)\right)\geq1-\frac{\delta}{2}.\quad(\star)$$
 As $\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S)^{\frac{\alpha}{\alpha-1}}$ is also a non-negative random variables we can apply Markov's inequality again to get
 $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S)^{\frac{\alpha}{\alpha-1}}\leq\frac{\delta}{2}\mathbb{E}_{S^\prime\mathcal{D}^m}\mathbb{E}_{\mathbf{w}^\prime\sim\pi}\phi(\mathbf{w}^\prime,S^\prime)^{\frac{\alpha}{\alpha-1}}\right)\geq1-\frac{\delta}{2}.$$
 As the left hand side is not dependent of $\mathbf{w}\sim\rho_S$ we have that
@@ -52,7 +52,7 @@ We can apply Theorem 5.2 with $\phi(\mathbf{w},S)=\exp\left(\frac{\alpha-1}{\alp
 $$\mathbb{P}_{S\sim\mathcal{D}^m,\mathbf{w}\sim\rho_S}\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\leq\frac{1}{m}\left(D_2(\rho_S,\pi_t)+\log\left(\frac{8T}{\delta^3}\mathbb{E}_{S^\prime\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}^\prime\sim\pi_t}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}^\prime),R(\mathbf{w})\right)\right)\right)\right)\right)\right)\geq1-\delta.$$
 Note that the empirical risk in the exponential is with respect to the distribution $S^\prime$ where as the empirical risk on the left hand side of the inequality is with respect to $S$. Recall, the upper bound we determined in the proof of Theorem 3.12,
 $$\mathbb{E}_{S^\prime\sim\mathcal{D}^m}\mathbb{E}_{\mathbf{w}^\prime\sim\pi_t}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}^\prime),R(\mathbf{w})\right)\right)\right)\leq2\sqrt{m}.$$
-Furthermore, it is known that for $\rho_S=\mathcal{N}(\mathbf{w},\sigma^2I_d)$ and $\\pi_t=\mathcal{N}(\mathbf{v}_t,\sigma^2I_d)$ that
+Furthermore, it is known that for $\rho_S=\mathcal{N}(\mathbf{w},\sigma^2I_d)$ and $\pi_t=\mathcal{N}(\mathbf{v}_t,\sigma^2I_d)$ that
 $$D_2(\rho_S,\pi_t)=\frac{\Vert\mathbf{w}-\mathbf{v}_t\Vert_2^2}{\sigma^2}.$$
 Putting this and our bound into our deductions from Theorem 5.2 completes the proof of the corollary. $\square$
 
@@ -63,7 +63,7 @@ Putting this and our bound into our deductions from Theorem 5.2 completes the pr
 <summary>Proof</summary>
 <br>
 
-The proof of these individual statements follow the same structure. We will only prove the first of these by applying the theorem proven below. The first two can be proven in a similar way but applying Theorem 1 $(i)$ from (Rivasplata, 2020) and Proposition 3.1 from (Blanchard, 2007) respectively.
+The proof of these individual statements follow the same structure. We will only prove the last of these by applying the theorem proven below. The first two can be proven in a similar way by applying Theorem 1 $(i)$ from (Rivasplata, 2020) and Proposition 3.1 from (Blanchard, 2007) respectively.
 
 **Lemma 1**
 For $\rho_S=\mathcal{N}\left(\mathbf{w},\sigma^2I_d\right)$ and $\pi=\mathcal{N}\left(\mathbf{v},\sigma^2I_d\right)$, we have that
@@ -125,21 +125,21 @@ which completes the proof. $\square$
 
 The intention now is to motivate the choice of $\pi$ using ideas of compressibility such that $\mathrm{KL}(\rho,\pi)$ is kept small. To do this we will choose a prior $\pi$ that assigns greater probability mass to models with a shorter code length.
 
-**Theorem 5.6** (Zhou, 2019) *Let $\vert h\vert_c$ denote the number of bits required to represent hypothesis $h$ using some pre-specified coding $c$. Let $\rho$ denote the point mass distribution at the compressed model $\hat{h}$. Let $M$ denote any probability measure on the positive integers. Then there exists a prior $\pi_c$ such that $$\mathrm{KL}(\rho,\pi_c)\leq\left\vert\hat{h}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{h}\right\vert_c\right)\right).$$*
+**Theorem 5.6** (Zhou, 2019) *Let $\vert\mathbf{w}\vert_c$ denote the number of bits required to represent hypothesis $h_{\mathbf{w}}$ using some pre-specified coding $c$. Let $\rho$ denote the point mass distribution at $\hat{\mathbf{w}}$ which is the compression of $\mathbf{w}$ and corresponds to the compressed model $h_{\hat{\mathbf{w}}}$. Let $M$ denote any probability measure on the positive integers. Then there exists a prior $\pi_c$ such that $$\mathrm{KL}(\rho,\pi_c)\leq\left\vert\hat{\mathbf{w}}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{\mathbf{w}}\right\vert_c\right)\right).$$*
 
 <details>
 <summary>Proof</summary>
 <br>
 
-Let $\mathcal{H}_c\subseteq\mathcal{H}$ be the set of classifiers corresponding to the compressed classifiers. Then let $\pi_c$ be a distribution on $\mathcal{H}_c$ defined by
-$$\pi_c(h)=\frac{1}{Z}M(\vert h\vert_c)\cdot2^{-\vert h\vert_c},\text{ where }Z=\sum_{h\in\mathcal{H}_c}M(\vert h\vert_c)\cdot 2^{-\vert h\vert_c}.$$
-As $c$ is injective on $\mathcal{H}_c$ we have that $Z\leq 1$. Therefore,
-$$\begin{align*}\mathrm{KL}(\rho,\pi_c)=\log\left(\frac{\rho\left(\hat{h}\right)}{\pi_c\left(\hat{h}\right)}\right)\rho\left(\hat{h}\right)&=-\log\left(\pi_c\left(\hat{h}\right)\right)\\&=\log(Z)+\left\vert\hat{h}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{h}\right\vert_c\right)\right)\\&\leq\left\vert\hat{h}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{h}\right\vert_c\right)\right).\end{align*}$$
+Let $\mathcal{W}_c\subseteq\mathcal{W}$ be the set of compressed weights. Then let $\pi_c$ be a distribution on $\mathcal{W}_c$ defined by
+$$\pi_c(\mathbf{w})=\frac{1}{Z}M(\vert\mathbf{w}\vert_c)\cdot2^{-\vert\mathbf{w}\vert_c},\text{ where }Z=\sum_{\mathbf{w}\in\mathcal{W}_c}M(\vert\mathbf{w}\vert_c)\cdot 2^{-\vert\mathbf{w}\vert_c}.$$
+As $c$ is injective on $\mathcal{W}_c$ we have that $Z\leq 1$. Therefore,
+$$\begin{align*}\mathrm{KL}(\rho,\pi_c)=\log\left(\frac{\rho\left(\hat{\mathbf{w}}\right)}{\pi_c\left(\hat{\mathbf{w}}\right)}\right)\rho\left(\hat{\mathbf{w}}\right)&=-\log\left(\pi_c\left(\hat{\mathbf{w}}\right)\right)\\&=\log(Z)+\left\vert\hat{\mathbf{w}}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{\mathbf{w}}\right\vert_c\right)\right)\\&\leq\left\vert\hat{\mathbf{w}}\right\vert_c\log(2)-\log\left(M\left(\left\vert\hat{\mathbf{w}}\right\vert_c\right)\right).\end{align*}$$
 Which completes the proof of the theorem. $\square$
 
 </details>
  
-**Remark 5.7** *An example of a coding scheme $c$ could be the Huffman encoding. However, such a compression scheme is agnostic to any structure of the hypothesis class $\mathcal{H}$. By exploiting structure in the hypothesis class the bound can be improved substantially.*
+**Remark 5.7** *An example of a coding scheme $c$ could be the Huffman encoding. However, such a compression scheme is agnostic to any structure of the hypotheses which is translated to the space $\mathcal{W}$. By exploiting structure in the hypothesis class the bound can be improved substantially.*
  
 We now formalise compression schemes to allow us to refine Theorem 5.6. Denote a compression procedure by a triple $(S,C,Q)$ where
 - $S=\{s_1,\dots,s_k\}\subseteq\{1,\dots,d\}$ is the location of the non-zero weights,
