@@ -43,14 +43,14 @@ The proof of these individual statements follow the same structure. We will only
 This follows from simple computations after recalling that $$\rho_S(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{\epsilon}\Vert_2^2\right),\text{ and }\pi(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{w+\epsilon-v}\Vert_2^2\right).$$ So this completes the proof of the lemma. $\square$
 </details>
 
-**Lemma 5.4.2** For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, with $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\mathbf{w}))+\frac{\log(\delta)}{\lambda}\leq\hat{R}(\mathbf{w})\right)\leq1-\delta$$
+**Lemma 5.4.2** (Catoni, 2007) For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\mathbf{w})\right)-\hat{R}(\mathbf{w})\right)\right)\right)\leq1.$$
 
-**Theorem 5.4.3** For any positive $\lambda$, any posterior distribution $\rho\in\mathcal{M}(\mathcal{W})$, then $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{1}{\lambda}\log\left(\frac{1}{\delta}\frac{d\rho}{d\pi}\right)\right)\right)\geq1-\delta.$$
+**Theorem 5.4.3** (Catoni, 2007) For any positive $\lambda$, any posterior distribution $\rho\in\mathcal{M}(\mathcal{W})$, then $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{1}{\lambda}\log\left(\frac{1}{\delta}\frac{d\rho}{d\pi}\right)\right)\right)\geq1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
 
-To prove this we start from Lemma 5.4.2 and integrate with respect to $\pi$ to get that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\mathbf{\pi}))+\frac{\log(\delta)}{\lambda}\leq\hat{R}(\mathbf{\pi})\right)\leq1-\delta.$$ Which for any posterior $\rho$ can be written as $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\Phi_{\frac{\lambda}{m}}(R(\rho))+\frac{\log(\delta)}{\lambda}-\log\left(\frac{d\rho}{d\pi}\right)\leq\hat{R}(\rho)\right)\leq1-\delta,$$ which upon re-arrangement completes the proof of the theorem. $\square$
+To prove this we start from Lemma 5.4.2 and integrate with respect to $\pi$ to get that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\pi)\right)-\hat{R}(\pi)\right)\right)\right)\leq1.$$ Which for any posterior $\rho$ can be written as $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\rho)\right)-\hat{R}(\rho)\right)-\log\left(\frac{d\rho}{d\pi}\right)+\log(\delta)\right)\right)\leq\delta.$$ From this we can deduce using by Markov's inequality that $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\geq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{1}{\lambda}\log\left(\frac{1}{\delta}\frac{d\rho}{d\pi}\right)\right)\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\rho)\right)-\hat{R}(\rho)\right)-\log\left(\frac{d\rho}{d\pi}\right)+\log(\delta)\right)\geq e^0\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\rho)\right)-\hat{R}(\rho)\right)-\log\left(\frac{d\rho}{d\pi}\right)+\log(\delta)\right)\right)\\&\leq\delta\end{align*}$$ from which when we take complements we complete the proof of the theorem. $\square$
 
 </details>
 
