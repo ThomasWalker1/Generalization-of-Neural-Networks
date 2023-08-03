@@ -13,5 +13,6 @@
 (Zhou, 2019) Wenda Zhou, Victor Veitch, Morgane Austern, Ryan P. Adams, and Peter Orbanz. Non-Vacuous Generalization Bounds at the ImageNet Scale: A PAC-Bayesian Compression Approach. 2019.\
 (Dziugaite, 2020) Gintare Karolina Dziugaite, Kyle Hsu,Waseem Gharbieh, and Daniel M. Roy. “On the role of data in PAC-Bayes bounds”. In: CoRR (2020).\
 (Rivasplata, 2020) Omar Rivasplata, Ilja Kuzborskij, Csaba Szepesvári, and John Shawe-Taylor. PAC-Bayes Analysis Beyond the Usual Bounds. In NeurIPS, 2020.\
+(Rodriguez, 2021) Pierre-Francois Rodriguez. Lebesgue Measure and Integration. 2021.\
 (Viallard, 2021) Paul Viallard, Pascal Germain, Amaury Habrard, and Emilie Morvant. A General Framework for the Disintegration of PAC-Bayesian Bounds. 2021.\
 (Alquier, 2023) Pierre Alquier. User-friendly introduction to PAC-Bayes bounds. 2023.

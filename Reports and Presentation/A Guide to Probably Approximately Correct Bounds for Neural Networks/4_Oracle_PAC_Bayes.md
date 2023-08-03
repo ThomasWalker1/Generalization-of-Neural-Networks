@@ -11,7 +11,14 @@ Oracle bounds are theoretical objects that are not suitable for practical applic
 <summary>Proof</summary>
 <br>
 
-**Theorem 4.1.1 (Fubini's Theorem)** If $\mathcal{X}_1$ and $\mathcal{X}_2$ are $\sigma$-finite measurable spaces and $f:\mathcal{X}_1\times\mathcal{X}_2$ is measurable and $$\int_{\mathcal{X}_1\times\mathcal{X}_2}\vert f(x_1,x_2)\vert d(x_1,x_2)<\infty,$$ then $$\int_{\mathcal{X}_1}\left(\int_{\mathcal{X}_2}f(x_1,x_2)dx_2\right)dx_1=\int_{\mathcal{X}_2}\left(\int_{\mathcal{X}_1}f(x_1,x_2)dx_2\right)dx_1=\int_{\mathcal{X}_1\times\mathcal{X}_2}f(x_1,x_2)d(x_1,x_2).$$ 
+**Theorem 4.1.1 (Fubini's Theorem)** If $\mathcal{X}_1$ and $\mathcal{X}_2$ are $\sigma$-finite measurable spaces and $f:\mathcal{X}_1\times\mathcal{X}_2$ is measurable and $$\int_{\mathcal{X}_1\times\mathcal{X}_2}\vert f(x_1,x_2)\vert d(x_1,x_2)<\infty,$$ then $$\int_{\mathcal{X}_1}\left(\int_{\mathcal{X}_2}f(x_1,x_2)dx_2\right)dx_1=\int_{\mathcal{X}_2}\left(\int_{\mathcal{X}_1}f(x_1,x_2)dx_2\right)dx_1=\int_{\mathcal{X}_1\times\mathcal{X}_2}f(x_1,x_2)d(x_1,x_2).$$
+<details>
+<summary>Proof</summary>
+<br>
+
+For the proof of this theorem please refer to (Rodriguez, 2021).
+
+</details>
 
 We proceed from Corollary 3.9 to deduce that $$\begin{align*}\mathbb{E}_{S\sim\mathcal{D}^m}\left(R\left(\hat{\rho}_{\lambda}\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\right)\\&\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\right)\\&=\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\\&=\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)\right)\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right)\end{align*}$$ where Fubini's theorem has been applied in the last inequality. Recalling that $\mathbb{E}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\right)=R(\mathbf{w})$ completes the proof of the theorem. $\square$
 
