@@ -20,6 +20,8 @@ PAC bounds refer to a general class of bounds on the performance of a learned cl
 <summary>Proof</summary>
 <br>
 
+Define $Y$ as the indicator random variable $\mathbf{I}_{\{X\geq\alpha\}}$ so that $\mathbb{E}(Y)=\mathbb{P}\left(X\geq\alpha\right)$. It is clear that $\alpha Y\leq X$ which means that $\mathbb{E}(\alpha Y)\leq\mathbb{E}(X)$, which implies that $\alpha\mathbb{P}(X\geq\alpha)\leq\mathbb{E}(X)$. Using the fact that $\alpha>0$ we can re-arrange this expressions to complete the proof of the theorem. $\square$
+
 </details>
 
 **Lemma 2.1.2** (Scott, 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
@@ -50,6 +52,8 @@ Occam bounds are derived under the assumption that $\mathcal{H}$ is countable an
 <details>
 <summary>Proof</summary>
 <br>
+
+Using Markov's inequality we note that for $t<0$ we have $$\begin{align*}\mathbb{P}\left(X\leq(1-\delta)\mu\right)&=\mathbb{P}\left(e^{tX}\geq e^{t(1-\delta)\mu}\right)\\&\leq\frac{\mathbb{E}\left(e^{tX}\right)}{e^{t(1-\delta)\mu}}\\&\leq\frac{\exp\left(\left(e^t-1\right)\mu\right)}{\exp\left(t(1-\delta)\mu\right)}.\end{align*}$$ Setting $t=\log(1-\delta)<0$ we get that $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\left(\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\right)^\mu.$$ Now consider $$f(\delta)=-\delta-(1-\delta)\log(1-\delta)+\frac{\delta^2}{2}$$ for $0<\delta<1$. Note that $$f^\prime(\delta)=\log(1-\delta)+\delta\text{ and }f^{\prime\prime}(\delta)=-\frac{1}{1-\delta}+1.$$ Which shows that $f^{\prime\prime}(\delta)<0$ for $\delta\in(0,1)$ and hence $f^{\prime}(0)=0$ implies that $f^{\prime}(\delta)\leq0$ in this range. Since, $f(0)=0$ we have that $f(\delta)\leq0$ when $\delta\in(0,1)$. Therefore, $$\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\leq\exp\left(-\frac{\delta^2}{2}\right),$$ which completes the proof of the theorem. $\square$
 
 </details>
 
