@@ -57,7 +57,7 @@ Using Markov's inequality we note that for $t<0$ we have $$\begin{align*}\mathbb
 
 </details>
 
-**Theorem 2.2.2 (Union Bound)** Let $E_1,E_2,\dots$ be events. Then $\mathbb{P}\left(\bigcup_nE_n\right)\leq\sum_n\mathbb{P}(E_n).$
+**Theorem 2.2.2 (Union Bound)** Let $E_1,\dots, E_n$ be events. Then $\mathbb{P}\left(\bigcup_{l=1}^nE_l\right)\leq\sum_{l=1}^n\mathbb{P}(E_l).$
 <details>
 <summary>Proof</summary>
 <br>
