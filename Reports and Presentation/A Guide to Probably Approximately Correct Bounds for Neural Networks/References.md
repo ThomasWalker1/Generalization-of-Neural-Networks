@@ -2,6 +2,7 @@
 (McAllester, 1999) D. A. McAllester. PAC-Bayesian model averaging. In Proceedings of the twelfth annual conference on Computational learning theory, pages 164–170, 1999.\
 (Seeger, 2001) John Langford and Matthias Seeger. “Bounds for Averaging Classifiers”. In: (Feb. 2001).\
 (Maurer, 2004) Andreas Maurer. “A Note on the PAC Bayesian Theorem”. In: CoRR (2004).\
+Michael Mitzenmacher and Eli Upfal. Probability and Computing: Randomized Algorithms and Probabilistic Analysis. Cambridge University Press, 2005.\
 (Catoni, 2007) Olivier Catoni. “Pac-Bayesian Supervised Classification: The Thermodynamics of Statistical Learning”. In: IMS Lecture Notes Monograph Series 56 (2007), pp. 1–163.\
 (Blanchard, 2007) Gilles Blanchard and François Fleuret. Occam’s Hammer. In COLT, pages 112–126, 2007.\
 (McAllester, 2013) David A. McAllester. “A PAC-Bayesian Tutorial with A Dropout Bound”. In: CoRR (2013).\

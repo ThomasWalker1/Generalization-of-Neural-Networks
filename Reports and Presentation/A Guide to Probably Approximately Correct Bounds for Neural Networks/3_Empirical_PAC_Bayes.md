@@ -111,13 +111,6 @@ Refer to (Catoni, 2007) for the proof of this theorem.
 <summary>Proof</summary>
 <br>
 
-**Theorem 3.12.1 (Markov's Inequality)** For $X$ a non-negative random variable and $\alpha>0$ we have that $$\mathbb{P}\left(X\geq\alpha\right)\leq\frac{\mathbb{E}(X)}{\alpha}$$
-<details>
-<summary>Proof</summary>
-<br>
-
-</details>
-
 For $X_1,\dots,X_n$ $\mathrm{i.i.d}$ random variables in $[0,1]$ and with $\mathbb{E}(X_i)=\mu$ let $\mathbf{X}=(X_1,\dots,X_n)$ and $$M(\mathbf{X})=\frac{1}{n}\sum_{i=1}^nX_i.$$ For any random variable $X$ in $[0,1]$ let $X^\prime$ denote the Bernoulli random variables with parameter $\mathbb{E}(X)$ and let $\mathbf{X}^\prime=(X_1^\prime,\dots,X_n^\prime)$. 
 
 **Theorem 3.12.2** For $n\geq2$ with the notation as above we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq\exp\left(\frac{1}{12n}\right)\sqrt{\frac{\pi n}{2}}+2.$$
