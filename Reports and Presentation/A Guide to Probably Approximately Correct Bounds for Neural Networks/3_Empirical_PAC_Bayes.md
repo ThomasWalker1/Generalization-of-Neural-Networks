@@ -121,8 +121,22 @@ Refer to (Catoni, 2007) for the proof of this theorem.
 For $X_1,\dots,X_n$ $\mathrm{i.i.d}$ random variables in $[0,1]$ and with $\mathbb{E}(X_i)=\mu$ let $\mathbf{X}=(X_1,\dots,X_n)$ and $$M(\mathbf{X})=\frac{1}{n}\sum_{i=1}^nX_i.$$ For any random variable $X$ in $[0,1]$ let $X^\prime$ denote the Bernoulli random variables with parameter $\mathbb{E}(X)$ and let $\mathbf{X}^\prime=(X_1^\prime,\dots,X_n^\prime)$. 
 
 **Theorem 3.12.1** For $n\geq2$ with the notation as above we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq\exp\left(\frac{1}{12n}\right)\sqrt{\frac{\pi n}{2}}+2.$$
+<details>
+<summary>Proof</summary>
+<br>
+
+For the proof of this theorem refer to (Maurer, 2004).
+
+</details>
 
 **Corollary 3.12.2** For $n\geq2$ we have that $$\mathbb{E}\left(\exp\left(n\mathrm{kl}(M(\mathbf{X}),\mu)\right)\right)\leq2\sqrt{n}.$$
+<details>
+<summary>Proof</summary>
+<br>
+
+Replace $n$ with the continuous variable $x\in(0,\infty)$. Let $f(x)=\exp\left(\frac{1}{12x}\right)\sqrt{\frac{\pi x}{2}}+2$ and $g(x)=2\sqrt{x}$, then $$f^\prime(x)=g^{\prime}(x)\left(\sqrt{\frac{\pi}{2}}\exp\left(\frac{1}{12x}\right)\left(\frac{1}{2}-\frac{1}{12x}\right)\right).$$ From which it is clear that $f^\prime(x)<g^{\prime}(x)$. Therefore, as one can numerically see that $g(x)>f(x)$ for $x\approx 7.5$ we can conclude that for all $n\geq8$ we have that $\exp\left(\frac{1}{12n}\right)\sqrt{\frac{\pi n}{2}}+2\leq2\sqrt{n}$ which completes the proof of the corollary. $\square$
+
+</details>
 
 Recall, that $$\hat{R}(\mathbf{w})=\frac{1}{m}\sum_{i=1}^ml(h_{\mathbf{w}}(x_i),y_i)$$ and $R({\mathbf{w}})=\mathbb{E}_{(x,y)\sim\mathcal{D}}\left(l(h(x),y)\right)$. As we are considering a loss function bounded to the interval $[0,1]$ we can consider each of the $l(h_{\mathbf{w}}(x_i),y_i)$ as $\mathrm{i.i.d}$ random variables with mean $R(\mathbf{w})$. Therefore, for any $\mathbf{w}\in\mathcal{W}$ we can apply Corollary 3.12.2 to deduce that $$\mathbb{E}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\leq2\sqrt{m}.$$ Now applying Jensen's inequality to the convexity of $\mathrm{kl}$ divergence and the exponential function we have that $$\begin{align*}\mathbb{E}-{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\rho),R(\rho)\right)-\mathrm{kl}\left(\rho,\pi\right)\right)\right)&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\rho}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\log\left(\frac{d\rho(\mathbf{w})}{d\pi(\mathbf{w})}\right)\right)\right)\right)\\&=\mathbb{E}_{S\sim\mathcal{D}^m}\left(\mathbb{E}_{\mathbf{w}\sim\pi}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\left(\frac{d\rho}{d\pi}\right)^{-1}\frac{d\rho}{d\pi}\right)\right)\\&\leq\mathbb{E}_{\mathbf{w}\sim\rho}\left(\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)\right)\right)\right)\\&\leq2\sqrt{m}.\end{align*}$$ Applying Markov's inequality we conclude that $$\begin{align*}\mathbb{P}_{S\sim\mathcal{D}^m}\left(\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)>\frac{\mathrm{kl}(\rho,\pi)+\log\left(\frac{2\sqrt{m}}{\delta}\right)}{m}\right)&=\mathbb{P}_{S\sim\mathcal{D}^m}\left(\exp\left(m\mathrm{kl}\left(\hat{R}(\mathbf{w}),R(\mathbf{w})\right)-\mathrm{kl}(\rho,\pi)\right)>\frac{2\sqrt{m}}{\delta}\right)\\&\leq\delta.\end{align*}$$ Taking the complement of this completes the proof. $\square$
 
