@@ -44,6 +44,13 @@ This follows from simple computations after recalling that $$\rho_S(\mathbf{w+\e
 </details>
 
 **Lemma 5.4.2** (Catoni, 2007) For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\mathbf{w})\right)-\hat{R}(\mathbf{w})\right)\right)\right)\leq1.$$
+<details>
+<summary>Proof</summary>
+<br>
+
+Define the Bernoulli random variables $\sigma_i(\mathbf{w})=\mathbb{1}\left(h_{\mathbf{w}}(x_i)\neq y_i\right)$. Using independence, the concavity of $\log$ and $\lambda>0$ we deduce that $$\begin{align*}\log\left(\mathbb{E}\left(\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\right)\right)&=\sum_{i=1}^m\log\left(\mathbb{E}\left(\exp\left(-\frac{\lambda}{m}\sigma_i\right)\right)\right)\\&\leq m\log\left(\frac{1}{m}\sum_{i=1}^m\mathbb{E}\left(\exp\left(-\frac{\lambda}{m}\sigma_i\right)\right)\right).\end{align*} Now note that $$R(\mathbf{w})=\frac{1}{m}\sum_{i=1}^m\mathbb{E}(\sigma_i)$$. Furthermore, as the $\sigma_i$ are Bernoulli random variables we have that $$\frac{1}{m}\sum_{i=1}^m\mathbb{E}\exp\left(-\frac{\lambda}{m}\sigma_i\right)=(1-\mathbb{E}(\sigma_i))+\exp\left(-\frac{\lambda}{m}\right)\mathbb{E}(\sigma_i)=\mathbb{E}(\sigma_i)\left(\exp\left(-\frac{\lambda}{m}-1\right)\right)+1.$$ Therefore, $$\begin{align*}\Phi_{\frac{\lambda}{m}}(R(\mathbf{w}))&=\frac{1}{-\lambda}m\log\left(1-\left(1-\exp\left(-\frac{\lambda}{m}\right)\right)\frac{1}{m}\sum_{i=1}^m\mathbb{E}(\sigma_i)\right)\\&=\frac{1}{-\lambda}m\log\left(\frac{1}{m}\sum_{i=1}^m 1+\mathbb{E}(\sigma_i)\left(\exp\left(-\frac{\lambda}{m}\right)-1\right)\right)\\&=\frac{1}{-\lambda}m\log\left(\frac{1}{m}\sum_{i=1}^m\mathbb{E}\left(\exp\left(-\frac{\lambda}{m}\sigma_i\right)\right)\right).\end{align*}$$ From which we conclude that $$\log\left(\mathbb{E}\left(\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\right)\right)\leq-\lambda\Phi_{\frac{\lambda}{m}}(R(\mathbf{w})).$$
+
+</details>
 
 **Theorem 5.4.3** (Catoni, 2007) For any positive $\lambda$, any posterior distribution $\rho\in\mathcal{M}(\mathcal{W})$, then $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\rho)\leq\Phi^{-1}_{\frac{\lambda}{m}}\left(\hat{R}(\rho)+\frac{1}{\lambda}\log\left(\frac{1}{\delta}\frac{d\rho}{d\pi}\right)\right)\right)\geq1-\delta.$$
 <details>
