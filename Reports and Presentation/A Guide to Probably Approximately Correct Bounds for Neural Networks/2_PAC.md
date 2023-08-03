@@ -20,7 +20,7 @@ PAC bounds refer to a general class of bounds on the performance of a learned cl
 <summary>Proof</summary>
 <br>
 
-Define $Y$ as the indicator random variable $\mathbf{I}_{\{X\geq\alpha\}}$ so that $\mathbb{E}(Y)=\mathbb{P}\left(X\geq\alpha\right)$. It is clear that $\alpha Y\leq X$ which means that $\mathbb{E}(\alpha Y)\leq\mathbb{E}(X)$, which implies that $\alpha\mathbb{P}(X\geq\alpha)\leq\mathbb{E}(X)$. Using the fact that $\alpha>0$ we can re-arrange this expressions to complete the proof of the theorem. $\square$
+Define $Y$ as the indicator random variable $\mathbb{I}_{\{X\geq\alpha\}}$ so that $\mathbb{E}(Y)=\mathbb{P}\left(X\geq\alpha\right)$. It is clear that $\alpha Y\leq X$ which means that $\mathbb{E}(\alpha Y)\leq\mathbb{E}(X)$, which implies that $\alpha\mathbb{P}(X\geq\alpha)\leq\mathbb{E}(X)$. Using the fact that $\alpha>0$ we can re-arrange this expressions to complete the proof of the theorem. $\square$
 
 </details>
 
