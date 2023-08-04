@@ -126,30 +126,30 @@ To implement data-dependent priors we restrict the optimization problem to make 
 - The SGD run on $S_{\alpha}$ is the $\alpha$-prefix run.
 - The SGD run on $S_{\alpha}^G$ is the $\alpha$-prefix $+$ ghost run and obtains the parameters $\mathbf{w}_{\alpha}^G$.
 
-The resulting parameters of the $\alpha$-prefix and $\alpha$-prefix $+$ ghost run can be used as the centres of the Gaussian priors to give the tightened generalization bounds. However, sometimes the ghost sample is not attainable in practice, and hence one simply relies upon $\alpha$ -prefix runs to obtain the mean of the prior. It is not clear whether $\alpha$-prefix $+$ ghost run will always obtain a parameter that leads to a tighter generalization bound. Recall, that $\sigma$ is assumed to be fixed in the optimization process. Algorithm 7 is independent of this parameter and so it can be optimized afterwards without requiring a re-run of the optimization process.
+The resulting parameters of the $\alpha$-prefix and $\alpha$-prefix $+$ ghost run can be used as the centres of the Gaussian priors to give the tightened generalization bounds. However, sometimes the ghost sample is not attainable in practice, and hence one simply relies upon $\alpha$-prefix runs to obtain the mean of the prior. It is not clear whether $\alpha$-prefix $+$ ghost run will always obtain a parameter that leads to a tighter generalization bound. Recall, that $\sigma$ is assumed to be fixed in the optimization process. Algorithm 7 is independent of this parameter and so it can be optimized afterwards without requiring a re-run of the optimization process.
 
 <font size="3"> **Algorithm 6** Stochastic Gradient Descent</font>
 > **Require:** Learning rate $\eta$\
-**function** SGD $(\mathbf{w}_0,S,b,t,\mathcal{E}=-\infty)$\
-$\mathbf{w}\leftarrow\mathbf{w}_0$\
-----**for** $i\leftarrow 1$ to $t$ **do**\
---------Sample $S^\prime\in S$ with $\vert S^\prime\vert=b$\
---------$\mathbf{w}\leftarrow\mathbf{w}-\eta\nabla l_{S^\prime}(\mathbf{w})$\
---------**if** $l_S^{0\text{-}1}(\mathbf{w})\leq\mathcal{E}$ **then**\
-------------break\
---------**end if**\
-----**end for**\
-**end function**
+> **function** SGD $(\mathbf{w}_0,S,b,t,\mathcal{E}=-\infty)$\
+> $\mathbf{w}\leftarrow\mathbf{w}_0$\
+> ----**for** $i\leftarrow 1$ to $t$ **do**\
+> --------Sample $S^\prime\in S$ with $\vert S^\prime\vert=b$\
+> --------$\mathbf{w}\leftarrow\mathbf{w}-\eta\nabla l_{S^\prime}(\mathbf{w})$\
+> --------**if** $l_S^{0\text{-}1}(\mathbf{w})\leq\mathcal{E}$ **then**\
+> ------------break\
+> --------**end if**\
+> ----**end for**\
+> **end function**
 
 <font size="3"> **Algorithm 7** Obtaining Bound Using SGD Informed Prior</font>
 > **Require:** Stopping criteria $\mathcal{E}$, Prefix fraction $\alpha$, Ghost Data $S^G$ (If available), Batch size $b$.\
-**function** GetBound $(\mathcal{E},\alpha,T,\sigma_P)$\
-----$S_{\alpha}\leftarrow\{z_1,\dots,z_{\alpha\vert S\vert}\subset S\}$\
-----$\mathbf{w}_{\alpha}^0\leftarrow$ SGD $\left(\mathbf{w}_0,S_{\alpha},b,\frac{\vert S_{\alpha}\vert}{b}\right)$\
-----$\mathbf{w}_S\leftarrow$ SGD $\left(\mathbf{w}_{\alpha}^0,S,b,\infty,\mathcal{E}\right)$ Base Run\
-----$\mathbf{w}_{\alpha}^G\leftarrow$ SGD $\left(\mathbf{w}_{\alpha}^0,S_{\alpha}^G,b,T,\cdot\right)$ Ghost run if data available, otherwise prefix run\
-----$\pi\leftarrow\mathcal{N}\left(\mathbf{w}_{\alpha}^G,\sigma I\right)$\
-----$\rho\leftarrow\mathcal{N}\left(\mathbf{w}_S,\sigma I\right)$\
-----Bound $\leftarrow\Psi_{\delta}^*(\rho,\pi;S\setminus S_{\alpha})$\
-----**return** Bound\
-**end function**
+> **function** GetBound $(\mathcal{E},\alpha,T,\sigma_P)$\
+> ----$S_{\alpha}\leftarrow\{z_1,\dots,z_{\alpha\vert S\vert}\subset S\}$\
+> ----$\mathbf{w}_{\alpha}^0\leftarrow$ SGD $\left(\mathbf{w}_0,S_{\alpha},b,\frac{\vert S_{\alpha}\vert}{b}\right)$\
+> ----$\mathbf{w}_S\leftarrow$ SGD $\left(\mathbf{w}_{\alpha}^0,S,b,\infty,\mathcal{E}\right)$ Base Run\
+> ----$\mathbf{w}_{\alpha}^G\leftarrow$ SGD $\left(\mathbf{w}_{\alpha}^0,S_{\alpha}^G,b,T,\cdot\right)$ Ghost run if data available, otherwise prefix run\
+> ----$\pi\leftarrow\mathcal{N}\left(\mathbf{w}_{\alpha}^G,\sigma I\right)$\
+> ----$\rho\leftarrow\mathcal{N}\left(\mathbf{w}_S,\sigma I\right)$\
+> ----Bound $\leftarrow\Psi_{\delta}^*(\rho,\pi;S\setminus S_{\alpha})$\
+> ----**return** Bound\
+> **end function**

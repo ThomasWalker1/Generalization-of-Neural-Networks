@@ -24,7 +24,7 @@ Define $Y$ as the indicator random variable $\mathbb{I}_{\{X\geq\alpha\}}$ so th
 
 </details>
 
-**Corollary 2.1.2 (Chernoff Bound)** For a random variable $X$, $t>0$ and $a\in\mathbb{R}$ we have that $$\mathbb{P}\left(X\geq a)=\mathbb{E}\left(\exp(tX)\right)\exp(-ta)$$ for $t>0$
+**Corollary 2.1.2 (Chernoff Bound)** For a random variable $X$, $t>0$ and $a\in\mathbb{R}$ we have that $$\mathbb{P}\left(X\geq a)=\mathbb{E}\left(\exp(tX)\right)\exp(-ta)$$ for $t>0$.
 <details>
 <summary>Proof</summary>
 <br>
@@ -33,8 +33,7 @@ This follows from Markov's inequality due to the increasing, positivity and inje
 
 </details>
 
-
-**Lemma 2.1.2** (Scott, 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
+**Lemma 2.1.3** (Scott, 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -90,7 +89,7 @@ We now show how PAC bounds can be used to bound the performance of a compressed 
 
 ###  2.3.1 Establishing the Notion of Compression
 
-We are in a scenario where we have a learned classifier $h$ that achieves low empirical loss but is complex. In this case, we are considering $\mathcal{Y}=\mathbb{R}^k$ so that the output of $h$ in the $i^\text{th}$ can be thought of as a relative probability that the input belongs to class $i$. With this, we define the classification margin loss for $\gamma\geq0$ to be $$L_{\gamma}(h)=\mathbb{P}_{(x,y)\sim\mathcal{D}}\left(h(x)[y]\leq\gamma+\max_{i\neq y}h(x)[i]\right).$$ Similarly, we have the empirical classification margin loss defined as $$\hat{L}_{\gamma}(h)=\frac{1}{m}\left\vert\left\{x_i\in S:h(x_i)[y_i]\leq\gamma+\max_{j\neq y_i}f(x_i)[j]\right\}\right\vert.$$ We will sometimes use $L(\cdot)$ to denote $L_0(\cdot)$ and refer to it as the classification loss. Suppose that our neural network has $d$ fully connected layers and let $x^i$ be the vector before the activation at layer $i=0,\dots,d$ and as $x^0$ is the input denote it $x$. Let $A^i$ be the weight matrix of layer $i$ and let layer $i$ have $n_i$ hidden layers with $n=\max_{i=1}^dn_i$. The classifier calculated by the network will be denoted $h_\mathbf{w}(x)$, where $\mathbf{w}$ can be thought of as a vector containing the weights of the network. For layers $i\leq j$ the operator for composition of the layers will be denoted $M^{i,j}$, the Jacobian of the input $x$ will be denoted $J_x^{i,j}$ and $\phi(\cdot)$ will denote the component-wise ReLU. With these the following hold, $$x^i=A^i\phi\left(x^{i-1}\right),\;x^j=M^{i,j}\left(x^i\right),\text{ and }M^{i,j}\left(x^i\right)=J_{x^i}^{i,j}x^i.$$ For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ its spectral norm and $\frac{\Vert B\Vert_F^2}{\Vert B\Vert_2^2}$ its stable rank.
+We are in a scenario where we have a learned classifier $h$ that achieves low empirical loss but is complex. In this case, we are considering $\mathcal{Y}=\mathbb{R}^k$ so that the output of $h$ in the $i^\text{th}$ can be thought of as a relative probability that the input belongs to class $i$. With this, we define the classification margin loss for $\gamma\geq0$ to be $$L_{\gamma}(h)=\mathbb{P}_{(x,y)\sim\mathcal{D}}\left(h(x)[y]\leq\gamma+\max_{j\neq y}h(x)[j]\right).$$ Similarly, we have the empirical classification margin loss defined as $$\hat{L}_{\gamma}(h)=\frac{1}{m}\left\vert\left\{x_i\in S:h(x_i)[y_i]\leq\gamma+\max_{j\neq y_i}f(x_i)[j]\right\}\right\vert.$$ We will sometimes use $L(\cdot)$ to denote $L_0(\cdot)$ and refer to it as the classification loss. Suppose that our neural network has $d$ fully connected layers and let $x^i$ be the vector before the activation at layer $i=0,\dots,d$ and as $x^0$ is the input denote it $x$. Let $A^i$ be the weight matrix of layer $i$ and let layer $i$ have $n_i$ hidden layers with $n=\max_{i=1}^dn_i$. The classifier calculated by the network will be denoted $h_\mathbf{w}(x)$, where $\mathbf{w}$ can be thought of as a vector containing the weights of the network. For layers $i\leq j$ the operator for composition of the layers will be denoted $M^{i,j}$, the Jacobian of the input $x$ will be denoted $J_x^{i,j}$ and $\phi(\cdot)$ will denote the component-wise ReLU. With these the following hold, $$x^i=A^i\phi\left(x^{i-1}\right),\;x^j=M^{i,j}\left(x^i\right),\text{ and }M^{i,j}\left(x^i\right)=J_{x^i}^{i,j}x^i.$$ For a matrix $B$, $\Vert B\Vert_F$ will be its Frobenius norm, $\Vert B\Vert_2$ its spectral norm and $\frac{\Vert B\Vert_F^2}{\Vert B\Vert_2^2}$ its stable rank.
 
 **Definition 2.3** Let $h$ be a classifier and $G_{\mathcal{W}}=\{g_{\mathbf{w}}:\mathbf{w}\in\mathcal{W}\}$ be a class of classifiers. We say that $h$ is $(\gamma,S)$-compressible via $G_{\mathcal{W}}$ if there exists $\mathbf{w}\in\mathcal{W}$ such that for any $x\in\mathcal{X}$, $$\left\vert h(x)[y]-g_{\mathbf{w}}(x)[y]\right\vert\leq\gamma$$ for all $y\in\{1,\dots,k\}$.
  
@@ -132,12 +131,12 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 
 <font size="3"> **Algorithm 1 $(\gamma,\mathbf{w})$**</font>
 > **Require** vector $\mathbf{w}$ with $\Vert\mathbf{w}\Vert\leq 1$, $\eta$.\
-**Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\left\vert\mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\right\vert\leq\gamma$. Vector $\hat{\mathbf{w}}$ has $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries.\
-**for** $i=1\to d$ **do**\
-----Let $z_i=1$ with probability $p_i=\frac{2w_i^2}{\eta\gamma^2}$ and $0$ otherwise.\
-----Let $\hat{w}_i=\frac{z_iw_i}{p_i}$.\
-**end for**\
-**return** $\hat{\mathbf{w}}$
+> **Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\left\vert\mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\right\vert\leq\gamma$. Vector $\hat{\mathbf{w}}$ has $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries.\
+> **for** $i=1\to d$ **do**\
+> ----Let $z_i=1$ with probability $p_i=\frac{2w_i^2}{\eta\gamma^2}$ and $0$ otherwise.\
+> ----Let $\hat{w}_i=\frac{z_iw_i}{p_i}$.\
+> **end for**\
+> **return** $\hat{\mathbf{w}}$
 
 **Theorem 2.8** For any number of samples $m$, Algorithm 1 generates a compressed vector $\hat{\mathbf{w}}$, such that $$L(\hat{\mathbf{w}})\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right).$$
 <details>
@@ -152,8 +151,6 @@ We now develop an algorithm to compress the decision vector of a linear classifi
 To prove Chebyshev's inequality we use Markov's inequality, $$\begin{align*}\mathbb{P}\left(\vert X-\mu\vert\geq k\sigma\right)&=\mathbb{P}\left(\vert X-\mu\vert^2\geq k^2\sigma^2\right)\\&\leq\frac{\mathbb{E}\left((X-\mu)^2\right)}{k^2\sigma^2}\\&=\frac{\sigma^2}{k^2\sigma^2}\\&=\frac{1}{k^2}\end{align*}$$ which completes the proof of the theorem. $\square$
 
 </details>
-
-****
 
 **Lemma 2.8.2** Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $u$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.
 <details>
@@ -171,8 +168,7 @@ In the discrete case, a similar result holds.
 <summary>Proof</summary>
 <br>
 
-Let $\mathbf{w}^\prime$ be the vector where $$w^\prime_i=\begin{cases}w_i&\vert w_i\vert\geq\frac{\gamma}{4\sqrt{d}}\\0&\text{otherwise.}\end{cases}$$ Then $\left\Vert \mathbf{w}^\prime-\mathbf{w}\right\Vert\leq\frac{\gamma}{4}$. We can see that $\tilde{\mathbf{w}}$ is also the vector returned by Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}^\prime\right)$. Note that $\left\vert\tilde{w}_i\right\vert\geq2\eta\gamma\sqrt{d}$ if and only if $\left\vert w_i\right\vert\leq\frac{\gamma}{4\sqrt{d}}$ and also note that $\left\Vert\hat{\mathbf{w}}-\tilde{\mathbf{w}}\right\Vert\leq\frac{\gamma}{4}$. Combining these observations gives $$\begin{align*}\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert&\leq\left\vert\hat{\mathbf{w}}^\top u-\tilde{\mathbf{w}}^\top u\right\vert+\left\vert\tilde{\mathbf{w}}^\top u-(\mathbf{w}^\prime)^\top u\right\vert+\left\vert(\mathbf{w}^\prime)^\top u-\mathbf{w}^\top u\right\vert\\&\leq\frac{\gamma}{4}+\frac{\gamma}{2}+\frac{\gamma}{4}=\gamma,\end{align*}$$
-which completes the proof of the lemma.$\square$
+Let $\mathbf{w}^\prime$ be the vector where $$w^\prime_i=\begin{cases}w_i&\vert w_i\vert\geq\frac{\gamma}{4\sqrt{d}}\\0&\text{otherwise.}\end{cases}$$ Then $\left\Vert \mathbf{w}^\prime-\mathbf{w}\right\Vert\leq\frac{\gamma}{4}$. We can see that $\tilde{\mathbf{w}}$ is also the vector returned by Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}^\prime\right)$. Note that $\left\vert\tilde{w}_i\right\vert\geq2\eta\gamma\sqrt{d}$ if and only if $\left\vert w_i\right\vert\leq\frac{\gamma}{4\sqrt{d}}$ and also note that $\left\Vert\hat{\mathbf{w}}-\tilde{\mathbf{w}}\right\Vert\leq\frac{\gamma}{4}$. Combining these observations gives $$\begin{align*}\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert&\leq\left\vert\hat{\mathbf{w}}^\top u-\tilde{\mathbf{w}}^\top u\right\vert+\left\vert\tilde{\mathbf{w}}^\top u-(\mathbf{w}^\prime)^\top u\right\vert+\left\vert(\mathbf{w}^\prime)^\top u-\mathbf{w}^\top u\right\vert\\&\leq\frac{\gamma}{4}+\frac{\gamma}{2}+\frac{\gamma}{4}=\gamma,\end{align*}$$ which completes the proof of the lemma.$\square$
 
 </details>
 
@@ -184,12 +180,12 @@ Now choose $\eta=\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}$. By Lemma 2.8.2
   
 <font size="3"> **Algorithm 2 $(\gamma,\mathbf{w})$**</font>
 > **Require:** vector $\mathbf{w}$ with $\Vert\mathbf{w}\Vert\leq 1$, $\eta$.\
-**Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\vert \mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\vert\leq\gamma$.\
-Let $k=\frac{16\log\left(\frac{1}{\eta}\right)}{\gamma^2}$.\
-Sample the random vectors $v_1,\dots,v_k\sim\mathcal{N}(0,I)$.\
-Let $z_i=\langle v_i,\mathbf{w}\rangle$.\
-(In Discrete Case) Round $z_i$ to closes multiple of $\frac{\gamma}{2\sqrt{dk}}$.\
-**return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_iv_i$
+> **Ensure** vector $\hat{\mathbf{w}}$ such that for any fixed vector $\Vert u\Vert\leq 1$, with probability at least $1-\eta$, $\vert \mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\vert\leq\gamma$.\
+> Let $k=\frac{16\log\left(\frac{1}{\eta}\right)}{\gamma^2}$.\
+> Sample the random vectors $v_1,\dots,v_k\sim\mathcal{N}(0,I)$.\
+> Let $z_i=\langle v_i,\mathbf{w}\rangle$.\
+> (In Discrete Case) Round $z_i$ to closes multiple of $\frac{\gamma}{2\sqrt{dk}}$.\
+> **return** $\hat{\mathbf{w}}=\frac{1}{k}\sum_{i=1}^kz_iv_i$
 
 **Remark 2.10** The vectors $v_i$ of Algorithm 2 form the helper string.
 
@@ -219,12 +215,12 @@ In a similar way, the layer matrices of a fully connected network can be compres
 
 <font size="3"> **Algorithm 3 $(A,\epsilon,\eta)$**</font>
 > **Require** Layer matrix $A\in\mathbb{R}^{n_1\times n_2}$, error parameters $\epsilon,\eta$.\
-**Ensure** Returns $\hat{A}$ such that for all vectors $\mathbf{u},\mathbf{v}$ we have that $$\mathbb{P}\left(\left\vert\mathbf{u}^\top\hat{A}\mathbf{v}-\mathbf{u}^\top A\mathbf{v}\right\vert\geq\epsilon\Vert A\Vert_F\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\right)\leq\eta$$\
-Sample $k=\frac{\log(\frac{1}{\eta})}{\epsilon^2}$ random matrices $M_1,\dots,M_k$ with $\mathrm{i.i.d}$ entries $\pm1$.\
-**for** $l=1\to k$ **do**\
-----Let $Z_{l}=\langle A,M_{l}\rangle M_{l}$\
-**end for**\
-**return** $\hat{A}=\frac{1}{k}\sum_{l=1}^kZ_{l}$
+> **Ensure** Returns $\hat{A}$ such that for all vectors $u,v$ we have that $$\mathbb{P}\left(\left\vert u^\top\hat{A}v-u^\top Av\right\vert\geq\epsilon\Vert A\Vert_F\Vert u\Vert\Vert v\Vert\right)\leq\eta$$\
+> Sample $k=\frac{\log(\frac{1}{\eta})}{\epsilon^2}$ random matrices $M_1,\dots,M_k$ with $\mathrm{i.i.d}$ entries $\pm1$.\
+> **for** $l=1\to k$ **do**\
+> ----Let $Z_{l}=\langle A,M_{l}\rangle M_{l}$\
+> **end for**\
+> **return** $\hat{A}=\frac{1}{k}\sum_{l=1}^kZ_{l}$
 
 
 **Definition 2.12** If $M$ is a mapping from real-valued vectors to real-valued vectors, and $\mathcal{N}$ is a noise distribution. Then the noise sensitivity of $M$ at $\mathbf{x}$ with respect to $\mathcal{N}$ is $$\psi_{\mathcal{N}}(M,\mathbf{x})=\mathbb{E}\left(\frac{\Vert M(\mathbf{x}+\eta\Vert\mathbf{x}\Vert)-M(\mathbf{x})\Vert^2}{\Vert M(\mathbf{x})\Vert^2}\right),$$ and $\psi_{\mathcal{N},S}(M)=\max_{x\in S}\psi_{\mathcal{N}}(M,\mathbf{x})$.

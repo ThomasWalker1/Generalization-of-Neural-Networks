@@ -161,33 +161,33 @@ Implementing such an algorithm in this general form is intractable in practice. 
 
 <font size="3"> **Algorithm 4** Optimizing the PAC Bounds</font>
 > **Require:**\
-$\mathbf{w}_0\in\mathbb{R}^d$, the network parameters at initialization.\
-$\mathbf{w}\in\mathbb{R}^d$, the network parameters after SGD.\
-$S_m$, training examples.\
-$\delta\in(0,1)$, confidence parameter.\
-$b\in\mathbb{N},c\in(0,1)$, precision and bound for $\lambda$.\
-$\tau\in(0,1), T$, learning rate.\
-**Ensure:** Optimal $\mathbf{w},\mathbf{s},\lambda$.\
-$\zeta=\vert\mathbf{w}\vert$\Comment{$\mathbf{s}(\zeta)=e^{2\zeta}$}\
-$\rho=-3$\Comment{$\lambda(\rho)=e^{2\rho}$}\
-$B(\mathbf{w},\mathbf{s},\lambda,\mathbf{w}^\prime)=\tilde{R}(\mathbf{w})+\sqrt{\frac{1}{2}B_{\mathrm{RE}}(\mathbf{w},\mathbf{s},\lambda)}$\
-**for** $t=1\to T$ **do**\
-----Sample $\xi\sim\mathcal{N}(0,I_d)$\
-----$\mathbf{w}^\prime(\mathbf{w},\zeta)=\mathbf{w}+\xi\odot\sqrt{\mathbf{s}(\zeta)}$\
-----$\begin{pmatrix}\mathbf{w}\\\zeta\\\rho\end{pmatrix}=-\tau\begin{pmatrix}\nabla_{\mathbf{w}}B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\\\nabla_\zeta B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\\\nabla_\rho B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\end{pmatrix}$\
-**end for**\
-**return** $\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho)$
+> $\mathbf{w}_0\in\mathbb{R}^d$, the network parameters at initialization.\
+> $\mathbf{w}\in\mathbb{R}^d$, the network parameters after SGD.\
+> $S_m$, training examples.\
+> $\delta\in(0,1)$, confidence parameter.\
+> $b\in\mathbb{N},c\in(0,1)$, precision and bound for $\lambda$.\
+> $\tau\in(0,1), T$, learning rate.\
+> **Ensure:** Optimal $\mathbf{w},\mathbf{s},\lambda$.\
+> $\zeta=\vert\mathbf{w}\vert$\Comment{$\mathbf{s}(\zeta)=e^{2\zeta}$}\
+> $\rho=-3$\Comment{$\lambda(\rho)=e^{2\rho}$}\
+> $B(\mathbf{w},\mathbf{s},\lambda,\mathbf{w}^\prime)=\tilde{R}(\mathbf{w})+\sqrt{\frac{1}{2}B_{\mathrm{RE}}(\mathbf{w},\mathbf{s},\lambda)}$\
+> **for** $t=1\to T$ **do**\
+> ----Sample $\xi\sim\mathcal{N}(0,I_d)$\
+> ----$\mathbf{w}^\prime(\mathbf{w},\zeta)=\mathbf{w}+\xi\odot\sqrt{\mathbf{s}(\zeta)}$\
+> ----$\begin{pmatrix}\mathbf{w}\\\zeta\\\rho\end{pmatrix}=-\tau\begin{pmatrix}\nabla_{\mathbf{w}}B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\\\nabla_\zeta B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\\\nabla_\rho B(\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho),\mathbf{w}^\prime(\mathbf{w},\zeta))\end{pmatrix}$\
+> **end for**\
+> **return** $\mathbf{w},\mathbf{s}(\zeta),\lambda(\rho)$
 
 Once the values of $\mathbf{w},\mathbf{s}$ and $\lambda$ are found we then need to compute $\overline{\hat{R}_{n,\delta^\prime}}(\rho):=\mathrm{kl}^{-1}\left(\hat{R}\left(\hat{\rho}_n\right),\frac{1}{n}\log\left(\frac{2}{\delta^\prime}\right)\right)$ to get our bound. We note that $$\hat{R}(\hat{\rho}_n)=\sum_{i=1}^n\delta_{\mathbf{w}_i}\left(\frac{1}{m}\sum_{j=1}^ml(h_{\mathbf{w}_i}(x_j),y_j)\right).$$ Then to invert the kl divergence we employ Newton's method, in the form of Algorithm 5, to get an approximation for our bound.
 
 <font size="3"> **Algorithm 5** Newton's Method for Inverting kl Divergence</font>
 > **Require:** $q,c$, initial estimate $p_0$ and $N\in\mathbb{N}$\
-**Ensure:** $p$ such that $p\approx\mathrm{kl}^{-1}(q,c)$\
-**for** $n=1\to N$ **do**\
-----**if** $p\geq1$ **then**\
---------**return** $1$\
-----**else**\
---------$p_0=p_0-\frac{q\log\left(\frac{q}{c}\right)+(1-q)\log\left(\frac{1-q}{1-c}\right)-c}{\frac{1-q}{1-p}-\frac{q}{p}}$\
-----**end if**\
-**end for**\
-**return** $p_0$
+> **Ensure:** $p$ such that $p\approx\mathrm{kl}^{-1}(q,c)$\
+> **for** $n=1\to N$ **do**\
+> ----**if** $p\geq1$ **then**\
+> --------**return** $1$\
+> ----**else**\
+> --------$p_0=p_0-\frac{q\log\left(\frac{q}{c}\right)+(1-q)\log\left(\frac{1-q}{1-c}\right)-c}{\frac{1-q}{1-p}-\frac{q}{p}}$\
+> ----**end if**\
+> **end for**\
+> **return** $p_0$
