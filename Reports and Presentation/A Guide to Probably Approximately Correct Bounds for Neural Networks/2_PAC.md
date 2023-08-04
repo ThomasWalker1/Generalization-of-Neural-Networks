@@ -57,16 +57,25 @@ Occam bounds are derived under the assumption that $\mathcal{H}$ is countable an
 <summary>Proof</summary>
 <br>
 
-**Theorem 2.2.1 (Relative Chernoff Bound)** (Mitzenmacher 2005) Suppose $X_1,\dots, X_n$ are independent random variables with range $\{0,1\}$. Let $\mu=\frac{1}{n}\sum_{i=1}^nX_i$. Then for $\delta\in(0,1)$ we have $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\exp\left(-\frac{\mu\delta^2}{2}\right).$$
+**Theorem 2.2.1 (Relative Chernoff Bound 1)** (Mitzenmacher 2005) Suppose $X_1,\dots, X_n$ are independent random variables with range $\{0,1\}$. Let $\mu=\sum_{i=1}^nX_i$. Then for $\delta\in(0,1)$ we have $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\left(\frac{e^{-\delta}}{(1-\delta)^{(1-\delta)}}\right)^{\mu}.$$
 <details>
 <summary>Proof</summary>
 <br>
 
-Using Markov's inequality we note that for $t<0$ we have $$\begin{align*}\mathbb{P}\left(X\leq(1-\delta)\mu\right)&=\mathbb{P}\left(e^{tX}\geq e^{t(1-\delta)\mu}\right)\\&\leq\frac{\mathbb{E}\left(e^{tX}\right)}{e^{t(1-\delta)\mu}}\\&\leq\frac{\exp\left(\left(e^t-1\right)\mu\right)}{\exp\left(t(1-\delta)\mu\right)}.\end{align*}$$ Setting $t=\log(1-\delta)<0$ we get that $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\left(\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\right)^\mu.$$ Now consider $$f(\delta)=-\delta-(1-\delta)\log(1-\delta)+\frac{\delta^2}{2}$$ for $\delta\in(0,1)$. Note that $$f^\prime(\delta)=\log(1-\delta)+\delta\text{ and }f^{\prime\prime}(\delta)=-\frac{1}{1-\delta}+1.$$ Which shows that $f^{\prime\prime}(\delta)<0$ for $\delta\in(0,1)$ and hence $f^{\prime}(0)=0$ implies that $f^{\prime}(\delta)\leq0$ in this range. Since, $f(0)=0$ we have that $f(\delta)\leq0$ when $\delta\in(0,1)$. Therefore, $$\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\leq\exp\left(-\frac{\delta^2}{2}\right),$$ which completes the proof of the theorem. $\square$
+Using Markov's inequality we note that for $t<0$ we have $$\begin{align*}\mathbb{P}\left(X\leq(1-\delta)\mu\right)&=\mathbb{P}\left(e^{tX}\geq e^{t(1-\delta)\mu}\right)\\&\leq\frac{\mathbb{E}\left(e^{tX}\right)}{e^{t(1-\delta)\mu}}\\&\leq\frac{\exp\left(\left(e^t-1\right)\mu\right)}{\exp\left(t(1-\delta)\mu\right)}.\end{align*}$$ Setting $t=\log(1-\delta)<0$ we get that $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\left(\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\right)^\mu.$$ which completes the proof of the theorem. $\square$
 
 </details>
 
-**Theorem 2.2.2 (Union Bound)** Let $E_1,\dots, E_n$ be events. Then $\mathbb{P}\left(\bigcup_{l=1}^nE_l\right)\leq\sum_{l=1}^n\mathbb{P}(E_l).$
+**Corollary 2.2.2** (Mitzenmacher 2005) Suppose $X_1,\dots, X_n$ are independent random variables with range $\{0,1\}$. Let $\mu=\sum_{i=1}^nX_i$. Then for $\delta\in(0,1)$ we have $$\mathbb{P}\left(X\leq(1-\delta)\mu\right)\leq\exp\left(-\frac{\mu\delta^2}{2}\right).$$
+<details>
+<summary>Proof</summary>
+<br>
+
+Consider $$f(\delta)=-\delta-(1-\delta)\log(1-\delta)+\frac{\delta^2}{2}$$ for $\delta\in(0,1)$. Note that $$f^\prime(\delta)=\log(1-\delta)+\delta\text{ and }f^{\prime\prime}(\delta)=-\frac{1}{1-\delta}+1.$$ Which shows that $f^{\prime\prime}(\delta)<0$ for $\delta\in(0,1)$ and hence $f^{\prime}(0)=0$ implies that $f^{\prime}(\delta)\leq0$ in this range. Since, $f(0)=0$ we have that $f(\delta)\leq0$ when $\delta\in(0,1)$. Therefore, $$\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\leq\exp\left(-\frac{\delta^2}{2}\right),$$ which completes the proof of the corollary. $\square$
+
+</details>
+
+**Theorem 2.2.3 (Union Bound)** Let $E_1,\dots, E_n$ be events. Then $\mathbb{P}\left(\bigcup_{l=1}^nE_l\right)\leq\sum_{l=1}^n\mathbb{P}(E_l).$
 <details>
 <summary>Proof</summary>
 <br>
@@ -75,7 +84,7 @@ This can be proved by induction on $n$. When $n=1$ the result holds clearly. Now
 
 </details>
 
-For the proof we consider the case when $C=1$, with the more general case following by rescaling the loss function. For $\mathbf{w}\in\mathcal{W}$ let $$\epsilon(\mathbf{w})=\sqrt{\frac{2R(\mathbf{w})\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}}.$$ Then the relative Chernoff bound states that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\leq R(\mathbf{w})-\epsilon(\mathbf{w})\right)\leq\exp\left(-\frac{m\epsilon(\mathbf{w})^2}{2R(\mathbf{w})}\right)=\delta\pi(\mathbf{w}).$$ Summing over all $\mathbf{w}$ and applying the union bound we conclude that the probability that a $\mathbf{w}$ exists with the property that $R(\mathbf{w})>\hat{R}(\mathbf{w})+\epsilon(\mathbf{w})$ is $\delta$. Therefore, for all $\mathbf{w}$ $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\sqrt{R(\mathbf{w})\left(\frac{2\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)}\right)\geq1-\delta.$$ Using $\sqrt{ab}=\inf_{\lambda>0}\left(\frac{a}{2\lambda}+\frac{\lambda b}{2}\right)$ we get that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\frac{R(\mathbf{w})}{2\lambda}+\frac{\lambda\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)\geq1-\delta,$$ which upon rearrangement completes the proof. $\square$
+For the proof we consider the case when $C=1$, with the more general case following by rescaling the loss function. For $\mathbf{w}\in\mathcal{W}$ let $$\epsilon(\mathbf{w})=\sqrt{\frac{2R(\mathbf{w})\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}}.$$ Then Corollary 2.2.2 states that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\mathbf{w})\leq R(\mathbf{w})-\epsilon(\mathbf{w})\right)\leq\exp\left(-\frac{m\epsilon(\mathbf{w})^2}{2R(\mathbf{w})}\right)=\delta\pi(\mathbf{w}).$$ Summing over all $\mathbf{w}$ and applying the union bound we conclude that the probability that a $\mathbf{w}$ exists with the property that $R(\mathbf{w})>\hat{R}(\mathbf{w})+\epsilon(\mathbf{w})$ is $\delta$. Therefore, for all $\mathbf{w}$ $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\sqrt{R(\mathbf{w})\left(\frac{2\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)}\right)\geq1-\delta.$$ Using $\sqrt{ab}=\inf_{\lambda>0}\left(\frac{a}{2\lambda}+\frac{\lambda b}{2}\right)$ we get that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\hat{R}(\mathbf{w})+\frac{R(\mathbf{w})}{2\lambda}+\frac{\lambda\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}\right)\geq1-\delta,$$ which upon rearrangement completes the proof. $\square$
 
 </details>
 
@@ -152,18 +161,36 @@ To prove Chebyshev's inequality we use Markov's inequality, $$\begin{align*}\mat
 
 </details>
 
-**Lemma 2.8.2** Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $u$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.
+**Theorem 2.8.2 (Relative Chernoff Bound 2)** (Mitzenmacher 2005) Suppose $X_1,\dots, X_n$ are independent random variables with range $\{0,1\}$. Let $\mu=\sum_{i=1}^nX_i$. Then for $\delta>0$ we have $$\mathbb{P}\left(X\geq(1+\delta)\mu\right)\leq\left(\frac{e^{\delta}}{(1+\delta)^{(1+\delta)}}\right)^{\mu}.$$
 <details>
 <summary>Proof</summary>
 <br>
 
-By the construction of Algorithm 1 it is clear that for all $i$ we have $\mathbb{E}\left(\hat{w}_i\right)=w_i$. Similarly, we have that $$\mathrm{Var}\left(\hat{w}_i\right)=2p_i(1-p_i)\frac{w_i^2}{p_i^2}\leq\frac{2w_i^2}{p_i}=\eta\gamma^2.$$ Therefore, for $u$ independent of $\hat{\mathbf{w}}$ we have that $$\mathbb{E}\left(\hat{\mathbf{w}}^\top u\right)=\sum_{i=1}^d\mathbb{E}\left(\hat{w}_iu_i\right)=\sum_{i=1}^d\mathbb{E}\left(\hat{w}_i\right)u_i=\sum_{i=1}^dw_iu_i=\mathbf{w}^\top u,$$ and $$\mathrm{Var}\left(\hat{\mathbf{w}} u^\top\right)=\mathrm{Var}\left(\sum_{i=1}^d\hat{w}_iu_i\right)=\sum_{i=1}^d\mathrm{Var}(w_i)u_i^2\leq\eta\gamma^2\sum_{i=1}^du_i^2=\eta\gamma^2\Vert u\Vert^2\leq\eta\gamma^2.$$ Therefore, by Chebyshev's inequality we have that $$\mathbb{P}\left(\left\vert \hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\gamma\right)\leq\eta.$$ With the expected number of non-zero entries in $\hat{\mathbf{w}}$ being $$\sum_{i=1}^dp_i\leq\frac{2\Vert\mathbf{w}\Vert^2}{\eta\gamma^2}\leq\frac{2}{\eta\gamma^2}.$$ So by the Chernoff bound we conclude that with high probability that the number of non-zero entries is at most $$O\left(\frac{\log(d)}{\eta\gamma^2}\right),$$ which completes the proof of the lemma.$\square$
+Using Markov's inequality we note that for $t>0$ we have $$\begin{align*}\mathbb{P}\left(X\geq(1+\delta)\mu\right)&=\mathbb{P}\left(e^{tX}\geq e^{t(1+\delta)\mu}\right)\\&\leq\frac{\mathbb{E}\left(e^{tX}\right)}{e^{t(1+\delta)\mu}}\\&\leq\frac{\exp\left(\left(e^t-1\right)\mu\right)}{\exp\left(t(1+\delta)\mu\right)}.\end{align*}$$ Setting $t=\log(1+\delta)>0$ we get that $$\mathbb{P}\left(X\geq(1+\delta)\mu\right)\leq\left(\frac{e^{\delta}}{(1+\delta)^{1+\delta}}\right)^\mu.$$ which completes the proof of the theorem. $\square$
+
+</details>
+
+**Corollary 2.8.3** (Mitzenmacher 2005) Suppose $X_1,\dots, X_n$ are independent random variables with range $\{0,1\}$. Let $\mu=\sum_{i=1}^nX_i$. Then for $\delta\in(0,1]$ we have $$\mathbb{P}\left(X\geq(1+\delta)\mu\right)\leq\exp\left(-\frac{\mu\delta^2}{3}\right).$$
+<details>
+<summary>Proof</summary>
+<br>
+
+Consider $$f(\delta)=\delta-(1+\delta)\log(1+\delta)+\frac{\delta^2}{3}$$ for $\delta\in(0,1]$. Note that $$f^\prime(\delta)=-\log(1+\delta)+\frac{2}{3}\delta\text{ and }f^{\prime\prime}(\delta)=-\frac{1}{1+\delta}+\frac{2}{3}.$$ Which shows that $f^{\prime\prime}(\delta)<0$ for $\delta\in\left[0,\frac{1}{2}\right)$ and $f^{\prime\prime}(\delta)<0$ for $\delta>\frac{1}{2}$. Since $f^\prime(0)=0$ and $f^\prime(1)<0$ we deduce that $f^\prime(\delta)\leq0$ in the interval $[0,1]$. Since, $f(0)=0$ we have that $f(\delta)\leq0$ when $\delta\in[0,1]$. Therefore, $$\frac{e^{\delta}}{(1+\delta)^{1+\delta}}\leq\exp\left(-\frac{\delta^2}{3}\right),$$ which completes the proof of the corollary. $\square$
+
+</details>
+
+**Lemma 2.8.4** Algorithm 1 $(\gamma,\mathbf{w})$ returns a vector $\hat{\mathbf{w}}$ such that for any fixed $u$, with probability $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma$. The vector $\hat{\mathbf{w}}$ has at most $O\left(\frac{\log d}{\eta\gamma^2}\right)$ non-zero entries with high probability.
+<details>
+<summary>Proof</summary>
+<br>
+
+By the construction of Algorithm 1 it is clear that for all $i$ we have $\mathbb{E}\left(\hat{w}_i\right)=w_i$. Similarly, we have that $$\mathrm{Var}\left(\hat{w}_i\right)=2p_i(1-p_i)\frac{w_i^2}{p_i^2}\leq\frac{2w_i^2}{p_i}=\eta\gamma^2.$$ Therefore, for $u$ independent of $\hat{\mathbf{w}}$ we have that $$\mathbb{E}\left(\hat{\mathbf{w}}^\top u\right)=\sum_{i=1}^d\mathbb{E}\left(\hat{w}_iu_i\right)=\sum_{i=1}^d\mathbb{E}\left(\hat{w}_i\right)u_i=\sum_{i=1}^dw_iu_i=\mathbf{w}^\top u,$$ and $$\mathrm{Var}\left(\hat{\mathbf{w}} u^\top\right)=\mathrm{Var}\left(\sum_{i=1}^d\hat{w}_iu_i\right)=\sum_{i=1}^d\mathrm{Var}(w_i)u_i^2\leq\eta\gamma^2\sum_{i=1}^du_i^2=\eta\gamma^2\Vert u\Vert^2\leq\eta\gamma^2.$$ Therefore, by Chebyshev's inequality we have that $$\mathbb{P}\left(\left\vert \hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\gamma\right)\leq\eta.$$ To determine how we can bound the number of non-zero entries we analyze the behavior of the right-hand side of Theorem 2.8.2. For each entry we can define the indicator random variable $X_i$ which is $1$ when the entry is non-zero and $0$ otherwise. Note that $\mathbb{E}(X_i)=p_i$ and for $X=\sum_{i=1}^dX_i$ we have that $$\mu=\mathbb{E}(X)=\sum_{i=1}^dp_i=\frac{2\Vert\mathbf{w}\Vert^2}{\eta\gamma^2}\leq\frac{2}{\eta\gamma^2}.$$ Therefore, we need to find for what order function $f(\cdot)$ does $$\frac{e^{f(d)-1}}{f(d)^{f(d)}}\to0,\quad\text{ as }d\to\infty,$$ so that the number of non-zero elements is bounded by $O\left(\frac{f(d)}{\eta\gamma^2}\right)$ with high probability using Theorem 2.2.2. We observe that with $f(d)=\log(d)$ we get the desired convergence, and so this completes the proof of the lemma.
 
 </details>
 
 In the discrete case, a similar result holds.
 
-**Lemma 2.8.3** Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let, $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{d}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$ Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma.$
+**Lemma 2.8.5** Let Algorithm 1 $\left(\frac{\gamma}{2},\mathbf{w}\right)$ return vector $\tilde{\mathbf{w}}$. Let, $$\hat{w}_i=\begin{cases}0&\vert\tilde{w}_i\vert\geq2\eta\gamma\sqrt{d}\\\text{rounding to nearest multiple of }\frac{\gamma}{2\sqrt{h}}&\text{Otherwise.}\end{cases}$$ Then for any fixed $u$ with probability at least $1-\eta$, $\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\leq\gamma.$
 <details>
 <summary>Proof</summary>
 <br>
@@ -172,7 +199,7 @@ Let $\mathbf{w}^\prime$ be the vector where $$w^\prime_i=\begin{cases}w_i&\vert 
 
 </details>
 
-Now choose $\eta=\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}$. By Lemma 2.8.2 and Lemma 2.8.3 we know that Algorithm 1 works with probability $1-\eta$ and has at most $\tilde{O}\left(\frac{\log(d)}{\eta\gamma^2}\right)$ parameters. Using Corollary 2.7 we know that $$L\left(\hat{\mathbf{w}}\right)\leq\tilde{O}\left(\eta+\sqrt{\frac{1}{\eta\gamma^2m}}\right)\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right)$$ which completes the proof of the theorem.
+Now choose $\eta=\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}$. By Lemma 2.8.4 and Lemma 2.8.5 we know that Algorithm 1 works with probability $1-\eta$ and has at most $\tilde{O}\left(\frac{\log(d)}{\eta\gamma^2}\right)$ parameters. Using Corollary 2.7 we know that $$L\left(\hat{\mathbf{w}}\right)\leq\tilde{O}\left(\eta+\sqrt{\frac{1}{\eta\gamma^2m}}\right)\leq\tilde{O}\left(\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}\right)$$ which completes the proof of the theorem.
 
 </details>
 
@@ -200,7 +227,7 @@ Now choose $\eta=\left(\frac{1}{\gamma^2m}\right)^{\frac{1}{3}}$. By Lemma 2.8.2
 <summary>Proof</summary>
 <br>
 
-Observe that $$\hat{\mathbf{w}}^\top u=\frac{1}{k}\sum_{i=1}^k\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle.$$ Where, $$\mathbb{E}\left(\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle\right)=\mathbb{E}\left(\mathbf{w}^\top v_iv_i^\top u\right)=\mathbf{w}^\top\mathbb{E}\left(v_iv_i^\top\right)=\mathbf{w}^\top u$$ and $$\mathrm{Var}\left(\hat{\mathbf{w}}^\top u\right)\leq O\left(\frac{1}{k}\right)\leq O\left(\frac{\gamma}{\sqrt{\log(m)}}\right).$$ Therefore, $$\begin{align*}\mathbb{P}\left(\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\frac{\gamma}{2}\right)&=\mathbb{P}\left(\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\geq\frac{\gamma}{2}\right)+\mathbb{P}\left(\mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\geq\frac{\gamma}{2}\right)\\&\leq\exp\left(\frac{-\gamma^2k}{16}\right)\leq\eta.\end{align*}$$ Hence, with high probability the vector after discretization can only change by at most $\frac{\gamma}{2}$, which completes the proof. $\square$
+Observe that $$\hat{\mathbf{w}}^\top u=\frac{1}{k}\sum_{i=1}^k\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle.$$ Where, $$\mathbb{E}\left(\langle v_i,\mathbf{w}\rangle\langle v_i,u\rangle\right)=\mathbb{E}\left(\mathbf{w}^\top v_iv_i^\top u\right)=\mathbf{w}^\top\mathbb{E}\left(v_iv_i^\top\right)=\mathbf{w}^\top u$$ and $$\mathrm{Var}\left(\hat{\mathbf{w}}^\top u\right)\leq O\left(\frac{1}{k}\right)\leq O\left(\frac{\gamma}{\sqrt{\log(m)}}\right).$$ Therefore, $$\begin{align*}\mathbb{P}\left(\left\vert\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\right\vert\geq\frac{\gamma}{2}\right)&=\mathbb{P}\left(\hat{\mathbf{w}}^\top u-\mathbf{w}^\top u\geq\frac{\gamma}{2}\right)+\mathbb{P}\left(\mathbf{w}^\top u-\hat{\mathbf{w}}^\top u\geq\frac{\gamma}{2}\right)\\&\leq\exp\left(\frac{-\gamma^2k}{16}\right)\\&\leq\eta.\end{align*}$$ Hence, with high probability the vector after discretization can only change by at most $\frac{\gamma}{2}$, which completes the proof. $\square$
 
 </details>
 
