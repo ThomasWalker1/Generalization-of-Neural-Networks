@@ -8,6 +8,7 @@
 (McAllester, 2013) David A. McAllester. “A PAC-Bayesian Tutorial with A Dropout Bound”. In: CoRR (2013).\
 (Scott, 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
 (Dziugaite, 2017) Gintare Karolina Dziugaite and Daniel M. Roy. “Computing Nonvacuous Generalization Bounds for Deep (Stochastic) Neural Networks with Many More Parameters than Training Data”. In: CoRR (2017).\
+(Neyshabur, 2017) Behnam Neyshabur, Srinadh Bhojanapalli, David McAllester, and Nathan Srebro. “A PAC-Bayesian Approach to Spectrally-Normalized Margin Bounds for Neural Networks”. In: CoRR (2017).\
 (Arora, 2018) S. Arora, R. Ge, B. Neyshabur, and Y. Zhang. “Stronger generalization bounds for deep nets via a compression approach”. In: CoRR (2018).\
 (Guedj, 2019) Benjamin Guedj. A Primer on PAC-Bayesian Learning. 2019.\
 (Zhou, 2019) Wenda Zhou, Victor Veitch, Morgane Austern, Ryan P. Adams, and Peter Orbanz. Non-Vacuous Generalization Bounds at the ImageNet Scale: A PAC-Bayesian Compression Approach. 2019.\
