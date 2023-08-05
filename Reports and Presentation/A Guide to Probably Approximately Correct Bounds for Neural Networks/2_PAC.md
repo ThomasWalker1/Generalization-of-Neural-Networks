@@ -254,7 +254,7 @@ In a similar way, the layer matrices of a fully connected network can be compres
 
 **Remark 2.13** When $\mathbf{x}\neq\mathbf{0}$ and the noise distribution is the Gaussian distribution $\mathcal{N}(0,I)$ then the noise sensitivity of matrix $M$ is exactly $\frac{\Vert M\Vert_F^2}{\Vert Mx\Vert^2}$. Hence, it is at most the stable rank of $M$.
   
-**Definition 2.14** The layer cushion of layer $i$ is defined as the largest $\mu_i$ such that for any $x\in\mathcal{X}$ qw have $$\mu_i\left\Vert A^i\right\Vert_F\left\Vert\phi\left(x^{i-1}\right)\right\Vert\leq\left\Vert A^i\phi\left(x^{i-1}\right)\right\Vert.$$
+**Definition 2.14** The layer cushion of layer $i$ is defined as the largest $\mu_i$ such that for any $x\in\mathcal{X}$ we have $$\mu_i\left\Vert A^i\right\Vert_F\left\Vert\phi\left(x^{i-1}\right)\right\Vert\leq\left\Vert A^i\phi\left(x^{i-1}\right)\right\Vert.$$
  
 **Remark 2.15** Note that $\frac{1}{\mu_i^2}$ is equal to the noise sensitivity of $A^i$ at $\phi\left(x^{i-1}\right)$ with respect to noise $\eta\sim\mathcal{N}(0,I)$.
   

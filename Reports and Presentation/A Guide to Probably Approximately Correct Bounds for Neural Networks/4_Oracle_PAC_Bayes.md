@@ -2,7 +2,7 @@
 
 ## 4.1 Theory of Oracle PAC-Bayes Bounds
 
-Oracle bounds are theoretical objects that are not suitable for practical applications. Their utility lies in their ability to highlight properties about the behaviour of the bounds and they can take the form $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R\left(\hat{\mathbf{w}}\right)\leq\inf_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w})+r_m(\delta)\right)\geq1-\delta.$$ Where $r_m(\delta)$ is a remainder term that tends to $0$ as $m$ tends to $\infty$. Although this bound cannot be computed in practice it is illustrative of the behaviour of the bound. Just like empirical bounds, there exist oracle bounds that hold in expectation and in probability.
+Oracle bounds are theoretical objects that are not suitable for practical applications. Their utility lies in their ability to highlight properties about the behavior of the bounds and they can take the form $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R\left(\hat{\mathbf{w}}\right)\leq\inf_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w})+r_m(\delta)\right)\geq1-\delta.$$ Where $r_m(\delta)$ is a remainder term that tends to $0$ as $m$ tends to $\infty$. Although this bound cannot be computed in practice it is illustrative of the behavior of the bound. Just like empirical bounds, there exist oracle bounds that hold in expectation and in probability.
 
 ### 4.1.1 Oracle PAC-Bayes Bounds in Expectation
 
