@@ -10,19 +10,19 @@ Here we will outline an introduction to Bayesian machine learning given by (Gued
 
 Bayesian machine learning is a way to manage randomness and uncertainty in the learning task. PAC-Bayes bounds are derived under this framework.
 
-**Definition 3.1** Let $\mathcal{M}(\mathcal{W})$ be a set of probability distributions defined over $\mathcal{W}$. A data-dependent probability measure is a function $$\hat{\rho}:\bigcup_{n=1}^{\infty}(\mathcal{X}\times\mathcal{Y})^n\to\mathcal{M}(\mathcal{W}).$$
+**Definition 3.1** (Alquier, 2023) Let $\mathcal{M}(\mathcal{W})$ be a set of probability distributions defined over $\mathcal{W}$. A data-dependent probability measure is a function $$\hat{\rho}:\bigcup_{n=1}^{\infty}(\mathcal{X}\times\mathcal{Y})^n\to\mathcal{M}(\mathcal{W}).$$
  
 For ease of notation we will simple write $\hat{\rho}$ to mean $\hat{\rho}((X_1,Y_1),\dots,(X_n,Y_n))$. The Kullback-Liebler (KL) divergence is a measure of similarity between probability measures defined on the same measurable space.
 
-**Definition 3.2** Given two probability measures $Q$ and $P$ defined on some sample space $\mathcal{X}$, the KL divergence between $Q$ and $P$ is $$\mathrm{KL}(Q,P)=\int\log\left(\frac{dQ(x)}{dP(x)}\right)Q(dx)$$ when $Q$ is absolutely continuous with respect to $P$. Otherwise, $\mathrm{KL}(Q,P)=\infty$.
+**Definition 3.2** (Alquier, 2023) Given two probability measures $Q$ and $P$ defined on some sample space $\mathcal{X}$, the KL divergence between $Q$ and $P$ is $$\mathrm{KL}(Q,P)=\int\log\left(\frac{dQ(x)}{dP(x)}\right)Q(dx)$$ when $Q$ is absolutely continuous with respect to $P$. Otherwise, $\mathrm{KL}(Q,P)=\infty$.
  
-**Remark 3.3** When $Q, P$ are probability measures on Euclidean space $\mathbb{R}^d$ with densities $q,p$ respectively. The KL divergence is $$\mathrm{KL}(Q, P):=\int\log\left(\frac{q(x)}{p(x)}\right)q(x)dx.$$ Note that KL divergence can take values in the range $[0,\infty]$. Also, note the asymmetry in the definition.
+**Remark 3.3** (Dziugaite, 2017) When $Q, P$ are probability measures on Euclidean space $\mathbb{R}^d$ with densities $q,p$ respectively. The KL divergence is $$\mathrm{KL}(Q, P):=\int\log\left(\frac{q(x)}{p(x)}\right)q(x)dx.$$ Note that KL divergence can take values in the range $[0,\infty]$. Also, note the asymmetry in the definition.
  
-For the multivariate normal distributions $N_{q}\sim\mathcal{N}(\mu_{q},\Sigma_{q})$ and $N_{p}\sim\mathcal{N}(\mu_{p},\Sigma_{p})$ defined on $\mathbb{R}^d$ we have that, $$\mathrm{KL}(N_q, N_p)=\frac{1}{2}\left(\mathrm{tr}\left(\Sigma_p^{-1}\Sigma_q\right)-d+(\mu_p-\mu_q)^\top\Sigma_p^{-1}(\mu_p-\mu_q)+\log\left(\frac{\det\Sigma_p}{\det\Sigma_q}\right)\right).$$ Similarly, for Bernoulli distributions $\mathcal{B}(q)\sim\mathrm{Bern}(q)$ and $\mathcal{B}(p)\sim\mathrm{Bern}(p)$ it follows that $$\mathrm{kl}(q, p):=\mathrm{KL}(\mathcal{B}(q),\mathcal{B}(p))=q\log\left(\frac{q}{p}\right)+(1-q)\log\left(\frac{1-q}{1-p}\right),$$ For $p^*\in[0,1]$ bounds of the form $\mathrm{kl}(q, p^*)\leq c$ for some $q\in[0,1]$ and $c\geq0$ are of interest. Hence, we introduce the notation $$\mathrm{kl}^{-1}(q, c):=\sup\{p\in[0,1]:\mathrm{kl}(q, p)\leq c\}.$$ For a distribution $Q$ defined on $\mathcal{W}$ we will use the notation $$\mathbb{E}_{\mathbf{w}\sim Q}(R(\mathbf{w}))=R(Q)\text{ and }\mathbb{E}_{\mathbf{w}\sim Q}\left(\hat{R}(\mathbf{w})\right)=\hat{R}(Q)$$ for convenience. The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
+For the multivariate normal distributions (Dziugaite, 2017) $N_{q}\sim\mathcal{N}(\mu_{q},\Sigma_{q})$ and $N_{p}\sim\mathcal{N}(\mu_{p},\Sigma_{p})$ defined on $\mathbb{R}^d$ we have that, $$\mathrm{KL}(N_q, N_p)=\frac{1}{2}\left(\mathrm{tr}\left(\Sigma_p^{-1}\Sigma_q\right)-d+(\mu_p-\mu_q)^\top\Sigma_p^{-1}(\mu_p-\mu_q)+\log\left(\frac{\det\Sigma_p}{\det\Sigma_q}\right)\right).$$ Similarly, for Bernoulli distributions (Dziugaite, 2017) $\mathcal{B}(q)\sim\mathrm{Bern}(q)$ and $\mathcal{B}(p)\sim\mathrm{Bern}(p)$ it follows that $$\mathrm{kl}(q, p):=\mathrm{KL}(\mathcal{B}(q),\mathcal{B}(p))=q\log\left(\frac{q}{p}\right)+(1-q)\log\left(\frac{1-q}{1-p}\right),$$ For $p^*\in[0,1]$ bounds of the form $\mathrm{kl}(q, p^*)\leq c$ for some $q\in[0,1]$ and $c\geq0$ are of interest. Hence, we introduce the notation $$\mathrm{kl}^{-1}(q, c):=\sup\{p\in[0,1]:\mathrm{kl}(q, p)\leq c\}.$$ For a distribution $Q$ defined on $\mathcal{W}$ we will use the notation $$\mathbb{E}_{\mathbf{w}\sim Q}(R(\mathbf{w}))=R(Q)\text{ and }\mathbb{E}_{\mathbf{w}\sim Q}\left(\hat{R}(\mathbf{w})\right)=\hat{R}(Q)$$ for convenience. The first PAC-Bayes bounds we will encounter is known as Catoni's bound. Recall, that under the Bayesian framework, we first fix a prior distribution, $\pi\in\mathcal{M}(\mathcal{W})$.
 
 ### 3.1.3 PAC-Bayes Bounds
 
-**Theorem 3.4** (Alquier, 2023) For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
+**Theorem 3.4** (Catoni, 2009) For all $\lambda>0$, for all $\rho\in\mathcal{M}(\mathcal{W})$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(\hat{R}(\rho)\leq\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\geq1-\delta.$$
 
 <details>
 <summary>Proof</summary>
@@ -62,9 +62,9 @@ Recall, from the proof of Theorem 2.1 that for any $t>0$ we have that $$\mathbb{
 
 Theorem 3.4 motivates the study of the data-dependent probability measure $$\begin{equation}\hat{\rho}_{\lambda}=\mathrm{argmin}_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).\end{equation}$$
 
-**Definition 3.5**  The optimization problem defined by Equation $(1)$ has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\mathbb{E}\left(\exp\left(-\lambda\hat{R}(\pi)\right)\right)}.$$ This is distribution is known as the Gibbs posterior.
+**Definition 3.5** (Alquier, 2023) The optimization problem defined by Equation $(1)$ has the solution $\hat{\rho}_{\lambda}=\pi_{-\lambda\hat{R}}$ given by $$\hat{\rho}_{\lambda}(d\mathbf{w})=\frac{\exp\left(-\lambda\hat{R}(\mathbf{w})\right)\pi(d\mathbf{w})}{\mathbb{E}\left(\exp\left(-\lambda\hat{R}(\pi)\right)\right)}.$$ This is distribution is known as the Gibbs posterior.
  
-**Corollary 3.6** For all $\lambda>0$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
+**Corollary 3.6** (Alquier, 2023) For all $\lambda>0$, and $\delta\in(0,1)$ it follows that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)+\log\left(\frac{1}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 
 For a learning algorithm, we noted that there are different methodologies for how the learned classifier is sampled from the posterior. In the case where consider a single random realization of the posterior distribution, we have the following result.
 
@@ -89,7 +89,7 @@ Once again we proceed in the same way as Theorem 3.4 to the point where we deduc
 
 </details>
 
-**Corollary 3.9** For $\tilde{\rho}=\hat{\rho}_{\lambda}$, the following holds $$\mathbb{E}_{S\sim\mathcal{D}^m}(R(\tilde{\rho}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
+**Corollary 3.9** (Alquier, 2023) For $\tilde{\rho}=\hat{\rho}_{\lambda}$, the following holds $$\mathbb{E}_{S\sim\mathcal{D}^m}(R(\tilde{\rho}))\leq\mathbb{E}_{S\sim\mathcal{D}^m}\left(\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(\hat{R}(\rho)\right)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
 
 In the results that follow we will consider the $0$-$1$ loss. This is a measurable function $l:\mathcal{Y}\times\mathcal{Y}\to\{0,1\}$ defined by $l(y,y^\prime)=\mathbf{1}(y\neq y^\prime)$.
 

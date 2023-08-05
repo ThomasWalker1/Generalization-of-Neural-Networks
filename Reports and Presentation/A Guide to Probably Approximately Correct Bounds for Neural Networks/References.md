@@ -5,6 +5,7 @@
 (Mitzenmacher, 2005) Michael Mitzenmacher and Eli Upfal. Probability and Computing: Randomized Algorithms and Probabilistic Analysis. Cambridge University Press, 2005.\
 (Catoni, 2007) Olivier Catoni. “Pac-Bayesian Supervised Classification: The Thermodynamics of Statistical Learning”. In: IMS Lecture Notes Monograph Series 56 (2007), pp. 1–163.\
 (Blanchard, 2007) Gilles Blanchard and François Fleuret. Occam’s Hammer. In COLT, pages 112–126, 2007.\
+(Catoni, 2009) Olivier Catoni. “A PAC-Bayesian approach to adaptive classification”. In: (Jan. 2009).\
 (McAllester, 2013) David A. McAllester. “A PAC-Bayesian Tutorial with A Dropout Bound”. In: CoRR (2013).\
 (Scott, 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
 (Dziugaite, 2017) Gintare Karolina Dziugaite and Daniel M. Roy. “Computing Nonvacuous Generalization Bounds for Deep (Stochastic) Neural Networks with Many More Parameters than Training Data”. In: CoRR (2017).\

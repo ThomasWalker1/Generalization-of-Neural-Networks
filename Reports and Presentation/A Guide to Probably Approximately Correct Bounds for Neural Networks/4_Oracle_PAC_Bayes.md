@@ -6,7 +6,7 @@ Oracle bounds are theoretical objects that are not suitable for practical applic
 
 ### 4.1.1 Oracle PAC-Bayes Bounds in Expectation
 
-**Theorem 4.1** For $\lambda>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
+**Theorem 4.1** (Alquier, 2023) For $\lambda>0$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{8m}+\frac{\mathrm{KL}(\rho,\pi)}{\lambda}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -26,7 +26,7 @@ We proceed from Corollary 3.9 to deduce that $$\begin{align*}\mathbb{E}_{S\sim\m
 
 ### 4.1.2 Oracle PAC-Bayes Bounds in Probability
 
-**Theorem 4.2** For any $\lambda>0$, and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{4m}+\frac{2\mathrm{KL}(\rho,\pi)+\log\left(\frac{2}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
+**Theorem 4.2** (Alquier, 2023) For any $\lambda>0$, and $\delta\in(0,1)$ we have that $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\hat{\rho}_{\lambda})\leq\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)+\frac{\lambda C^2}{4m}+\frac{2\mathrm{KL}(\rho,\pi)+\log\left(\frac{2}{\delta}\right)}{\lambda}\right)\right)\geq1-\delta.$$
 <details>
 <summary>Proof</summary>
 <br>
@@ -37,9 +37,9 @@ Recall the proof of Theorem 3.4 and the subsequent application to the Gibbs post
 
 ### Bernstein's Assumption
 
-**Definition 4.3** Let $\mathbf{w}^*$ denote a minimizer of $R$ when it exists, $$R(\mathbf{w}^*)=\min_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w}).$$ When $\mathbf{w}^*$ exists and there is a constant $K$ such that for any $\mathbf{w}\in\mathcal{W}$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\left(l(h_{\mathbf{w}}(x_i),y_i)-l(h_{\mathbf{w}^*}(x_i),y_i)\right)^2\right)\leq K\left(R(\mathbf{w})-R(\mathbf{w}^*)\right)$$ we say that Bernstein's assumption is satisfied with constant $K$.
+**Definition 4.3** (Alquier, 2023) Let $\mathbf{w}^*$ denote a minimizer of $R$ when it exists, $$R(\mathbf{w}^*)=\min_{\mathbf{w}\in\mathcal{W}}R(\mathbf{w}).$$ When $\mathbf{w}^*$ exists and there is a constant $K$ such that for any $\mathbf{w}\in\mathcal{W}$ we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\left(l(h_{\mathbf{w}}(x_i),y_i)-l(h_{\mathbf{w}^*}(x_i),y_i)\right)^2\right)\leq K\left(R(\mathbf{w})-R(\mathbf{w}^*)\right)$$ we say that Bernstein's assumption is satisfied with constant $K$.
 
-**Theorem 4.4** Assume Bernstein's assumption is satisfied with some constant $K>0$. Take $\lambda=\frac{m}{\max(2K,C)}$ then we have $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})-R\left(\mathbf{w}^*\right)\leq2\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)-R\left(\mathbf{w}^*\right)+\frac{\max(2K,C)\mathrm{KL}(\rho,\pi)}{m}\right).$$
+**Theorem 4.4** (Alquier, 2023) Assume Bernstein's assumption is satisfied with some constant $K>0$. Take $\lambda=\frac{m}{\max(2K,C)}$ then we have $$\mathbb{E}_{S\sim\mathcal{D}^m}R(\hat{\rho}_{\lambda})-R\left(\mathbf{w}^*\right)\leq2\inf_{\rho\in\mathcal{M}(\mathcal{W})}\left(R(\rho)-R\left(\mathbf{w}^*\right)+\frac{\max(2K,C)\mathrm{KL}(\rho,\pi)}{m}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
