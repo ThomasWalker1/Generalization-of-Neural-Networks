@@ -46,7 +46,7 @@ Recall the proof of Theorem 3.4 and the subsequent application to the Gibbs post
 
 **Lemma 4.4.1**
 
-Let $g$ denoted the Bernstein function defined by $$g(x)=\begin{cases}1&x=0\\\frac{e^x-1-x}{x^2}&x\neq0.\end{cases}$$ Let $U_1,\dots,U_n$ be $\mathrm{i.i.d}$ random variables such that $\mathbb{E}(U_i)$ is finite and $U_i-\mathbb{E}(U_i)\leq C$ almost surely for some $C\in\mathbb{R}$. Then, $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(g(Ct)nt^2\mathrm{Var}(U_i)\right).$$
+Let $g$ denote the Bernstein function defined by $$g(x)=\begin{cases}1&x=0\\\frac{e^x-1-x}{x^2}&x\neq0.\end{cases}$$ Let $U_1,\dots,U_n$ be $\mathrm{i.i.d}$ random variables such that $\mathbb{E}(U_i)$ is finite and $U_i-\mathbb{E}(U_i)\leq C$ almost surely for some $C\in\mathbb{R}$. Then, $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(g(Ct)nt^2\mathrm{Var}(U_i)\right).$$
 
 <details>
 <summary>Proof (Habib, 1998)</summary>

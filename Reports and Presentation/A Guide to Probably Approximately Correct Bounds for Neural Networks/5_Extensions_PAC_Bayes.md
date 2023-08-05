@@ -43,7 +43,7 @@ The proof of these individual statements follow the same structure. We will only
 This follows from simple computations after recalling that $$\rho_S(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{\epsilon}\Vert_2^2\right),\text{ and }\pi(\mathbf{w+\epsilon})=\left(\frac{1}{\sigma\sqrt{2\pi}}\right)^d\exp\left(-\frac{1}{2\sigma^2}\Vert\mathbf{w+\epsilon-v}\Vert_2^2\right).$$ So this completes the proof of the lemma. $\square$
 </details>
 
-**Lemma 5.4.2** (Catoni, 2007) For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\lambda}{m}\left(R(\mathbf{w})\right)-\hat{R}(\mathbf{w})\right)\right)\right)\leq1.$$
+**Lemma 5.4.2** (Catoni, 2007) For any positive $\lambda$ and $\mathbf{w}\in\mathcal{W}$, we have that $$\mathbb{E}_{S\sim\mathcal{D}^m}\left(\exp\left(\lambda\left(\Phi_{\frac{\lambda}{m}}\left(R(\mathbf{w})\right)-\hat{R}(\mathbf{w})\right)\right)\right)\leq1.$$
 <details>
 <summary>Proof</summary>
 <br>
