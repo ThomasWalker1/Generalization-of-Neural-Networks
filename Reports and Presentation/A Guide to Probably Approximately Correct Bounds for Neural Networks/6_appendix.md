@@ -51,8 +51,10 @@ For a given training set $S=\{(x_i,y_i)\}_{i=1}^m$ we can consider the set $$\ma
 
 **Lemma 6.6.1 (Massart's Lemma)** (Rebeschini, 2022) Let $\mathcal{T}\subseteq\mathbb{R}^n$ then we have that $$\mathfrak{R}(\mathcal{T})\leq\max_{t\in\mathcal{T}}\Vert t\Vert_2\frac{\sqrt{2\log\vert\mathcal{T}\vert}}{n}.$$
 <details>
-<summary>Proof</summary>
+<summary>Proof (Scott(c), 2014)</summary>
 <br>
+
+
 
 </details>
 
