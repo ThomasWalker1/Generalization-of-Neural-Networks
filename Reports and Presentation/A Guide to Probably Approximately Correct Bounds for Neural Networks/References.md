@@ -8,7 +8,8 @@
 (Catoni, 2009) Olivier Catoni. “A PAC-Bayesian approach to adaptive classification”. In: (Jan. 2009).\
 (Balcan, 2011) Maria-Florina Balcan. Rademacher Complexity. 2011.\
 (McAllester, 2013) David A. McAllester. “A PAC-Bayesian Tutorial with A Dropout Bound”. In: CoRR (2013).\
-(Scott, 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
+(Scott(a), 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
+(Scott(b), 2014) Clayton Scott. The Bounded Difference Inequality. 2014.\
 (Dziugaite, 2017) Gintare Karolina Dziugaite and Daniel M. Roy. “Computing Nonvacuous Generalization Bounds for Deep (Stochastic) Neural Networks with Many More Parameters than Training Data”. In: CoRR (2017).\
 (Neyshabur, 2017) Behnam Neyshabur, Srinadh Bhojanapalli, David McAllester, and Nathan Srebro. “A PAC-Bayesian Approach to Spectrally-Normalized Margin Bounds for Neural Networks”. In: CoRR (2017).\
 (Arora, 2018) S. Arora, R. Ge, B. Neyshabur, and Y. Zhang. “Stronger generalization bounds for deep nets via a compression approach”. In: CoRR (2018).\

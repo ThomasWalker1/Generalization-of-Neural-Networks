@@ -33,7 +33,7 @@ This follows from Markov's inequality due to the increasing, positivity and inje
 
 </details>
 
-**Lemma 2.1.3** (Scott, 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
+**Lemma 2.1.3** (Scott(a), 2014) Let $U_1,\dots,U_n$ be independent random variables taking values in an interval $[a,b]$. Then for any $t>0$ we have that $$\mathbb{E}\left(\exp\left(t\sum_{i=1}^n\left(U_i-\mathbb{E}(U_i)\right)\right)\right)\leq\exp\left(\frac{nt^2(b-a)^2}{8}\right).$$
 <details>
 <summary>Proof</summary>
 <br>

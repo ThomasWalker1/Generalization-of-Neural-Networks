@@ -11,7 +11,14 @@ Recall, that we have the space $\mathcal{Z}$ on which a distribution $\mathcal{D
 <summary>Proof</summary>
 <br>
 
-**Theorem 6.3.1 (McDiarmid Inequality)** Let $x_1,\dots, x_n$ be independent random variables taking values in a set $A$ and let $c_1,\dots, c_n$ be positive real constants. If $\phi:A^n\to\mathbb{R}$ satisfies $$\sup_{x_1,\dots,x_n,x_i^\prime}\left\vert\phi(x_1,\dots,x_i,\dots,x_n)-\phi\left(x_1,\dots,x_i^\prime,\dots,x_n\right)\right\vert\leq c_i,$$ for $1\leq i\leq n$, then $$\mathbb{P}\left(\phi(x_1,\dots,x_n)-\mathbb{E}\left(\phi(x_1,\dots,x_n)\right)\geq\epsilon\right)\leq\exp\left(\frac{-2\epsilon}{\sum_{i=1}^nc_i^2}\right).$$ 
+**Theorem 6.3.1 (McDiarmid Inequality)** Let $x_1,\dots, x_n$ be independent random variables taking values in a set $A$ and let $c_1,\dots, c_n$ be positive real constants. If $\phi:A^n\to\mathbb{R}$ satisfies $$\sup_{x_1,\dots,x_n,x_i^\prime}\left\vert\phi(x_1,\dots,x_i,\dots,x_n)-\phi\left(x_1,\dots,x_i^\prime,\dots,x_n\right)\right\vert\leq c_i,$$ for $1\leq i\leq n$, then $$\mathbb{P}\left(\phi(x_1,\dots,x_n)-\mathbb{E}\left(\phi(x_1,\dots,x_n)\right)\geq\epsilon\right)\leq\exp\left(\frac{-2\epsilon}{\sum_{i=1}^nc_i^2}\right).$$
+<details>
+<summary>Proof</summary>
+<br>
+
+For a proof of this theorem refer to (Scott(b), 2014).
+
+</details>
 
 **Lemma 6.3.2** The function $$\phi(S)=\sup_{h\in\mathcal{F}}\left(\mathbb{E}_{\hat{S}\sim\mathcal{D}^m}\left(h(x,y)\right)-\frac{1}{m}\sum_{i=1}^mh(x_i,y_i)\right)$$ satisfies $$\sup_{z_1,\dots,z_n,z_i^\prime\in\mathcal{Z}}\left\vert\phi(z_1,\dots,z_i,\dots,z_m)-\phi(z_1,\dots,z_i^\prime,\dots,z_m)\right\vert\leq\frac{1}{m}.$$
 <details>
