@@ -125,12 +125,12 @@ For $\mathbf{w}\in\mathcal{W}$, the empirical classification margin $\hat{L}_0(g
  
 **Remark 2.6** Theorem 2.5 only gives a bound for $g_{\mathbf{w}}$ which is the compression of $h$. However, there are no requirements on the hypothesis class, assumptions are only made on $h$ and its properties on a finite training set.
   
-**Corollary 2.7** If the compression works for $1-\xi$ fraction of the training sample, then with a high probability $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\xi+O\left(\sqrt{\frac{q\log r}{m}}\right).$$
+**Corollary 2.7** If the compression works for $1-\zeta$ fraction of the training sample, then with a high probability $$L_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\zeta+O\left(\sqrt{\frac{q\log r}{m}}\right).$$
 <details>
 <summary>Proof</summary>
 <br>
 
-The proof of this corollary proceeds in exactly the same ways as the proof of Theorem 2.5, however, in the last step we can use the upper-bound $$\hat{L}_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\xi.$$ Which arises as for the fraction of the training sample where the compression doesn't work we assume that the loss is maximized, which was assumed to be $1$. 
+The proof of this corollary proceeds in exactly the same ways as the proof of Theorem 2.5, however, in the last step we can use the upper-bound $$\hat{L}_0(g_{\mathbf{w}})\leq\hat{L}_{\gamma}(h)+\zeta.$$ Which arises as for the fraction of the training sample where the compression doesn't work we assume that the loss is maximized, which was assumed to be $1$. 
 
 </details>
  
