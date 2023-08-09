@@ -250,9 +250,9 @@ In a similar way, the layer matrices of a fully connected network can be compres
 > **return** $\hat{A}=\frac{1}{k}\sum_{l=1}^kZ_{l}$
 
 
-**Definition 2.12** If $M$ is a mapping from real-valued vectors to real-valued vectors, and $\mathcal{N}$ is a noise distribution. Then the noise sensitivity of $M$ at $\mathbf{x}$ with respect to $\mathcal{N}$ is $$\psi_{\mathcal{N}}(M,\mathbf{x})=\mathbb{E}\left(\frac{\Vert M(\mathbf{x}+\eta\Vert\mathbf{x}\Vert)-M(\mathbf{x})\Vert^2}{\Vert M(\mathbf{x})\Vert^2}\right),$$ and $\psi_{\mathcal{N},S}(M)=\max_{x\in S}\psi_{\mathcal{N}}(M,\mathbf{x})$.
+**Definition 2.12** If $M$ is a mapping from real-valued vectors to real-valued vectors, and $\mathcal{N}$ is a noise distribution. Then the noise sensitivity of $M$ at $x$ with respect to $\mathcal{N}$ is $$\psi_{\mathcal{N}}(M,x)=\mathbb{E}\left(\frac{\Vert M(x+\eta\Vert x\Vert)-M(x)\Vert^2}{\Vert M(x)\Vert^2}\right),$$ and $\psi_{\mathcal{N},S}(M)=\max_{x\in S}\psi_{\mathcal{N}}(M,x)$.
 
-**Remark 2.13** When $\mathbf{x}\neq\mathbf{0}$ and the noise distribution is the Gaussian distribution $\mathcal{N}(0,I)$ then the noise sensitivity of matrix $M$ is exactly $\frac{\Vert M\Vert_F^2}{\Vert Mx\Vert^2}$. Hence, it is at most the stable rank of $M$.
+**Remark 2.13** When $x\neq0$ and the noise distribution is the Gaussian distribution $\mathcal{N}(0,I)$ then the noise sensitivity of matrix $M$ is exactly $\frac{\Vert M\Vert_F^2}{\Vert Mx\Vert^2}$. Hence, it is at most the stable rank of $M$.
   
 **Definition 2.14** The layer cushion of layer $i$ is defined as the largest $\mu_i$ such that for any $x\in\mathcal{X}$ we have $$\mu_i\left\Vert A^i\right\Vert_F\left\Vert\phi\left(x^{i-1}\right)\right\Vert\leq\left\Vert A^i\phi\left(x^{i-1}\right)\right\Vert.$$
  
