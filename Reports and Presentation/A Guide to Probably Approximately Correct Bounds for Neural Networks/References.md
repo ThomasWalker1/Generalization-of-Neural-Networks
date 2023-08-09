@@ -11,6 +11,7 @@
 (Scott(a), 2014) Clayton Scott. Hoeffding’s Inequality. 2014.\
 (Scott(b), 2014) Clayton Scott. Rademacher Complexity. 2014.\
 (Scott(c), 2014) Clayton Scott. The Bounded Difference Inequality. 2014.\
+(Choi, 2017) Yoojin Choi, Mostafa El-Khamy, and Jungwon Lee. Towards the Limit of Network Quantization. 2017.\
 (Dziugaite, 2017) Gintare Karolina Dziugaite and Daniel M. Roy. “Computing Nonvacuous Generalization Bounds for Deep (Stochastic) Neural Networks with Many More Parameters than Training Data”. In: CoRR (2017).\
 (Neyshabur, 2017) Behnam Neyshabur, Srinadh Bhojanapalli, David McAllester, and Nathan Srebro. “A PAC-Bayesian Approach to Spectrally-Normalized Margin Bounds for Neural Networks”. In: CoRR (2017).\
 (Arora, 2018) S. Arora, R. Ge, B. Neyshabur, and Y. Zhang. “Stronger generalization bounds for deep nets via a compression approach”. In: CoRR (2018).\
@@ -21,5 +22,6 @@
 (Rivasplata, 2020) Omar Rivasplata, Ilja Kuzborskij, Csaba Szepesvári, and John Shawe-Taylor. PAC-Bayes Analysis Beyond the Usual Bounds. In NeurIPS, 2020.\
 (Rodriguez, 2021) Pierre-Francois Rodriguez. Lebesgue Measure and Integration. 2021.\
 (Viallard, 2021) Paul Viallard, Pascal Germain, Amaury Habrard, and Emilie Morvant. A General Framework for the Disintegration of PAC-Bayesian Bounds. 2021.\
+(Lotfi, 2022) Sanae Lotfi, Marc Finzi, Sanyam Kapoor, Andres Potapczynski, Micah Goldblum, and Andrew Gordon Wilson. PAC-Bayes Compression Bounds So Tight That They Can Explain Generalization. 2022.\
 (Rebeschini, 2022) Patrick Rebeschini. Algorithmic Foundations of Learning. Nov. 2022.\
 (Alquier, 2023) Pierre Alquier. User-friendly introduction to PAC-Bayes bounds. 2023.
