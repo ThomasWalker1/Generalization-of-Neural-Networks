@@ -1,0 +1,5 @@
+# McAllester's Bound 2013
+
+**Theorem** Simultaneously for all $\mathbf{w}\in\mathcal{W}$ and $\delta\in(0,1)$ the following holds, $$\mathbb{P}_{S\sim\mathcal{D}^m}\left(R(\mathbf{w})\leq\inf_{\lambda>\frac{1}{2}}\frac{1}{1-\frac{1}{2\lambda}}\left(\hat{R}(\mathbf{w})+\frac{\lambda C}{m}\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)\right)\right)\geq1-\delta.$$
+
+Recall, that in the proof of this theorem we worked with the quantity $$\epsilon(\mathbf{w})=\sqrt{\frac{2R(\mathbf{w})\left(\log\left(\frac{1}{\pi(\mathbf{w})}\right)+\log\left(\frac{1}{\delta}\right)\right)}{m}}$$ for $\mathbf{w}\in\mathcal{W}$ and considered loss functions bounded by $C=1$.
