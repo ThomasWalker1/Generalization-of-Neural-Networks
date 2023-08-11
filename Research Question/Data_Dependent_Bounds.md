@@ -1,0 +1,1 @@
+We saw in the report that (Dziugaite, 2020) managed to construct data inspired priors to obtain non-vacuous PAC-Bayes bounds. In their work they used the weights obtained via SGD on a subset of the training set to determine their priors. Here we will explore a similar idea by instead using the weights that achieve zero error on a polytope to determine our priors. 
