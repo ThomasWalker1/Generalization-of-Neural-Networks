@@ -124,9 +124,9 @@ To implement data-dependent priors we restrict the optimization problem to make 
 
 - The SGD run on $S$ is the base run.
 - The SGD run on $S_{\alpha}$ is the $\alpha$-prefix run.
-- The SGD run on $S_{\alpha}^G$ is the $\alpha$-prefix $+$ ghost run and obtains the parameters $\mathbf{w}_{\alpha}^G$.
+- The SGD run on $S_{\alpha}^G$ is the $\alpha$-prefix+ghost run and obtains the parameters $\mathbf{w}_{\alpha}^G$.
 
-The resulting parameters of the $\alpha$-prefix and $\alpha$-prefix $+$ ghost run can be used as the centres of the Gaussian priors to give the tightened generalization bounds. However, sometimes the ghost sample is not attainable in practice, and hence one simply relies upon $\alpha$-prefix runs to obtain the mean of the prior. It is not clear whether $\alpha$-prefix $+$ ghost run will always obtain a parameter that leads to a tighter generalization bound. Recall, that $\sigma$ is assumed to be fixed in the optimization process. Algorithm 7 is independent of this parameter and so it can be optimized afterwards without requiring a re-run of the optimization process.
+The resulting parameters of the $\alpha$-prefix and $\alpha$-prefix+ghost run can be used as the centres of the Gaussian priors to give the tightened generalization bounds. However, sometimes the ghost sample is not attainable in practice, and hence one simply relies upon $\alpha$-prefix runs to obtain the mean of the prior. It is not clear whether $\alpha$-prefix+ghost run will always obtain a parameter that leads to a tighter generalization bound. Recall, that $\sigma$ is assumed to be fixed in the optimization process. Algorithm 7 is independent of this parameter and so it can be optimized afterwards without requiring a re-run of the optimization process.
 
 <font size="3"> **Algorithm 6** Stochastic Gradient Descent</font>
 > **Require:** Learning rate $\eta$\
